@@ -19,5 +19,6 @@ public static class DependencyInjection
         services.AddTransient<ExceptionHandlingMiddleware>();
 
         services.AddTransient<StaffService>();
+        services.AddTransient<TruckService>();
     }
 }

@@ -1,5 +1,6 @@
-﻿using Gas.Application.Features.AccountFeatures.CommandHandler;
-using Gas.Application.Features.StaffFeatures.CommandHandler;
+﻿using Gas.Application.Features.TruckFeatures.CommandHandler;
+using Gas.Application.Features.TruckFeatures.QueryHandler;
+using Gas.Application.Features.TruckFeatures.Validator;
 using Gas.Common;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.CompanyManagement;
@@ -12,12 +13,12 @@ using System.Net;
 namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 {
     /// <summary>
-    /// API Endpoint Controller for Staff Management.
+    /// API Endpoint Controller for Truck Management.
     /// </summary>
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class AccountManagementController : ControllerBase
+    public class TruckManagementController : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
@@ -25,33 +26,33 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// API Controller Instance for Staff Management.
+        /// API Controller Instance for Truck Management.
         /// </summary>
         /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public AccountManagementController(IMediator mediator)
+        public TruckManagementController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        #region Account
+        #region Truck
 
         /// <summary>
-        /// API Endpoint for Staff Login.
+        /// API Endpoint for Displaying All Truck.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Truck Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPost("StaffLogin")]
-        [Restrict(AllowVerbs = "POST")]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(Result<StaffEntity>), (int)HttpStatusCode.OK)]
+        [HttpGet("GetAllTruck")]
+        [Restrict(AllowVerbs = "GET")]
+        [Produces("application/json")]        
+        [ProducesResponseType(typeof(Result<IList<TruckEntity>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> StaffLogin(RequestStaffLoginEntity rqModel)
+        public async Task<IActionResult> GetAllTruck()
         {
             try
             {
-                var result = await _mediator.Send(new StaffLoginCommand(rqModel));
+                var result = await _mediator.Send(new GetTruckQuery());
                 return Ok(result);
             }
             catch (Exception)
@@ -61,32 +62,66 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Changing Staff Password.
+        /// API Endpoint for Displaying Truck by modal.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Truck Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPatch("ChangeStaffPassword")]
-        [Restrict(AllowVerbs = "PATCH")]
+        [HttpPost("GetTruckByModel")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<TruckEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        public async Task<IActionResult> GetTruck(GetTruckModel? rqModel)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetTruckByModalQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Adding Truck.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with Truck Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("AddTruck")]
+        [Restrict(AllowVerbs = "POST")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> ChangeStaffPassword(RequestStaffpassChangeModel rqModel)
+        public async Task<IActionResult> AddTruck(AddTruckModel rqModel)
         {
             try
             {
                
                 if (rqModel != null)
                 {
+                    // Validate the model
+                    var validator = new AddTruckValidator(); // Assuming you have a validator for AddTruckModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new StaffChangePasswordCommand(rqModel));
+                    var result = await _mediator.Send(new AddTruckCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Staff Request Model is Invalid");
+                    return BadRequest("Truck Request Model is Invalid");
                 }
                 
             }
@@ -97,69 +132,41 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Reseting Password.
+        /// API Endpoint for Update Truck.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Truck Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPatch("ResetStaffPassword")]
-        [Restrict(AllowVerbs = "PATCH")]
+        [HttpPut("UpdateTruck")]
+        [Restrict(AllowVerbs = "PUT")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> ResetStaffPassword(RequestStaffResetpassChangeModel rqModel)
+        public async Task<IActionResult> UpdateTruck(UpdateTruckModel rqModel)
         {
             try
             {
 
                 if (rqModel != null)
                 {
+                    // Validate the model
+                    var validator = new UpdateTruckValidator(); // Assuming you have a validator for AddTruckModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new StaffResetPasswordCommand(rqModel));
+                    var result = await _mediator.Send(new UpdateTruckCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Staff Request Model is Invalid");
-                }
-
-            }
-            catch (Exception)
-            {
-                return BadRequest();
-            }
-        }
-
-
-        /// <summary>
-        /// API Endpoint for Reseting Password.
-        /// </summary>
-        /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
-        /// <response code="200">Successfully.</response>
-        /// <response code="400">Invalid request data.</response>
-        [HttpPatch("ChangeStaffPasswordOnLogin")]
-        [Restrict(AllowVerbs = "PATCH")]
-        [Produces("application/json")]
-        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> ChangeStaffPasswordOnLogin(RequestStaffpassChangeModel rqModel)
-        {
-            try
-            {
-
-                if (rqModel != null)
-                {
-
-                    // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new StaffChangePasswordOnLoginCommand(rqModel));
-                    return Ok(result);
-                }
-                else
-                {
-                    return BadRequest("Staff Request Model is Invalid");
+                    return BadRequest("Truck Request Model is Invalid");
                 }
 
             }
@@ -170,18 +177,18 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Update Staff Status.
+        /// API Endpoint for Update Truck Status.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Truck Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPatch("UpdateStaffStatus")]
+        [HttpPatch("UpdateTruckStatus")]
         [Restrict(AllowVerbs = "PATCH")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateStaffStatus(RequestStaffStatusModel rqModel)
+        public async Task<IActionResult> UpdateTruckStatus(RequestTruckStatusModel rqModel)
         {
             try
             {
@@ -190,12 +197,12 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 {
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new UpdateStaffStatusCommand(rqModel));
+                    var result = await _mediator.Send(new UpdateTruckStatusCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Staff Request Model is Invalid");
+                    return BadRequest("Truck Request Model is Invalid");
                 }
 
             }
@@ -206,7 +213,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
 
-        #endregion Account
+        #endregion Truck
 
     }
 }

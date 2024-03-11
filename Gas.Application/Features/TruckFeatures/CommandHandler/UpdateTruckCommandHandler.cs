@@ -6,23 +6,22 @@ using Gas.Services.CompanyManagement;
 using Gas.Utils;
 using MediatR;
 
-namespace Gas.Application.Features.StaffFeatures.CommandHandler
+namespace Gas.Application.Features.TruckFeatures.CommandHandler
 {
-    public record AddStaffCommand(AddStaffModel Request) : IRequest<Result<QueryResEntity>>;
+    public record UpdateTruckCommand(UpdateTruckModel Request) : IRequest<Result<QueryResEntity>>;
 
-    internal class AddStaffCommandHandler : IRequestHandler<AddStaffCommand, Result<QueryResEntity>>
+    internal class UpdateTruckCommandHandler : IRequestHandler<UpdateTruckCommand, Result<QueryResEntity>>
     {
         private readonly IMapper _mapper;
-        public AddStaffCommandHandler(IMapper mapper)
+        public UpdateTruckCommandHandler(IMapper mapper)
         {
             _mapper = mapper;
         }
-        public async Task<Result<QueryResEntity>> Handle(AddStaffCommand request, CancellationToken cancellationToken)
+        public async Task<Result<QueryResEntity>> Handle(UpdateTruckCommand request, CancellationToken cancellationToken)
         {
             try
             {
-                var req = _mapper.Map<InsStaffModel>(request.Request);
-                var resp = new StaffService().AddStaff(req);
+                var resp = new TruckService().UpdateTruck(request.Request);
                 if (resp.Code == 200)
                 {                    
                     return await Result<QueryResEntity>.SuccessAsync(resp, resp.Msg);

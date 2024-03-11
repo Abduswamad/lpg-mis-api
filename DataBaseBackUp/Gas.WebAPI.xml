@@ -126,5 +126,66 @@
             <response code="200">Successfully.</response>
             <response code="400">Invalid request data.</response>
         </member>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController">
+            <summary>
+            API Endpoint Controller for Truck Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Truck Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController.GetAllTruck">
+            <summary>
+            API Endpoint for Displaying All Truck.
+            </summary>
+            <param></param>
+            <returns>The response model with Truck Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController.GetTruck(Gas.Model.CompanyManagement.GetTruckModel)">
+            <summary>
+            API Endpoint for Displaying Truck by modal.
+            </summary>
+            <param></param>
+            <returns>The response model with Truck Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController.AddTruck(Gas.Model.CompanyManagement.AddTruckModel)">
+            <summary>
+            API Endpoint for Adding Truck.
+            </summary>
+            <param></param>
+            <returns>The response model with Truck Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController.UpdateTruck(Gas.Model.CompanyManagement.UpdateTruckModel)">
+            <summary>
+            API Endpoint for Update Truck.
+            </summary>
+            <param></param>
+            <returns>The response model with Truck Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.TruckManagementController.UpdateTruckStatus(Gas.Model.CompanyManagement.RequestTruckStatusModel)">
+            <summary>
+            API Endpoint for Update Truck Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Truck Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
     </members>
 </doc>

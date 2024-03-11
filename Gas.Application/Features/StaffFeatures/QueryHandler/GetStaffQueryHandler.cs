@@ -4,7 +4,7 @@ using Gas.Services.CompanyManagement;
 using Gas.Utils;
 using MediatR;
 
-namespace Gas.Application.Features.UserFeatures.QueryHandler
+namespace Gas.Application.Features.StaffFeatures.QueryHandler
 {
     public record GetStaffQuery() : IRequest<Result<IList<StaffEntity>>>;
 

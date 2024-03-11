@@ -22,7 +22,7 @@ namespace Gas.Services.CompanyManagement
             try
             {
                 IList<StaffEntity> Users = conn.spGetData<StaffEntity>(null, SpStaff.SpGetStaff(null));
-                return Users;
+                return Users.Where(x => (bool)x.Is_active).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -30,19 +30,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException.Message);
                     throw;
                 }
 
@@ -79,19 +79,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -135,7 +135,7 @@ namespace Gas.Services.CompanyManagement
                 }
                 string userpass = UserUtils.CapitalizeFirstLetter($"{rqModel.Firstname.ToLower()}.{rqModel.Lastname}") + CodesMessage.DefaultPassword;
                 string password = UserUtils.ComputePasswordHash(userpass);
-                var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
+                var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername.ToLower() || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
 
                 if (CheckUserExist.Count > 0)
                 {
@@ -150,8 +150,8 @@ namespace Gas.Services.CompanyManagement
                 {
                     rqModel.Staffpassword = password;
                     rqModel.Staffid = number;
-                    IList<QueryResEntity> ServiceLevelOnes = conn.spGetData<QueryResEntity>(null, SpStaff.SpInsStaff(rqModel));
-                    return ServiceLevelOnes.First();
+                    IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpInsStaff(rqModel));
+                    return Staff.First();
                 }
 
             }
@@ -161,19 +161,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -202,7 +202,7 @@ namespace Gas.Services.CompanyManagement
             {
                 var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
                
-                var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
+                var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername.ToLower() || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
               
                 if (CheckUserExist.Count > 0)
                 {
@@ -215,8 +215,8 @@ namespace Gas.Services.CompanyManagement
                 }
                 else
                 {
-                    IList<QueryResEntity> ServiceLevelOnes = conn.spGetData<QueryResEntity>(null, SpStaff.SpUpdateStaff(rqModel));
-                    return ServiceLevelOnes.First();
+                    IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpUpdateStaff(rqModel));
+                    return Staff.First();
                 }
 
             }
@@ -226,19 +226,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -280,8 +280,8 @@ namespace Gas.Services.CompanyManagement
                 }
                 else
                 {
-                    IList<QueryResEntity> ServiceLevelOnes = conn.spGetData<QueryResEntity>(null, SpStaff.SpUpdateStaffStatus(rqModel));
-                    return ServiceLevelOnes.First();
+                    IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpUpdateStaffStatus(rqModel));
+                    return Staff.First();
                 }
 
             }
@@ -291,19 +291,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -340,7 +340,7 @@ namespace Gas.Services.CompanyManagement
                 }
                 else
                 {
-                    if(CheckUserExist.Where(x => x.Is_first_time).ToList().Count() > 0){
+                    if(CheckUserExist.Where(x => (bool)x.Is_first_time).ToList().Count() > 0){
                         throw new Exception("Please Change Password Before you login");
                     }
                     string password = UserUtils.ComputePasswordHash(rqModel.Password);
@@ -360,19 +360,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -435,8 +435,8 @@ namespace Gas.Services.CompanyManagement
                         return res;
                     }
                     rqModel.Staffpassword = newpassword;
-                    IList<QueryResEntity> ServiceLevelOnes = conn.spGetData<QueryResEntity>(null, SpStaff.SpChangePassword(rqModel));
-                    return ServiceLevelOnes.First();
+                    IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpChangePassword(rqModel));
+                    return Staff.First();
                 }
 
             }
@@ -446,19 +446,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -503,8 +503,8 @@ namespace Gas.Services.CompanyManagement
                     string newpassword = UserUtils.ComputePasswordHash(rqModel.Staffpassword);
 
                     rqModel.Staffpassword = newpassword;
-                    IList<QueryResEntity> ServiceLevelOnes = conn.spGetData<QueryResEntity>(null, SpStaff.SpResetPassword(rqModel));
-                    return ServiceLevelOnes.First();
+                    IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpResetPassword(rqModel));
+                    return Staff.First();
                 }
 
             }
@@ -514,19 +514,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 
@@ -590,8 +590,8 @@ namespace Gas.Services.CompanyManagement
                         return res;
                     }
                     rqModel.Staffpassword = newpassword;
-                    IList<QueryResEntity> ServiceLevelOnes = conn.spGetData<QueryResEntity>(null, SpStaff.SpChangePasswordOnFirstLogin(rqModel));
-                    return ServiceLevelOnes.First();
+                    IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpChangePasswordOnFirstLogin(rqModel));
+                    return Staff.First();
                 }
 
             }
@@ -601,19 +601,19 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
                     throw;
                 }
 

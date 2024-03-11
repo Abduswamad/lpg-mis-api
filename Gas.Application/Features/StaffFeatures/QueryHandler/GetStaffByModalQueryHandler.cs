@@ -6,7 +6,7 @@ using Gas.Domain.Entity.CompanyManagement;
 using Gas.Services.CompanyManagement;
 using Gas.Model.CompanyManagement;
 
-namespace Gas.Application.Features.UserFeatures.QueryHandler
+namespace Gas.Application.Features.StaffFeatures.QueryHandler
 {
     public record GetStaffByModalQuery(GetStaffModel? rqModel) : IRequest<Result<IList<StaffEntity>>>;
 

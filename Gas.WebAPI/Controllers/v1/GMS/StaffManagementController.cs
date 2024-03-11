@@ -1,15 +1,14 @@
-﻿using Gas.Application.Features.UserFeatures.QueryHandler;
+﻿using Gas.Application.Features.StaffFeatures.CommandHandler;
+using Gas.Application.Features.StaffFeatures.QueryHandler;
+using Gas.Application.Features.StaffFeatures.Validator;
 using Gas.Common;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.CompanyManagement;
 using Gas.Model.CompanyManagement;
 using Gas.Utils;
 using MediatR;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Gas.Application.Features.UserFeatures.CommandHandler;
 using System.Net;
-using Gas.Application.Features.StaffFeatures.Validator;
 
 namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 {

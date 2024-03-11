@@ -6,7 +6,7 @@ using Gas.Services.CompanyManagement;
 using Gas.Utils;
 using MediatR;
 
-namespace Gas.Application.Features.UserFeatures.CommandHandler
+namespace Gas.Application.Features.StaffFeatures.CommandHandler
 {
     public record UpdateStaffCommand(UpdateStaffModel Request) : IRequest<Result<QueryResEntity>>;
 

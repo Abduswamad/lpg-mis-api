@@ -6,7 +6,7 @@ using Gas.Services.CompanyManagement;
 using Gas.Utils;
 using MediatR;
 
-namespace Gas.Application.Features.UserFeatures.CommandHandler
+namespace Gas.Application.Features.AccountFeatures.CommandHandler
 {
     public record StaffChangePasswordCommand(RequestStaffpassChangeModel Request) : IRequest<Result<QueryResEntity>>;
 

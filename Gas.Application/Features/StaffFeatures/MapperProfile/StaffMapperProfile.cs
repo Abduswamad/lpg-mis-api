@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Gas.Model.CompanyManagement;
 
-namespace Gas.Application.Features.UserFeatures.MapperProfile
+namespace Gas.Application.Features.StaffFeatures.MapperProfile
 {
     public class StaffMapperProfile : Profile
     {
