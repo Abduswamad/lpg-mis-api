@@ -6,4 +6,16 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Kamando.DBConnector" Version="1.5.0" />
+    <PackageReference Include="Kamando.Logger" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gas.Domain\Gas.Domain.csproj" />
+    <ProjectReference Include="..\Gas.Infrastructure\Gas.Infrastructure.csproj" />
+    <ProjectReference Include="..\Gas.Model\Gas.Model.csproj" />
+    <ProjectReference Include="..\Gas.Utils\Gas.Utils.csproj" />
+  </ItemGroup>
+
 </Project>

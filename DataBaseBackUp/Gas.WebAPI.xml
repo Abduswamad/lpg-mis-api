@@ -1,0 +1,130 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gas.WebAPI</name>
+    </assembly>
+    <members>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController">
+            <summary>
+            API Endpoint Controller for Staff Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Staff Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController.StaffLogin(Gas.Model.CompanyManagement.RequestStaffLoginEntity)">
+            <summary>
+            API Endpoint for Staff Login.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController.ChangeStaffPassword(Gas.Model.CompanyManagement.RequestStaffpassChangeModel)">
+            <summary>
+            API Endpoint for Changing Staff Password.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController.ResetStaffPassword(Gas.Model.CompanyManagement.RequestStaffResetpassChangeModel)">
+            <summary>
+            API Endpoint for Reseting Password.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController.ChangeStaffPasswordOnLogin(Gas.Model.CompanyManagement.RequestStaffpassChangeModel)">
+            <summary>
+            API Endpoint for Reseting Password.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.AccountManagementController.UpdateStaffStatus(Gas.Model.CompanyManagement.RequestStaffStatusModel)">
+            <summary>
+            API Endpoint for Update Staff Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController">
+            <summary>
+            API Endpoint Controller for Staff Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Staff Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController.GetAllStaff">
+            <summary>
+            API Endpoint for Displaying All Staff.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController.GetStaff(Gas.Model.CompanyManagement.GetStaffModel)">
+            <summary>
+            API Endpoint for Displaying Staff by modal.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController.AddStaff(Gas.Model.CompanyManagement.AddStaffModel)">
+            <summary>
+            API Endpoint for Adding Staff.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController.UpdateStaff(Gas.Model.CompanyManagement.UpdateStaffModel)">
+            <summary>
+            API Endpoint for Update Staff.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffManagementController.UpdateStaffStatus(Gas.Model.CompanyManagement.RequestStaffStatusModel)">
+            <summary>
+            API Endpoint for Update Staff Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Staff Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+    </members>
+</doc>

@@ -4,10 +4,23 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>F:\Personal\Gas\Gas.WebAPI\DataBaseBackUp\Gas.WebAPI.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="8.2.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Gas.Application\Gas.Application.csproj" />
+    <ProjectReference Include="..\Gas.Common\Gas.Common.csproj" />
+    <ProjectReference Include="..\Gas.Domain\Gas.Domain.csproj" />
+    <ProjectReference Include="..\Gas.Infrastructure\Gas.Infrastructure.csproj" />
+    <ProjectReference Include="..\Gas.Utils\Gas.Utils.csproj" />
   </ItemGroup>
 
 </Project>
