@@ -65,6 +65,128 @@
             <response code="200">Successfully.</response>
             <response code="400">Invalid request data.</response>
         </member>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController">
+            <summary>
+            API Endpoint Controller for Cylindercategory Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Cylindercategory Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController.GetCylindercategory">
+            <summary>
+            API Endpoint for Displaying All Cylindercategory.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercategory Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController.GetCylindercategory(Gas.Model.PublicManagement.GetCylindercategoryModel)">
+            <summary>
+            API Endpoint for Displaying Cylindercategory by modal.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercategory Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController.AddCylindercategory(Gas.Model.PublicManagement.AddCylindercategoryModel)">
+            <summary>
+            API Endpoint for Adding Cylindercategory.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercategory Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController.UpdateCylindercategory(Gas.Model.PublicManagement.UpdateCylindercategoryModel)">
+            <summary>
+            API Endpoint for Update Cylindercategory.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercategory Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercategoryManagementController.UpdateCylindercategoryStatus(Gas.Model.PublicManagement.RequestCylindercategoryStatusModel)">
+            <summary>
+            API Endpoint for Update Cylindercategory Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercategory Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController">
+            <summary>
+            API Endpoint Controller for Cylindercompany Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Cylindercompany Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController.GetCylindercompany">
+            <summary>
+            API Endpoint for Displaying All Cylindercompany.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercompany Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController.GetCylindercompany(Gas.Model.PublicManagement.GetCylindercompanyModel)">
+            <summary>
+            API Endpoint for Displaying Cylindercompany by modal.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercompany Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController.AddCylindercompany(Gas.Model.PublicManagement.AddCylindercompanyModel)">
+            <summary>
+            API Endpoint for Adding Cylindercompany.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercompany Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController.UpdateCylindercompany(Gas.Model.PublicManagement.UpdateCylindercompanyModel)">
+            <summary>
+            API Endpoint for Update Cylindercompany.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercompany Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylindercompanyManagementController.UpdateCylindercompanyStatus(Gas.Model.PublicManagement.RequestCylindercompanyStatusModel)">
+            <summary>
+            API Endpoint for Update Cylindercompany Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Cylindercompany Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
         <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.CylinderManagementController">
             <summary>
             API Endpoint Controller for Cylinder Management.
@@ -184,6 +306,67 @@
             </summary>
             <param></param>
             <returns>The response model with Depo Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController">
+            <summary>
+            API Endpoint Controller for Gender Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Gender Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController.GetGender">
+            <summary>
+            API Endpoint for Displaying All Gender.
+            </summary>
+            <param></param>
+            <returns>The response model with Gender Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController.GetGender(Gas.Model.PublicManagement.GetGenderModel)">
+            <summary>
+            API Endpoint for Displaying Gender by modal.
+            </summary>
+            <param></param>
+            <returns>The response model with Gender Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController.AddGender(Gas.Model.PublicManagement.AddGenderModel)">
+            <summary>
+            API Endpoint for Adding Gender.
+            </summary>
+            <param></param>
+            <returns>The response model with Gender Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController.UpdateGender(Gas.Model.PublicManagement.UpdateGenderModel)">
+            <summary>
+            API Endpoint for Update Gender.
+            </summary>
+            <param></param>
+            <returns>The response model with Gender Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.GenderManagementController.UpdateGenderStatus(Gas.Model.PublicManagement.RequestGenderStatusModel)">
+            <summary>
+            API Endpoint for Update Gender Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Gender Data.</returns>
             <response code="200">Successfully.</response>
             <response code="400">Invalid request data.</response>
         </member>

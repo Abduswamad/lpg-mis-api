@@ -45,7 +45,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [HttpPost("StaffLogin")]
         [Restrict(AllowVerbs = "POST")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(Result<StaffEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<StaffLoginEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         public async Task<IActionResult> StaffLogin(RequestStaffLoginEntity rqModel)
         {
@@ -54,7 +54,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 var result = await _mediator.Send(new StaffLoginCommand(rqModel));
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -90,7 +90,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -126,7 +126,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -163,7 +163,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -199,7 +199,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }

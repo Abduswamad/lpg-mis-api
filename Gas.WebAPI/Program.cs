@@ -38,6 +38,21 @@ builder.Services.AddApiVersioning(options =>
 builder.Services.AddWorkerServiceSettings(builder.Configuration, builder.Environment.ContentRootPath);
 //...add service settings
 //builder.Services.AddWorkerServiceSettings(builder.Configuration, builder.Environment.ContentRootPath);
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+//{
+//    options.RequireHttpsMetadata = false;
+//    options.SaveToken = true;
+//    options.TokenValidationParameters = new TokenValidationParameters()
+//    {
+//        ValidateIssuer = true,
+//        ValidateAudience = true,
+//        ValidAudience = builder.Configuration["Jwt:Audience"],
+//        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+//    };
+//});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,6 +73,8 @@ app.UseRouting();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseAuthorization();
+
+app.UseAuthentication();
 
 app.MapControllers();
 

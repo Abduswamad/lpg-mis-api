@@ -55,7 +55,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 var result = await _mediator.Send(new GetDepoQuery());
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -80,7 +80,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 var result = await _mediator.Send(new GetDepoByModalQuery(rqModel));
                 return Ok(result);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -125,7 +125,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -170,7 +170,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }
@@ -206,7 +206,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return BadRequest();
             }

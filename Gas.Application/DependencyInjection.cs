@@ -5,6 +5,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Gas.Services.CompanyManagement;
+using Gas.Services;
 
 namespace Gas.Application;
 
@@ -19,6 +20,7 @@ public static class DependencyInjection
         services.AddTransient<ExceptionHandlingMiddleware>();
 
         services.AddTransient<StaffService>();
-        services.AddTransient<TruckService>();
+        services.AddTransient<TruckService>(); 
+        services.AddTransient<Authentication>();
     }
 }

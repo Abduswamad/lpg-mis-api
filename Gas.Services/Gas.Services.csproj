@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Kamando.DBConnector" Version="1.5.0" />
     <PackageReference Include="Kamando.Logger" Version="1.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.4.0" />
   </ItemGroup>
 
   <ItemGroup>

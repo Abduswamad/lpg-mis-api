@@ -34,9 +34,9 @@ namespace Qms.Extensions
                     throw new Exception($"Failed with Status Code : {responseResult.StatusCode}", new Exception(responseResult.Content.ToString()));
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
 
         }
@@ -69,9 +69,9 @@ namespace Qms.Extensions
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
             finally
             {
@@ -108,9 +108,9 @@ namespace Qms.Extensions
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
             finally
             {
@@ -147,9 +147,9 @@ namespace Qms.Extensions
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
             finally
             {
@@ -186,9 +186,9 @@ namespace Qms.Extensions
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
             finally
             {
@@ -220,9 +220,9 @@ namespace Qms.Extensions
                     throw new Exception($"Failed with Status Code : {responseResult.StatusCode}", new Exception(responseResult.Content.ToString()));
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
             }
 
         }

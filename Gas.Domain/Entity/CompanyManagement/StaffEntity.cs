@@ -36,4 +36,21 @@ namespace Gas.Domain.Entity.CompanyManagement
         public bool? Is_active { get; set; }
         public bool? Is_first_time { get; set; }
     }
+
+    public class StaffLoginEntity
+    {
+        public StaffEntity? StaffDetails { get; set; }
+        public List<StaffRoleEntity>? StaffRole { get; set; }
+        public string Token { get; set; } = string.Empty;
+    }
+
+
+    public class StaffTokenEntity
+    {
+        public string Access_token { get; set; } = string.Empty;
+        public int Expires_in { get; set; }
+        public string Token_type { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
+    }
+
 }
