@@ -28,6 +28,7 @@
     <Folder Include="Features\AccountFeatures\MapperProfile\" />
     <Folder Include="Features\AccountFeatures\QueryHandler\" />
     <Folder Include="Features\AccountFeatures\Validator\" />
+    <Folder Include="Features\StaffroleFeatures\MapperProfile\" />
   </ItemGroup>
 
 </Project>

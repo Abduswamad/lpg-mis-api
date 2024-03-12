@@ -370,6 +370,67 @@
             <response code="200">Successfully.</response>
             <response code="400">Invalid request data.</response>
         </member>
+        <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController">
+            <summary>
+            API Endpoint Controller for Staffrole Management.
+            </summary>
+        </member>
+        <member name="F:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController._mediator">
+            <summary>
+            The mediator instance used for handling communication between components.
+            </summary>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController.#ctor(MediatR.IMediator)">
+            <summary>
+            API Controller Instance for Staffrole Management.
+            </summary>
+            <param name="mediator">The mediator instance used for handling communication between components.</param>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController.GetStaffrole">
+            <summary>
+            API Endpoint for Displaying All Staffrole.
+            </summary>
+            <param></param>
+            <returns>The response model with Staffrole Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController.GetStaffrole(Gas.Model.CompanyManagement.GetStaffroleModel)">
+            <summary>
+            API Endpoint for Displaying Staffrole by modal.
+            </summary>
+            <param></param>
+            <returns>The response model with Staffrole Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController.AddStaffrole(Gas.Model.CompanyManagement.AddStaffroleModel)">
+            <summary>
+            API Endpoint for Adding Staffrole.
+            </summary>
+            <param></param>
+            <returns>The response model with Staffrole Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController.UpdateStaffrole(Gas.Model.CompanyManagement.UpdateStaffroleModel)">
+            <summary>
+            API Endpoint for Update Staffrole.
+            </summary>
+            <param></param>
+            <returns>The response model with Staffrole Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
+        <member name="M:Gas.WebAPI.Controllers.v1.GMS.Controllers.StaffroleManagementController.UpdateStaffroleStatus(Gas.Model.CompanyManagement.RequestStaffroleStatusModel)">
+            <summary>
+            API Endpoint for Update Staffrole Status.
+            </summary>
+            <param></param>
+            <returns>The response model with Staffrole Data.</returns>
+            <response code="200">Successfully.</response>
+            <response code="400">Invalid request data.</response>
+        </member>
         <member name="T:Gas.WebAPI.Controllers.v1.GMS.Controllers.StafftypeManagementController">
             <summary>
             API Endpoint Controller for Stafftype Management.
