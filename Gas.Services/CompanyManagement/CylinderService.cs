@@ -12,17 +12,17 @@ using System.Data.SqlClient;
 
 namespace Gas.Services.CompanyManagement
 {
-    public class TruckService
+    public class CylinderService
     {
         readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
-        //Query to get all Truck
-        public IList<TruckEntity> GetTruck()
+        //Query to get all Cylinder
+        public IList<CylinderEntity> GetCylinder()
         {
             try
             {
-                IList<TruckEntity> Truck = conn.spGetData<TruckEntity>(null, SpTruck.SpGetTruck(null));
-                return Truck.Where(x => (bool)x.Is_active).ToList();
+                IList<CylinderEntity> Cylinder = conn.spGetData<CylinderEntity>(null, SpCylinder.SpGetCylinder(null));
+                return Cylinder.Where(x => (bool)x.Is_active).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -65,13 +65,13 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        //Query to get Truck by Model
-        public IList<TruckEntity> GetTruck(GetTruckModel? rqModel)
+        //Query to get Cylinder by Model
+        public IList<CylinderEntity> GetCylinder(GetCylinderModel? rqModel)
         {
             try
             {
-                IList<TruckEntity> Truck = conn.spGetData<TruckEntity>(null, SpTruck.SpGetTruck(rqModel!));
-                return Truck;
+                IList<CylinderEntity> Cylinder = conn.spGetData<CylinderEntity>(null, SpCylinder.SpGetCylinder(rqModel!));
+                return Cylinder;
             }
             #region catch
             catch (NpgsqlException ex)
@@ -114,36 +114,36 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity AddTruck(InsTruckModel rqModel)
+        public QueryResEntity AddCylinder(InsCylinderModel rqModel)
         {
             try
             {
                 int? number = 0;
-                var data = GetTruck(null).OrderByDescending(x => x.Truck_id).ToList();
+                var data = GetCylinder(null).OrderByDescending(x => x.Cylinder_id).ToList();
                 if (data.Count <= 0)
                 {
                     number = 1;
                 }
                 else
                 {
-                    number = data[0].Truck_id + 1;
+                    number = data[0].Cylinder_id + 1;
                 }
-                var CheckTruckExist = data.Where(x => x.Plate_number.ToLower() == rqModel.Platenumber.ToLower()).ToList();
+                var CheckCylinderExist = data.Where(x => x.Cylinder_name.ToLower() == rqModel.Cylindername.ToLower()).ToList();
 
-                if (CheckTruckExist.Count > 0)
+                if (CheckCylinderExist.Count > 0)
                 {
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
-                        Msg = $"Truck with Platenumber {rqModel.Platenumber} already exist"
+                        Msg = $"Cylinder with Cylinder Name {rqModel.Cylindername} already exist"
                     };
                     return res;
                 }
                 else
                 {
-                    rqModel.Truckid = number;
-                    IList<QueryResEntity> Truck = conn.spGetData<QueryResEntity>(null, SpTruck.SpInsTruck(rqModel));
-                    return Truck.First();
+                    rqModel.Cylinderid = number;
+                    IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null, SpCylinder.SpInsCylinder(rqModel));
+                    return Cylinder.First();
                 }
 
             }
@@ -188,14 +188,14 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity UpdateTruck(UpdateTruckModel rqModel)
+        public QueryResEntity UpdateCylinder(UpdateCylinderModel rqModel)
         {
             try
             {
-                var data = GetTruck(null).OrderByDescending(x => x.Truck_id).ToList();
+                var data = GetCylinder(null).OrderByDescending(x => x.Cylinder_id).ToList();
 
-                IList<QueryResEntity> Truck = conn.spGetData<QueryResEntity>(null, SpTruck.SpUpdateTruck(rqModel));
-                return Truck.First();
+                IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null, SpCylinder.SpUpdateCylinder(rqModel));
+                return Cylinder.First();
 
             }
             #region catch
@@ -239,27 +239,27 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity UpdateStatusTruck(RequestTruckStatusModel rqModel)
+        public QueryResEntity UpdateStatusCylinder(RequestCylinderStatusModel rqModel)
         {
             try
             {
-                var data = GetTruck(null).OrderByDescending(x => x.Truck_id).ToList();
+                var data = GetCylinder(null).OrderByDescending(x => x.Cylinder_id).ToList();
 
-                var CheckTruckExist = data.Where(x => x.Truck_id == rqModel.Truckid).ToList();
+                var CheckCylinderExist = data.Where(x => x.Cylinder_id == rqModel.Cylinderid).ToList();
 
-                if (CheckTruckExist.Count <= 0)
+                if (CheckCylinderExist.Count <= 0)
                 {
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
-                        Msg = $"Truck ID doesn't Exist"
+                        Msg = $"Cylinder ID doesn't Exist"
                     };
                     return res;
                 }
                 else
                 {
-                    IList<QueryResEntity> Truck = conn.spGetData<QueryResEntity>(null, SpTruck.SpUpdateTruckStatus(rqModel));
-                    return Truck.First();
+                    IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null, SpCylinder.SpUpdateCylinderStatus(rqModel));
+                    return Cylinder.First();
                 }
 
             }

@@ -1,6 +1,6 @@
-﻿using Gas.Application.Features.StaffFeatures.CommandHandler;
-using Gas.Application.Features.StaffFeatures.QueryHandler;
-using Gas.Application.Features.StaffFeatures.Validator;
+﻿using Gas.Application.Features.CylinderFeatures.CommandHandler;
+using Gas.Application.Features.CylinderFeatures.QueryHandler;
+using Gas.Application.Features.CylinderFeatures.Validator;
 using Gas.Common;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.CompanyManagement;
@@ -13,12 +13,12 @@ using System.Net;
 namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 {
     /// <summary>
-    /// API Endpoint Controller for Staff Management.
+    /// API Endpoint Controller for Cylinder Management.
     /// </summary>
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class StaffManagementController : ControllerBase
+    public class CylinderManagementController : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
@@ -26,33 +26,33 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// API Controller Instance for Staff Management.
+        /// API Controller Instance for Cylinder Management.
         /// </summary>
         /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public StaffManagementController(IMediator mediator)
+        public CylinderManagementController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        #region Staff
+        #region Cylinder
 
         /// <summary>
-        /// API Endpoint for Displaying All Staff.
+        /// API Endpoint for Displaying All Cylinder.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Cylinder Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpGet("GetStaff")]
+        [HttpGet("GetCylinder")]
         [Restrict(AllowVerbs = "GET")]
         [Produces("application/json")]        
-        [ProducesResponseType(typeof(Result<IList<StaffEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<IList<CylinderEntity>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetStaff()
+        public async Task<IActionResult> GetCylinder()
         {
             try
             {
-                var result = await _mediator.Send(new GetStaffQuery());
+                var result = await _mediator.Send(new GetCylinderQuery());
                 return Ok(result);
             }
             catch (Exception)
@@ -62,22 +62,22 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Displaying Staff by modal.
+        /// API Endpoint for Displaying Cylinder by modal.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Cylinder Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPost("GetStaffByModel")]
+        [HttpPost("GetCylinderByModel")]
         [Restrict(AllowVerbs = "POST")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(Result<IList<StaffEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<IList<CylinderEntity>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> GetStaff(GetStaffModel? rqModel)
+        public async Task<IActionResult> GetCylinder(GetCylinderModel? rqModel)
         {
             try
             {
-                var result = await _mediator.Send(new GetStaffByModalQuery(rqModel));
+                var result = await _mediator.Send(new GetCylinderByModalQuery(rqModel));
                 return Ok(result);
             }
             catch (Exception)
@@ -87,18 +87,18 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Adding Staff.
+        /// API Endpoint for Adding Cylinder.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Cylinder Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPost("AddStaff")]
+        [HttpPost("AddCylinder")]
         [Restrict(AllowVerbs = "POST")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> AddStaff(AddStaffModel rqModel)
+        public async Task<IActionResult> AddCylinder(AddCylinderModel rqModel)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 if (rqModel != null)
                 {
                     // Validate the model
-                    var validator = new AddStaffValidator(); // Assuming you have a validator for AddStaffModel
+                    var validator = new AddCylinderValidator(); // Assuming you have a validator for AddCylinderModel
                     var validationResult = await validator.ValidateAsync(rqModel);
 
                     // Check if validation failed
@@ -116,12 +116,12 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                     }
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new AddStaffCommand(rqModel));
+                    var result = await _mediator.Send(new AddCylinderCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Staff Request Model is Invalid");
+                    return BadRequest("Cylinder Request Model is Invalid");
                 }
                 
             }
@@ -132,18 +132,18 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Update Staff.
+        /// API Endpoint for Update Cylinder.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Cylinder Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPut("UpdateStaff")]
+        [HttpPut("UpdateCylinder")]
         [Restrict(AllowVerbs = "PUT")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateStaff(UpdateStaffModel rqModel)
+        public async Task<IActionResult> UpdateCylinder(UpdateCylinderModel rqModel)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 if (rqModel != null)
                 {
                     // Validate the model
-                    var validator = new UpdateStaffValidator(); // Assuming you have a validator for AddStaffModel
+                    var validator = new UpdateCylinderValidator(); // Assuming you have a validator for AddCylinderModel
                     var validationResult = await validator.ValidateAsync(rqModel);
 
                     // Check if validation failed
@@ -161,12 +161,12 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                     }
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new UpdateStaffCommand(rqModel));
+                    var result = await _mediator.Send(new UpdateCylinderCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Staff Request Model is Invalid");
+                    return BadRequest("Cylinder Request Model is Invalid");
                 }
 
             }
@@ -177,18 +177,18 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Update Staff Status.
+        /// API Endpoint for Update Cylinder Status.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Staff Data.</returns>
+        /// <returns>The response model with Cylinder Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPatch("UpdateStaffStatus")]
+        [HttpPatch("UpdateCylinderStatus")]
         [Restrict(AllowVerbs = "PATCH")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
-        public async Task<IActionResult> UpdateStaffStatus(RequestStaffStatusModel rqModel)
+        public async Task<IActionResult> UpdateCylinderStatus(RequestCylinderStatusModel rqModel)
         {
             try
             {
@@ -197,12 +197,12 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 {
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new UpdateStaffStatusCommand(rqModel));
+                    var result = await _mediator.Send(new UpdateCylinderStatusCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Staff Request Model is Invalid");
+                    return BadRequest("Cylinder Request Model is Invalid");
                 }
 
             }
@@ -213,7 +213,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
 
-        #endregion Staff
+        #endregion Cylinder
 
     }
 }

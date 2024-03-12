@@ -17,7 +17,7 @@ namespace Gas.Services.CompanyManagement
         readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all User
-        public IList<StaffEntity> GetAllStaff()
+        public IList<StaffEntity> GetStaff()
         {
             try
             {
@@ -124,7 +124,7 @@ namespace Gas.Services.CompanyManagement
                 };
 
                 int? number = 0;
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
                 if (data.Count <= 0)
                 {
                     number = 1;
@@ -200,7 +200,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
                
                 var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername.ToLower() || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
               
@@ -265,7 +265,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
 
                 var CheckUserExist = data.Where(x => x.Staff_id == rqModel.Staffid).ToList();
 
@@ -330,7 +330,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
 
                 var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername.ToLower()).ToList();
 
@@ -399,7 +399,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
 
                 var CheckUserExist = data.Where(x => x.Staff_id == rqModel.Staffid).ToList();
 
@@ -485,7 +485,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
 
                 var CheckUserExist = data.Where(x => x.Staff_id == rqModel.Staffid).ToList();
 
@@ -553,7 +553,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                var data = GetAllStaff().OrderByDescending(x => x.Staff_id).ToList();
+                var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
 
                 var CheckUserExist = data.Where(x => x.Staff_id == rqModel.Staffid).ToList();
 

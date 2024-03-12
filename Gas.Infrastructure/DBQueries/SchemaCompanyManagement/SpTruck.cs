@@ -13,7 +13,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         #endregion procedures
 
         #region sp for Truck
-        public static string getUser = $"SELECT * FROM {gettruckqry}()";
+        public static string getTruck = $"SELECT * FROM {gettruckqry}()";
         public static string SpInsTruck(InsTruckModel rqModel)
         {
             string qry = $"SELECT * FROM {instruckqry}(truckid := {rqModel.Truckid}, platenumber := '{rqModel.Platenumber}', weigthintones := {rqModel.Weigthintones}, " +
@@ -34,7 +34,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
             string result = "";
             if (rqModel == null)
             {
-                result = getUser;
+                result = getTruck;
             }
             else
             {

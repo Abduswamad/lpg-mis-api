@@ -19,7 +19,7 @@ namespace Gas.Application.Features.TruckFeatures.QueryHandler
         {
             try
             {
-                var resp = new TruckService().GetAllTruck();
+                var resp = new TruckService().GetTruck();
                 if (resp.Count>0)
                 {
                     return await Result<IList<TruckEntity>>.SuccessAsync(resp);

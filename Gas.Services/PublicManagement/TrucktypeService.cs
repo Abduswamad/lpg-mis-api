@@ -1,28 +1,28 @@
 ﻿using DBConnector;
 using Gas.Domain.Entities;
-using Gas.Domain.Entity.CompanyManagement;
+using Gas.Domain.Entity.PublicManagement;
 using Gas.Domain.Enums;
-using Gas.Infrastructure.DBQueries.SchemaCompanyManagement;
-using Gas.Model.CompanyManagement;
+using Gas.Infrastructure.DBQueries.SchemaPublicManagement;
+using Gas.Model.PublicManagement;
 using Gas.Utils;
 using Gas.Utils.Settings;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
-namespace Gas.Services.CompanyManagement
+namespace Gas.Services.PublicManagement
 {
-    public class TruckService
+    public class TrucktypeService
     {
         readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
-        //Query to get all Truck
-        public IList<TruckEntity> GetTruck()
+        //Query to get all Trucktype
+        public IList<TrucktypeEntity> GetTrucktype()
         {
             try
             {
-                IList<TruckEntity> Truck = conn.spGetData<TruckEntity>(null, SpTruck.SpGetTruck(null));
-                return Truck.Where(x => (bool)x.Is_active).ToList();
+                IList<TrucktypeEntity> Trucktype = conn.spGetData<TrucktypeEntity>(null, SpTrucktype.SpGetTrucktype(null));
+                return Trucktype.Where(x => (bool)x.Is_active).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -65,13 +65,13 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        //Query to get Truck by Model
-        public IList<TruckEntity> GetTruck(GetTruckModel? rqModel)
+        //Query to get Trucktype by Model
+        public IList<TrucktypeEntity> GetTrucktype(GetTrucktypeModel? rqModel)
         {
             try
             {
-                IList<TruckEntity> Truck = conn.spGetData<TruckEntity>(null, SpTruck.SpGetTruck(rqModel!));
-                return Truck;
+                IList<TrucktypeEntity> Trucktype = conn.spGetData<TrucktypeEntity>(null, SpTrucktype.SpGetTrucktype(rqModel!));
+                return Trucktype;
             }
             #region catch
             catch (NpgsqlException ex)
@@ -114,36 +114,36 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity AddTruck(InsTruckModel rqModel)
+        public QueryResEntity AddTrucktype(InsTrucktypeModel rqModel)
         {
             try
             {
                 int? number = 0;
-                var data = GetTruck(null).OrderByDescending(x => x.Truck_id).ToList();
+                var data = GetTrucktype(null).OrderByDescending(x => x.Truck_type_id).ToList();
                 if (data.Count <= 0)
                 {
                     number = 1;
                 }
                 else
                 {
-                    number = data[0].Truck_id + 1;
+                    number = data[0].Truck_type_id + 1;
                 }
-                var CheckTruckExist = data.Where(x => x.Plate_number.ToLower() == rqModel.Platenumber.ToLower()).ToList();
+                var CheckTrucktypeExist = data.Where(x => x.Truck_type_name.ToLower() == rqModel.Trucktypename.ToLower()).ToList();
 
-                if (CheckTruckExist.Count > 0)
+                if (CheckTrucktypeExist.Count > 0)
                 {
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
-                        Msg = $"Truck with Platenumber {rqModel.Platenumber} already exist"
+                        Msg = $"Trucktype with Trucktype Name {rqModel.Trucktypename} already exist"
                     };
                     return res;
                 }
                 else
                 {
-                    rqModel.Truckid = number;
-                    IList<QueryResEntity> Truck = conn.spGetData<QueryResEntity>(null, SpTruck.SpInsTruck(rqModel));
-                    return Truck.First();
+                    rqModel.Trucktypeid = number;
+                    IList<QueryResEntity> Trucktype = conn.spGetData<QueryResEntity>(null, SpTrucktype.SpInsTrucktype(rqModel));
+                    return Trucktype.First();
                 }
 
             }
@@ -188,14 +188,14 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity UpdateTruck(UpdateTruckModel rqModel)
+        public QueryResEntity UpdateTrucktype(UpdateTrucktypeModel rqModel)
         {
             try
             {
-                var data = GetTruck(null).OrderByDescending(x => x.Truck_id).ToList();
+                var data = GetTrucktype(null).OrderByDescending(x => x.Truck_type_id).ToList();
 
-                IList<QueryResEntity> Truck = conn.spGetData<QueryResEntity>(null, SpTruck.SpUpdateTruck(rqModel));
-                return Truck.First();
+                IList<QueryResEntity> Trucktype = conn.spGetData<QueryResEntity>(null, SpTrucktype.SpUpdateTrucktype(rqModel));
+                return Trucktype.First();
 
             }
             #region catch
@@ -239,27 +239,27 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity UpdateStatusTruck(RequestTruckStatusModel rqModel)
+        public QueryResEntity UpdateStatusTrucktype(RequestTrucktypeStatusModel rqModel)
         {
             try
             {
-                var data = GetTruck(null).OrderByDescending(x => x.Truck_id).ToList();
+                var data = GetTrucktype(null).OrderByDescending(x => x.Truck_type_id).ToList();
 
-                var CheckTruckExist = data.Where(x => x.Truck_id == rqModel.Truckid).ToList();
+                var CheckTrucktypeExist = data.Where(x => x.Truck_type_id == rqModel.Trucktypeid).ToList();
 
-                if (CheckTruckExist.Count <= 0)
+                if (CheckTrucktypeExist.Count <= 0)
                 {
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
-                        Msg = $"Truck ID doesn't Exist"
+                        Msg = $"Trucktype ID doesn't Exist"
                     };
                     return res;
                 }
                 else
                 {
-                    IList<QueryResEntity> Truck = conn.spGetData<QueryResEntity>(null, SpTruck.SpUpdateTruckStatus(rqModel));
-                    return Truck.First();
+                    IList<QueryResEntity> Trucktype = conn.spGetData<QueryResEntity>(null, SpTrucktype.SpUpdateTrucktypeStatus(rqModel));
+                    return Trucktype.First();
                 }
 
             }

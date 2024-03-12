@@ -19,7 +19,7 @@ namespace Gas.Application.Features.StaffFeatures.QueryHandler
         {
             try
             {
-                var resp = new StaffService().GetAllStaff();
+                var resp = new StaffService().GetStaff();
                 if (resp.Count>0)
                 {
                     return await Result<IList<StaffEntity>>.SuccessAsync(resp);
