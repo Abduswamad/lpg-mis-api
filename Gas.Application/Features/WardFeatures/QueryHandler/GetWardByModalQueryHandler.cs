@@ -1,0 +1,43 @@
+﻿using AutoMapper;
+using MediatR;
+using Gas.Domain.Entities;
+using Gas.Utils;
+using Gas.Domain.Entity.PublicManagement;
+using Gas.Services.PublicManagement;
+using Gas.Model.PublicManagement;
+
+namespace Gas.Application.Features.WardFeatures.QueryHandler
+{
+    public record GetWardByModalQuery(GetWardModel? rqModel) : IRequest<Result<IList<WardEntity>>>;
+
+    internal class GetWardByModalQueryHandler : IRequestHandler<GetWardByModalQuery, Result<IList<WardEntity>>>
+    {
+        private readonly IMapper _mapper;
+        public GetWardByModalQueryHandler(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+        public async Task<Result<IList<WardEntity>>> Handle(GetWardByModalQuery request, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var resp = new WardService().GetWard(request.rqModel);
+                if (resp.Count>0)
+                {
+                    var response = _mapper.Map<List<WardEntity>>(resp);
+                    return await Result<IList<WardEntity>>.SuccessAsync(response);
+                }
+                else
+                {
+                    return await Result<IList<WardEntity>>.FailureAsync("No Data Available");
+                }
+            }
+            catch (Exception e)
+            {
+                return await Result<IList<WardEntity>>.FailureAsync(e.Message);
+            }
+        }
+
+    }
+
+}

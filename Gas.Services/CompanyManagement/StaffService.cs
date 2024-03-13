@@ -91,7 +91,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -173,7 +173,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -238,7 +238,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -303,7 +303,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -372,7 +372,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -458,7 +458,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -526,7 +526,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
@@ -613,7 +613,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
                     throw new Exception(ex.Message);
                 }
 
