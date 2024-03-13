@@ -43,7 +43,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -92,7 +92,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -155,7 +155,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -201,20 +201,20 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
-                    Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -274,7 +274,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -322,7 +322,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }

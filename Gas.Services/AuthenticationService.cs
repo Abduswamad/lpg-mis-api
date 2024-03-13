@@ -38,7 +38,7 @@ namespace Gas.Services
                             new Claim(ClaimTypes.StreetAddress, result.StaffDetails.Common_street_name),
                             new Claim(ClaimTypes.MobilePhone, result.StaffDetails.Phone_number),
                             new Claim(ClaimTypes.Role, JsonConvert.SerializeObject(result.StaffRole)),
-                            new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(result)),
+                            new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(result.StaffDetails)),
                         }),
                     NotBefore = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddHours(4),

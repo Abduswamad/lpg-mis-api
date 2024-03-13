@@ -43,7 +43,7 @@ namespace Gas.Services.PublicManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -92,7 +92,7 @@ namespace Gas.Services.PublicManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -166,7 +166,7 @@ namespace Gas.Services.PublicManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -217,7 +217,7 @@ namespace Gas.Services.PublicManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -282,7 +282,7 @@ namespace Gas.Services.PublicManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }

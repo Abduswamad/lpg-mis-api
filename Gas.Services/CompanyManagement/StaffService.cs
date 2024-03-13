@@ -43,7 +43,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -92,7 +92,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -174,7 +174,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -202,9 +202,9 @@ namespace Gas.Services.CompanyManagement
             {
                 var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
                
-                var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername.ToLower() || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
+                var CheckUserExist = data.Where(x => (x.Username.ToLower() == rqModel.Staffusername.ToLower() || x.Staff_id_number.ToLower() == rqModel.Staffidnumber) && x.Staff_id == rqModel.Staffid).ToList();
               
-                if (CheckUserExist.Count > 0)
+                if (CheckUserExist.Count <= 0)
                 {
                     QueryResEntity res = new()
                     {
@@ -239,7 +239,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -304,7 +304,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -373,7 +373,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -459,7 +459,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -527,7 +527,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
@@ -614,7 +614,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     // Handle other NpgsqlExceptions or unknown exceptions
                     Logger.Logger.Error("NpgsqlException: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
-                    throw new Exception(ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new Exception(ex.Message);
                 }
 
             }
