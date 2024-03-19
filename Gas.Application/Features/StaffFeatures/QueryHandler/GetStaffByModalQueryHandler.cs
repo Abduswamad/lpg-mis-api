@@ -12,11 +12,6 @@ namespace Gas.Application.Features.StaffFeatures.QueryHandler
 
     internal class GetStaffByModalQueryHandler : IRequestHandler<GetStaffByModalQuery, Result<IList<StaffEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetStaffByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<StaffEntity>>> Handle(GetStaffByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.StaffFeatures.QueryHandler
                 var resp = new StaffService().GetStaff(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<StaffEntity>>(resp);
-                    return await Result<IList<StaffEntity>>.SuccessAsync(response);
+                    return await Result<IList<StaffEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

@@ -10,11 +10,6 @@ namespace Gas.Application.Features.TruckFeatures.QueryHandler
 
     internal class GetTruckQueryHandler : IRequestHandler<GetTruckQuery, Result<IList<TruckEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetTruckQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<TruckEntity>>> Handle(GetTruckQuery request, CancellationToken cancellationToken)
         {
             try

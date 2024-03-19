@@ -12,11 +12,6 @@ namespace Gas.Application.Features.CommonstreetFeatures.QueryHandler
 
     internal class GetCommonstreetByModalQueryHandler : IRequestHandler<GetCommonstreetByModalQuery, Result<IList<CommonstreetEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetCommonstreetByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<CommonstreetEntity>>> Handle(GetCommonstreetByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.CommonstreetFeatures.QueryHandler
                 var resp = new CommonstreetService().GetCommonstreet(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<CommonstreetEntity>>(resp);
-                    return await Result<IList<CommonstreetEntity>>.SuccessAsync(response);
+                    return await Result<IList<CommonstreetEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

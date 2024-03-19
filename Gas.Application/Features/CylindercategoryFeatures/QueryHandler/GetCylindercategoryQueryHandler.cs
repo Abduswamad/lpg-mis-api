@@ -10,11 +10,7 @@ namespace Gas.Application.Features.CylindercategoryFeatures.QueryHandler
 
     internal class GetCylindercategoryQueryHandler : IRequestHandler<GetCylindercategoryQuery, Result<IList<CylindercategoryEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetCylindercategoryQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
+        
         public async Task<Result<IList<CylindercategoryEntity>>> Handle(GetCylindercategoryQuery request, CancellationToken cancellationToken)
         {
             try

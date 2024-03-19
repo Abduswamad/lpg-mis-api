@@ -12,11 +12,6 @@ namespace Gas.Application.Features.AccessoryFeatures.QueryHandler
 
     internal class GetAccessoryByModalQueryHandler : IRequestHandler<GetAccessoryByModalQuery, Result<IList<AccessoryEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetAccessoryByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<AccessoryEntity>>> Handle(GetAccessoryByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.AccessoryFeatures.QueryHandler
                 var resp = new AccessoryService().GetAccessory(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<AccessoryEntity>>(resp);
-                    return await Result<IList<AccessoryEntity>>.SuccessAsync(response);
+                    return await Result<IList<AccessoryEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

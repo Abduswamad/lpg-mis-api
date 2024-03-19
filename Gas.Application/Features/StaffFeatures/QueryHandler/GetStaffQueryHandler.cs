@@ -10,11 +10,6 @@ namespace Gas.Application.Features.StaffFeatures.QueryHandler
 
     internal class GetStaffQueryHandler : IRequestHandler<GetStaffQuery, Result<IList<StaffEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetStaffQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<StaffEntity>>> Handle(GetStaffQuery request, CancellationToken cancellationToken)
         {
             try

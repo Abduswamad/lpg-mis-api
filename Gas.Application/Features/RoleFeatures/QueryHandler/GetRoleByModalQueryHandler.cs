@@ -12,11 +12,6 @@ namespace Gas.Application.Features.RoleFeatures.QueryHandler
 
     internal class GetRoleByModalQueryHandler : IRequestHandler<GetRoleByModalQuery, Result<IList<RoleEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetRoleByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<RoleEntity>>> Handle(GetRoleByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.RoleFeatures.QueryHandler
                 var resp = new RoleService().GetRole(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<RoleEntity>>(resp);
-                    return await Result<IList<RoleEntity>>.SuccessAsync(response);
+                    return await Result<IList<RoleEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

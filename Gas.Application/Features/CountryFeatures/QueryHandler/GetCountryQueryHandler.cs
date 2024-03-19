@@ -10,11 +10,6 @@ namespace Gas.Application.Features.CountryFeatures.QueryHandler
 
     internal class GetCountryQueryHandler : IRequestHandler<GetCountryQuery, Result<IList<CountryEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetCountryQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<CountryEntity>>> Handle(GetCountryQuery request, CancellationToken cancellationToken)
         {
             try

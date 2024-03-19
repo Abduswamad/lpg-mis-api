@@ -12,11 +12,6 @@ namespace Gas.Application.Features.ShopFeatures.QueryHandler
 
     internal class GetShopByModalQueryHandler : IRequestHandler<GetShopByModalQuery, Result<IList<ShopEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetShopByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<ShopEntity>>> Handle(GetShopByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.ShopFeatures.QueryHandler
                 var resp = new ShopService().GetShop(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<ShopEntity>>(resp);
-                    return await Result<IList<ShopEntity>>.SuccessAsync(response);
+                    return await Result<IList<ShopEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

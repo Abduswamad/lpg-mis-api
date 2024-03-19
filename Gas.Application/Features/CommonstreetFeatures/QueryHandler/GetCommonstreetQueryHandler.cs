@@ -10,11 +10,6 @@ namespace Gas.Application.Features.CommonstreetFeatures.QueryHandler
 
     internal class GetCommonstreetQueryHandler : IRequestHandler<GetCommonstreetQuery, Result<IList<CommonstreetEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetCommonstreetQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<CommonstreetEntity>>> Handle(GetCommonstreetQuery request, CancellationToken cancellationToken)
         {
             try

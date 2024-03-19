@@ -10,11 +10,6 @@ namespace Gas.Application.Features.DepoFeatures.QueryHandler
 
     internal class GetDepoQueryHandler : IRequestHandler<GetDepoQuery, Result<IList<DepoEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetDepoQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<DepoEntity>>> Handle(GetDepoQuery request, CancellationToken cancellationToken)
         {
             try

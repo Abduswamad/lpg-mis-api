@@ -10,7 +10,6 @@ namespace Gas.Model.CompanyManagement
     {
         public string Cylindername { get; set; } = string.Empty;
         public int? Superdealer { get; set; }
-        public int? Cylindercategory { get; set; }
         public int? Cylindercompany { get; set; }
 
     }
@@ -19,7 +18,6 @@ namespace Gas.Model.CompanyManagement
         public int? Cylinderid { get; set; }
         public string Cylindername { get; set; } = string.Empty;
         public int? Superdealer { get; set; }
-        public int? Cylindercategory { get; set; }
         public int? Cylindercompany { get; set; }
 
     }
@@ -29,7 +27,6 @@ namespace Gas.Model.CompanyManagement
         public int? Cylinderid { get; set; }
         public string Cylindername { get; set; } = string.Empty;
         public int? Superdealer { get; set; }
-        public int? Cylindercategory { get; set; }
         public int? Cylindercompany { get; set; }
 
     }
@@ -39,7 +36,6 @@ namespace Gas.Model.CompanyManagement
         public int? Cylinderid { get; set; }
         public string Cylindername { get; set; } = string.Empty;
         public int? Superdealer { get; set; }
-        public int? Cylindercategory { get; set; }
         public int? Cylindercompany { get; set; }
         public bool? IsActive { get; set; }
 

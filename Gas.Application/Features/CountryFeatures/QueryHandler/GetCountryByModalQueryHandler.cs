@@ -12,11 +12,6 @@ namespace Gas.Application.Features.CountryFeatures.QueryHandler
 
     internal class GetCountryByModalQueryHandler : IRequestHandler<GetCountryByModalQuery, Result<IList<CountryEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetCountryByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<CountryEntity>>> Handle(GetCountryByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.CountryFeatures.QueryHandler
                 var resp = new CountryService().GetCountry(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<CountryEntity>>(resp);
-                    return await Result<IList<CountryEntity>>.SuccessAsync(response);
+                    return await Result<IList<CountryEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

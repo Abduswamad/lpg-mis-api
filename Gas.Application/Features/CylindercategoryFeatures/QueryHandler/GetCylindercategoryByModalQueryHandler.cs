@@ -24,8 +24,8 @@ namespace Gas.Application.Features.CylindercategoryFeatures.QueryHandler
                 var resp = new CylindercategoryService().GetCylindercategory(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<CylindercategoryEntity>>(resp);
-                    return await Result<IList<CylindercategoryEntity>>.SuccessAsync(response);
+                    //var response = _mapper.Map<List<CylindercategoryEntity>>(resp);
+                    return await Result<IList<CylindercategoryEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

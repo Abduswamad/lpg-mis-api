@@ -10,11 +10,6 @@ namespace Gas.Application.Features.DistrictFeatures.QueryHandler
 
     internal class GetDistrictQueryHandler : IRequestHandler<GetDistrictQuery, Result<IList<DistrictEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetDistrictQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<DistrictEntity>>> Handle(GetDistrictQuery request, CancellationToken cancellationToken)
         {
             try

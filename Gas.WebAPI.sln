@@ -21,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gas.Console", "Gas.Console\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gas.Model", "Gas.Model\Gas.Model.csproj", "{E75BA538-63B1-40AB-8F5B-ADFBA063253B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gas.WebAppAPI", "Gas.WebAppAPI\Gas.WebAppAPI.csproj", "{6552E0CB-DD28-4E3F-89A3-CFC57FD45E74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gas.WebAPI", "Gas.WebAppAPI\Gas.WebAPI.csproj", "{6552E0CB-DD28-4E3F-89A3-CFC57FD45E74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gas.WebApplication", "Gms.WebApplication\Gas.WebApplication.csproj", "{1AD43633-A6B2-42C2-ABFF-44A51992E58F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{6552E0CB-DD28-4E3F-89A3-CFC57FD45E74}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6552E0CB-DD28-4E3F-89A3-CFC57FD45E74}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6552E0CB-DD28-4E3F-89A3-CFC57FD45E74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AD43633-A6B2-42C2-ABFF-44A51992E58F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD43633-A6B2-42C2-ABFF-44A51992E58F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD43633-A6B2-42C2-ABFF-44A51992E58F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD43633-A6B2-42C2-ABFF-44A51992E58F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

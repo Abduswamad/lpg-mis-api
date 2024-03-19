@@ -12,11 +12,6 @@ namespace Gas.Application.Features.DepoFeatures.QueryHandler
 
     internal class GetDepoByModalQueryHandler : IRequestHandler<GetDepoByModalQuery, Result<IList<DepoEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetDepoByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<DepoEntity>>> Handle(GetDepoByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.DepoFeatures.QueryHandler
                 var resp = new DepoService().GetDepo(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<DepoEntity>>(resp);
-                    return await Result<IList<DepoEntity>>.SuccessAsync(response);
+                    return await Result<IList<DepoEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

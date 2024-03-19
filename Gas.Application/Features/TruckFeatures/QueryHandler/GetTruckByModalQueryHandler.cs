@@ -12,11 +12,6 @@ namespace Gas.Application.Features.TruckFeatures.QueryHandler
 
     internal class GetTruckByModalQueryHandler : IRequestHandler<GetTruckByModalQuery, Result<IList<TruckEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetTruckByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<TruckEntity>>> Handle(GetTruckByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.TruckFeatures.QueryHandler
                 var resp = new TruckService().GetTruck(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<TruckEntity>>(resp);
-                    return await Result<IList<TruckEntity>>.SuccessAsync(response);
+                    return await Result<IList<TruckEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

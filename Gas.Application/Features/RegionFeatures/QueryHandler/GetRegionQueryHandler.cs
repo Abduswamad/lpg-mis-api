@@ -10,11 +10,6 @@ namespace Gas.Application.Features.RegionFeatures.QueryHandler
 
     internal class GetRegionQueryHandler : IRequestHandler<GetRegionQuery, Result<IList<RegionEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetRegionQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<RegionEntity>>> Handle(GetRegionQuery request, CancellationToken cancellationToken)
         {
             try

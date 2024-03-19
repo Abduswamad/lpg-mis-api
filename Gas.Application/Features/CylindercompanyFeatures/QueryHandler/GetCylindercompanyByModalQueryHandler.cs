@@ -12,11 +12,6 @@ namespace Gas.Application.Features.CylindercompanyFeatures.QueryHandler
 
     internal class GetCylindercompanyByModalQueryHandler : IRequestHandler<GetCylindercompanyByModalQuery, Result<IList<CylindercompanyEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetCylindercompanyByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<CylindercompanyEntity>>> Handle(GetCylindercompanyByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.CylindercompanyFeatures.QueryHandler
                 var resp = new CylindercompanyService().GetCylindercompany(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<CylindercompanyEntity>>(resp);
-                    return await Result<IList<CylindercompanyEntity>>.SuccessAsync(response);
+                    return await Result<IList<CylindercompanyEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

@@ -10,11 +10,6 @@ namespace Gas.Application.Features.GenderFeatures.QueryHandler
 
     internal class GetGenderQueryHandler : IRequestHandler<GetGenderQuery, Result<IList<GenderEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetGenderQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<GenderEntity>>> Handle(GetGenderQuery request, CancellationToken cancellationToken)
         {
             try

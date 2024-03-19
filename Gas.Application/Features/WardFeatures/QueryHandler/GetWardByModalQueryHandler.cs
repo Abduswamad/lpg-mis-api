@@ -12,11 +12,6 @@ namespace Gas.Application.Features.WardFeatures.QueryHandler
 
     internal class GetWardByModalQueryHandler : IRequestHandler<GetWardByModalQuery, Result<IList<WardEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetWardByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<WardEntity>>> Handle(GetWardByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.WardFeatures.QueryHandler
                 var resp = new WardService().GetWard(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<WardEntity>>(resp);
-                    return await Result<IList<WardEntity>>.SuccessAsync(response);
+                    return await Result<IList<WardEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

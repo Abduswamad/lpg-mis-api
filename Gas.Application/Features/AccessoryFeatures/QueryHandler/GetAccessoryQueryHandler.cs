@@ -10,11 +10,6 @@ namespace Gas.Application.Features.AccessoryFeatures.QueryHandler
 
     internal class GetAccessoryQueryHandler : IRequestHandler<GetAccessoryQuery, Result<IList<AccessoryEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetAccessoryQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<AccessoryEntity>>> Handle(GetAccessoryQuery request, CancellationToken cancellationToken)
         {
             try

@@ -12,11 +12,7 @@ namespace Gas.Application.Features.GenderFeatures.QueryHandler
 
     internal class GetGenderByModalQueryHandler : IRequestHandler<GetGenderByModalQuery, Result<IList<GenderEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetGenderByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
+       
         public async Task<Result<IList<GenderEntity>>> Handle(GetGenderByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +20,7 @@ namespace Gas.Application.Features.GenderFeatures.QueryHandler
                 var resp = new GenderService().GetGender(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<GenderEntity>>(resp);
-                    return await Result<IList<GenderEntity>>.SuccessAsync(response);
+                    return await Result<IList<GenderEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

@@ -12,11 +12,6 @@ namespace Gas.Application.Features.AccessorybrandFeatures.QueryHandler
 
     internal class GetAccessorybrandByModalQueryHandler : IRequestHandler<GetAccessorybrandByModalQuery, Result<IList<AccessorybrandEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetAccessorybrandByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<AccessorybrandEntity>>> Handle(GetAccessorybrandByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +19,7 @@ namespace Gas.Application.Features.AccessorybrandFeatures.QueryHandler
                 var resp = new AccessorybrandService().GetAccessorybrand(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<AccessorybrandEntity>>(resp);
-                    return await Result<IList<AccessorybrandEntity>>.SuccessAsync(response);
+                    return await Result<IList<AccessorybrandEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

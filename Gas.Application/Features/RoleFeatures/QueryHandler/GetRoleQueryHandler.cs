@@ -10,11 +10,6 @@ namespace Gas.Application.Features.RoleFeatures.QueryHandler
 
     internal class GetRoleQueryHandler : IRequestHandler<GetRoleQuery, Result<IList<RoleEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetRoleQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<RoleEntity>>> Handle(GetRoleQuery request, CancellationToken cancellationToken)
         {
             try

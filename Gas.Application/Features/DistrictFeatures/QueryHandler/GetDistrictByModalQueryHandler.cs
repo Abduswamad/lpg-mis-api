@@ -12,11 +12,7 @@ namespace Gas.Application.Features.DistrictFeatures.QueryHandler
 
     internal class GetDistrictByModalQueryHandler : IRequestHandler<GetDistrictByModalQuery, Result<IList<DistrictEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetDistrictByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
+       
         public async Task<Result<IList<DistrictEntity>>> Handle(GetDistrictByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +20,7 @@ namespace Gas.Application.Features.DistrictFeatures.QueryHandler
                 var resp = new DistrictService().GetDistrict(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<DistrictEntity>>(resp);
-                    return await Result<IList<DistrictEntity>>.SuccessAsync(response);
+                    return await Result<IList<DistrictEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

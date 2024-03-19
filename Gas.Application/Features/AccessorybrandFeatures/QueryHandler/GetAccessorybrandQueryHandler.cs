@@ -10,11 +10,6 @@ namespace Gas.Application.Features.AccessorybrandFeatures.QueryHandler
 
     internal class GetAccessorybrandQueryHandler : IRequestHandler<GetAccessorybrandQuery, Result<IList<AccessorybrandEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetAccessorybrandQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<AccessorybrandEntity>>> Handle(GetAccessorybrandQuery request, CancellationToken cancellationToken)
         {
             try

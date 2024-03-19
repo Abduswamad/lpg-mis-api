@@ -12,11 +12,7 @@ namespace Gas.Application.Features.RegionFeatures.QueryHandler
 
     internal class GetRegionByModalQueryHandler : IRequestHandler<GetRegionByModalQuery, Result<IList<RegionEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetRegionByModalQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
+       
         public async Task<Result<IList<RegionEntity>>> Handle(GetRegionByModalQuery request, CancellationToken cancellationToken)
         {
             try
@@ -24,8 +20,7 @@ namespace Gas.Application.Features.RegionFeatures.QueryHandler
                 var resp = new RegionService().GetRegion(request.rqModel);
                 if (resp.Count>0)
                 {
-                    var response = _mapper.Map<List<RegionEntity>>(resp);
-                    return await Result<IList<RegionEntity>>.SuccessAsync(response);
+                    return await Result<IList<RegionEntity>>.SuccessAsync(resp);
                 }
                 else
                 {

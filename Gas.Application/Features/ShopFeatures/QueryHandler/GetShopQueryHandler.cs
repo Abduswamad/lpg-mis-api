@@ -10,11 +10,6 @@ namespace Gas.Application.Features.ShopFeatures.QueryHandler
 
     internal class GetShopQueryHandler : IRequestHandler<GetShopQuery, Result<IList<ShopEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetShopQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<ShopEntity>>> Handle(GetShopQuery request, CancellationToken cancellationToken)
         {
             try

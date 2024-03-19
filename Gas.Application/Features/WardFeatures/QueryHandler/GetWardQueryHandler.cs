@@ -10,11 +10,6 @@ namespace Gas.Application.Features.WardFeatures.QueryHandler
 
     internal class GetWardQueryHandler : IRequestHandler<GetWardQuery, Result<IList<WardEntity>>>
     {
-        private readonly IMapper _mapper;
-        public GetWardQueryHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<IList<WardEntity>>> Handle(GetWardQuery request, CancellationToken cancellationToken)
         {
             try

@@ -16,14 +16,14 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         public static string getCylinder = $"SELECT * FROM {getcylinderqry}()";
         public static string SpInsCylinder(InsCylinderModel rqModel)
         {
-            string qry = $"SELECT * FROM {inscylinderqry}(cylinderid := {rqModel.Cylinderid}, cylindername := '{rqModel.Cylindername}', cylindercategory := {rqModel.Cylindercategory}, " +
+            string qry = $"SELECT * FROM {inscylinderqry}(cylinderid := {rqModel.Cylinderid}, cylindername := '{rqModel.Cylindername}'," +
                        $" cylindercompany := {rqModel.Cylindercompany}, superdealer := {rqModel.Superdealer}" +
                        $")";
             return qry;
         }
         public static string SpUpdateCylinder(UpdateCylinderModel rqModel)
         {
-            string qry = $"SELECT * FROM {updatecylinderqry}(cylinderid := {rqModel.Cylinderid}, cylindername := '{rqModel.Cylindername}', cylindercategory := {rqModel.Cylindercategory}, " +
+            string qry = $"SELECT * FROM {updatecylinderqry}(cylinderid := {rqModel.Cylinderid}, cylindername := '{rqModel.Cylindername}', " +
                        $" cylindercompany := {rqModel.Cylindercompany}, superdealer := {rqModel.Superdealer}" +
                        $")";
 
@@ -41,7 +41,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
               string  qry = $"SELECT * FROM {getcylinderqry}({(rqModel.Cylinderid != null ? $"Cylinderid := {rqModel.Cylinderid}, " : "")} " +
                       $"{(!string.IsNullOrEmpty(rqModel.Cylindername) ? $"Cylindername := '{rqModel.Cylindername}', " : "")} " +
                       $"{(rqModel.Superdealer != null ? $"superdealer := {rqModel.Superdealer}, " : "")} " +
-                      $"{(rqModel.Cylindercategory != null ? $"cylindercategory := {rqModel.Cylindercategory}, " : "")} " +
                       $"{(rqModel.Cylindercompany != null ? $"cylindercompany := {rqModel.Cylindercompany}, " : "")} " +
                       $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
                       $")";

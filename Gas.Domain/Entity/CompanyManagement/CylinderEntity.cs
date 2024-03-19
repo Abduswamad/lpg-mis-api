@@ -10,8 +10,6 @@ namespace Gas.Domain.Entity.CompanyManagement
     {
         public int? Cylinder_id { get; set; }
         public string Cylinder_name { get; set; } = string.Empty;    
-        public int? Cylinder_category_id { get; set; }
-        public string Cylinder_category_name { get; set; } = string.Empty;
         public int? Cylinder_company_id { get; set; }
         public string Cylinder_company_name { get; set; } = string.Empty;
         public int? Super_dealer { get; set; }
