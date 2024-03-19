@@ -1,6 +1,6 @@
-﻿using Gas.Application.Features.BatchFeatures.QueryHandler;
-using Gas.Application.Features.BatchFeatures.CommandHandler;
-using Gas.Application.Features.BatchFeatures.Validator;
+﻿using Gas.Application.Features.AccessoryBatchItemFeatures.QueryHandler;
+using Gas.Application.Features.AccessoryBatchItemFeatures.CommandHandler;
+using Gas.Application.Features.AccessoryBatchItemFeatures.Validator;
 using Gas.Common;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.StoreManagement;
@@ -11,17 +11,19 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Gas.Application.Features.BatchFeatures.QueryHandler;
+using Gas.Application.Features.BatchFeatures.Validator;
 
 namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 {
     /// <summary>
-    /// API Endpoint Controller for Batch Management.
+    /// API Endpoint Controller for AccessoryBatchItem Management.
     /// </summary>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class BatchManagementController : ControllerBase
+    public class AccessoryBatchItemManagementController : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
@@ -29,35 +31,35 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         private readonly IMediator _mediator;
 
         /// <summary>
-        /// API Controller Instance for Batch Management.
+        /// API Controller Instance for AccessoryBatchItem Management.
         /// </summary>
         /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public BatchManagementController(IMediator mediator)
+        public AccessoryBatchItemManagementController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        #region Batch
+        #region AccessoryBatchItem
 
         /// <summary>
-        /// API Endpoint for Displaying All Batch.
+        /// API Endpoint for Displaying All AccessoryBatchItem.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Batch Data.</returns>
+        /// <returns>The response model with AccessoryBatchItem Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpGet("GetBatch")]
+        [HttpGet("GetAccessoryBatchItem")]
         [Restrict(AllowVerbs = "GET")]
         [Produces("application/json")]        
-        [ProducesResponseType(typeof(Result<IList<BatchEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<IList<AccessoryBatchItemEntity>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetBatch()
+        public async Task<IActionResult> GetAccessoryBatchItem()
         {
             try
             {
-                var result = await _mediator.Send(new GetBatchQuery());
+                var result = await _mediator.Send(new GetAccessoryBatchItemQuery());
                 return Ok(result);
             }
             catch (Exception ex)
@@ -67,24 +69,24 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Displaying Batch by modal.
+        /// API Endpoint for Displaying AccessoryBatchItem by modal.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Batch Data.</returns>
+        /// <returns>The response model with AccessoryBatchItem Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPost("GetBatchByModel")]
+        [HttpPost("GetAccessoryBatchItemByModel")]
         [Restrict(AllowVerbs = "POST")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(Result<IList<BatchEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<IList<AccessoryBatchItemEntity>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetBatch(GetBatchModel? rqModel)
+        public async Task<IActionResult> GetAccessoryBatchItem(GetAccessoryBatchItemModel? rqModel)
         {
             try
             {
-                var result = await _mediator.Send(new GetBatchByModalQuery(rqModel));
+                var result = await _mediator.Send(new GetAccessoryBatchItemByModalQuery(rqModel));
                 return Ok(result);
             }
             catch (Exception ex)
@@ -94,20 +96,20 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Adding Batch.
+        /// API Endpoint for Adding AccessoryBatchItem.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Batch Data.</returns>
+        /// <returns>The response model with AccessoryBatchItem Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPost("AddBatch")]
+        [HttpPost("AddAccessoryBatchItem")]
         [Restrict(AllowVerbs = "POST")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> AddBatch(AddBatchModel rqModel)
+        public async Task<IActionResult> AddAccessoryBatchItem(AddAccessoryBatchItemModel rqModel)
         {
             try
             {
@@ -115,7 +117,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 if (rqModel != null)
                 {
                     // Validate the model
-                    var validator = new AddBatchValidator(); // Assuming you have a validator for AddBatchModel
+                    var validator = new AddAccessoryBatchItemValidator(); // Assuming you have a validator for AddAccessoryBatchItemModel
                     var validationResult = await validator.ValidateAsync(rqModel);
 
                     // Check if validation failed
@@ -125,12 +127,12 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                     }
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new AddBatchCommand(rqModel));
+                    var result = await _mediator.Send(new AddAccessoryBatchItemCommand(rqModel));
                     return Ok(result);
                 }
                 else
                 {
-                    return BadRequest("Batch Request Model is Invalid");
+                    return BadRequest("AccessoryBatchItem Request Model is Invalid");
                 }
 
             }
@@ -140,22 +142,21 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             }
         }
 
-
         /// <summary>
-        /// API Endpoint for Get Cylinder Store.
+        /// API Endpoint for Delete AccessoryBatchItem.
         /// </summary>
         /// <param></param>
-        /// <returns>The response model with Cylinder Store.</returns>
+        /// <returns>The response model with AccessoryBatchItem Data.</returns>
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
-        [HttpPost("GetCylinderStore")]
-        [Restrict(AllowVerbs = "POST")]
+        [HttpDelete("DeleteAccessoryBatchItem")]
+        [Restrict(AllowVerbs = "DELETE")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(Result<IList<CylinderstockEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetCylinderStore(CylinderstockModel rqModel)
+        public async Task<IActionResult> DeleteAccessoryBatchItem(DelAccessoryBatchItemModel rqModel)
         {
             try
             {
@@ -163,7 +164,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 if (rqModel != null)
                 {
                     // Validate the model
-                    var validator = new GetCylinderStoreValidator(); // Assuming you have a validator for Cylinder StockModel
+                    var validator = new DeleteAccessoryBatchItemValidator(); // Assuming you have a validator for DeleteAccessoryBatchItemModel
                     var validationResult = await validator.ValidateAsync(rqModel);
 
                     // Check if validation failed
@@ -173,7 +174,54 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                     }
 
                     // If the model is valid or null, proceed with the command
-                    var result = await _mediator.Send(new GetCylinderStockQuery(rqModel));
+                    var result = await _mediator.Send(new DeleteAccessoryBatchItemCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("AccessoryBatchItem Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Get Accessory Store.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with Accessory Store.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("GetAccessoryStore")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<AccessorystockEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetAccessoryStore(AccessorystockModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new GetAccessoryStoreValidator(); // Assuming you have a validator for Accessory StockModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new GetAccessoryStockQuery(rqModel));
                     return Ok(result);
                 }
                 else
@@ -188,8 +236,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             }
         }
 
-
-        #endregion Batch
+        #endregion AccessoryBatchItem
 
     }
 }
