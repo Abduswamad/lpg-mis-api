@@ -259,5 +259,146 @@ namespace Gas.Services.StoreManagement
             #endregion catch
         }
 
+        public QueryResEntity AddAccessoryBatchItemWithChecks(AddAccessoryBatchItemWithChecksModel rqModel)
+        {
+            try
+            {
+                QueryResEntity queryResEntity = new QueryResEntity();
+
+                BatchService batchService = new BatchService();
+
+                InsBatchModel rqBatchModel = new InsBatchModel()
+                {
+                    Batchdate = rqModel.Batchdate,
+                    Batchdepo = rqModel.Batchdepo,
+                    Batchdriver = rqModel.Batchdriver,
+                    Batchtruck  = rqModel.Batchtruck,
+                    Batchtype = rqModel.Batchtype,
+                };
+
+                var batch = batchService.AddBatchReturnBatch(rqBatchModel);
+
+                if(batch == 0)
+                {
+                    queryResEntity = new QueryResEntity()
+                    {
+                        Code = Codes.BadRequest,
+                        Msg = "Failed to Add batch"
+                    };
+                }
+                else
+                {
+                    foreach (var accessory in rqModel.Accessors)
+                    {
+                        AccessorystockModel? rqStoreModel = new AccessorystockModel
+                        {
+                            Stockdate = rqModel.Stockdate,
+                            Store = rqModel.Store,
+                            Accessoryid = accessory.Accessoryid,
+                        };
+
+                        var getStore = GetAccessorystock(rqStoreModel);
+
+                        if (getStore != null)
+                        {
+                            if (getStore.Count > 0)
+                            {
+                                if(rqModel.Batchtype == CodesBatchType.OUT)
+                                {
+                                    if (getStore[0].Total_quantity_remain >= accessory.Accessoryquantity)
+                                    {
+                                        InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                        {
+                                            Accessoryid = accessory.Accessoryid,
+                                            Accessoryquantity = accessory.Accessoryquantity,
+                                            Batchid = batch
+                                        };
+                                        queryResEntity = AddAccessoryBatchItem(rqAccessoryModel);
+                                    }
+                                    else
+                                    {
+                                        queryResEntity = new QueryResEntity()
+                                        {
+                                            Code = Codes.BadRequest,
+                                            Msg = $"Accessory Quantity Remain {getStore[0].Total_quantity_remain}"
+                                        };
+                                    }
+                                }
+                                else
+                                {
+                                    InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                    {
+                                        Accessoryid = accessory.Accessoryid,
+                                        Accessoryquantity = accessory.Accessoryquantity,
+                                        Batchid = batch
+                                    };
+                                    queryResEntity = AddAccessoryBatchItem(rqAccessoryModel);
+                                }
+                            }
+                            else
+                            {
+                                queryResEntity = new QueryResEntity()
+                                {
+                                    Code = Codes.BadRequest,
+                                    Msg = $"Accessory Store is Empty"
+                                };
+                            }
+                        }
+                        else
+                        {
+                            queryResEntity = new QueryResEntity()
+                            {
+                                Code = Codes.BadRequest,
+                                Msg = $"Accessory Store is Empty"
+                            };
+                        }
+                    }
+                }
+               
+
+                return queryResEntity;
+
+            }
+            #region catch
+            catch (NpgsqlException ex)
+            {
+                if (ex.SqlState == "23514")
+                {
+                    // Handle a specific constraint violation (e.g., foreign key violation)
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new NpgsqlException("Foreign key constraint violation");
+                }
+                else if (ex.SqlState == "23505")
+                {
+                    // Handle another constraint violation (e.g., unique constraint violation)
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    throw new NpgsqlException("Unique constraint violation");
+                }
+                else
+                {
+                    // Handle other NpgsqlExceptions or unknown exceptions
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    throw new Exception(ex.Message);
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                Logger.Logger.Error($"SQL Exception: {ex.Message}");
+                throw new Exception("SQL Error");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Logger.Logger.Error($"Invalid Operation Exception: {ex.Message}");
+                throw new InvalidOperationException("Invalid Operation");
+            }
+            catch (TimeoutException ex)
+            {
+                Logger.Logger.Error($"Timeout Exception: {ex.Message}");
+                throw new TimeoutException("Request TimeOut");
+            }
+            #endregion catch
+        }
+    
     }
 }

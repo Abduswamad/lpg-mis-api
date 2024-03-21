@@ -38,4 +38,23 @@ namespace Gas.Model.StoreManagement
         public int? Cylinderquantity { get; set; }
     }
 
+    public class CylinderBatchItemListModel
+    {
+        public int? Cylinderid { get; set; }
+        public int? Cylinderstatus { get; set; }
+        public int? Cylinderquantity { get; set; }
+    }
+    public class AddCylinderBatchItemWithChecksModel
+    {
+        public int? Batchtype { get; set; }
+        public int? Batchtruck { get; set; }
+        public int? Batchdriver { get; set; }
+        public int? Batchdepo { get; set; }
+        public DateTime? Batchdate { get; set; }
+        public int? Store { get; set; }
+        public DateTime? Stockdate { get; set; }
+        public List<CylinderBatchItemListModel?> Cylinders { get; set; } = new List<CylinderBatchItemListModel?>();
+
+    }
+
 }

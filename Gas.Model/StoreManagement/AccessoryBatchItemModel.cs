@@ -42,4 +42,24 @@ namespace Gas.Model.StoreManagement
 
     }
 
+    public class AccessoryBatchItemListModel
+    {
+        public int? Accessoryid { get; set; }
+        public int? Accessoryquantity { get; set; }
+       
+    }
+
+    public class AddAccessoryBatchItemWithChecksModel
+    {
+        public int? Batchtype { get; set; }
+        public int? Batchtruck { get; set; }
+        public int? Batchdriver { get; set; }
+        public int? Batchdepo { get; set; }
+        public DateTime? Batchdate { get; set; }
+        public int? Store { get; set; }
+        public DateTime? Stockdate { get; set; }
+        public List<AccessoryBatchItemListModel?> Accessors { get;set; } = new List<AccessoryBatchItemListModel?>();
+
+    }
+
 }

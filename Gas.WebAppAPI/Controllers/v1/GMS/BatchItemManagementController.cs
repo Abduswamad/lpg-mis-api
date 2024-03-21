@@ -11,6 +11,8 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Gas.Application.Features.BatchFeatures.QueryHandler;
+using Gas.Application.Features.BatchFeatures.Validator;
 
 namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 {
@@ -173,6 +175,100 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new DeleteBatchItemCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("BatchItem Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Get Cylinder Store.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with Cylinder Store.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("GetCylinderStore")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<CylinderstockEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetCylinderStore(CylinderstockModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new GetCylinderStoreValidator(); // Assuming you have a validator for Cylinder StockModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new GetCylinderStockQuery(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Batch Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Adding BatchItem With Checks.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with BatchItem Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("AddBatchItemWithCheck")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> AddBatchItemWithCheck(AddCylinderBatchItemWithChecksModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new AddCylinderBatchItemWithChecksModelValidator(); // Assuming you have a validator for AddBatchItemModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new AddBatchItemWithChecksCommand(rqModel));
                     return Ok(result);
                 }
                 else

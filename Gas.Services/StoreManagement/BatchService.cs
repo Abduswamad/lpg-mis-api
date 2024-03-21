@@ -128,8 +128,8 @@ namespace Gas.Services.StoreManagement
                     number = data[0].Batch_id + 1;
                 }
                 rqModel.Batchid = number;
-                IList<QueryResEntity> Cylindercategory = conn.spGetData<QueryResEntity>(null, SpBatch.SpInsertBatch(rqModel));
-                return Cylindercategory.First();
+                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpBatch.SpInsertBatch(rqModel));
+                return batch.First();
 
             }
             #region catch
@@ -173,12 +173,28 @@ namespace Gas.Services.StoreManagement
             #endregion catch
         }
 
-        public IList<CylinderstockEntity> GetCylinderstock(CylinderstockModel? rqModel)
+        public int? AddBatchReturnBatch(InsBatchModel rqModel)
         {
             try
             {
-                IList<CylinderstockEntity> Batch = conn.spGetData<CylinderstockEntity>(null, SpBatch.SpGetCylinderStock(rqModel!));
-                return Batch;
+                int? number = 0;
+                var data = GetBatch(null).OrderByDescending(x => x.Batch_id).ToList();
+                if (data.Count <= 0)
+                {
+                    number = 1;
+                }
+                else
+                {
+                    number = data[0].Batch_id + 1;
+                }
+                rqModel.Batchid = number;
+                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpBatch.SpInsertBatch(rqModel));
+                if(batch.First().Code == 200)
+                {
+                    return number;
+                }
+                return number;
+
             }
             #region catch
             catch (NpgsqlException ex)
@@ -220,6 +236,8 @@ namespace Gas.Services.StoreManagement
             }
             #endregion catch
         }
+
+        
 
     }
 }

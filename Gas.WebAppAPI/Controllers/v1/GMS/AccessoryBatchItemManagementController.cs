@@ -236,6 +236,53 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             }
         }
 
+        /// <summary>
+        /// API Endpoint for Adding AccessoryBatchItem with checks.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with AccessoryBatchItem Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("AddAccessoryBatchItemWithChecks")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> AddAccessoryBatchItemWithChecks(AddAccessoryBatchItemWithChecksModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new AddAccessoryBatchItemWithChecksModelValidator(); // Assuming you have a validator for AddAccessoryBatchItemModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new AddAccessoryBatchItemWithChecksCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("AccessoryBatchItem Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         #endregion AccessoryBatchItem
 
     }

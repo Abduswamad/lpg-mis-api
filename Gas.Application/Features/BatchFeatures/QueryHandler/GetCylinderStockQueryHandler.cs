@@ -16,7 +16,7 @@ namespace Gas.Application.Features.BatchFeatures.QueryHandler
         {
             try
             {
-                var resp = new BatchService().GetCylinderstock(request.rqModel);
+                var resp = new BatchItemService().GetCylinderstock(request.rqModel);
                 if (resp.Count>0)
                 {
                     //var response = _mapper.Map<List<CylinderstockEntity>>(resp);

@@ -14,7 +14,12 @@
     {
         public static string Success = "Successfull";
         public static string DefaultPassword = "@1234";
+    }
 
+    public static class CodesBatchType
+    {
+        public static int IN = 1;
+        public static int OUT = 2;
     }
 
 }
