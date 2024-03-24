@@ -127,16 +127,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gas API v1");
-    });
+   
 }
 else
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
+}
+
+if (bool.Parse(builder.Configuration["ShowSwagger"]))
+{
+    app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gas API v1");
     });
 }

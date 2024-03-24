@@ -14,11 +14,6 @@ namespace Gas.Application.Features.AccountFeatures.CommandHandler
 
     internal class StaffLoginCommandHandler : IRequestHandler<StaffLoginCommand, Result<StaffLoginEntity>>
     {
-        private readonly IMapper _mapper;
-        public StaffLoginCommandHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<StaffLoginEntity>> Handle(StaffLoginCommand request, CancellationToken cancellationToken)
         {
             try

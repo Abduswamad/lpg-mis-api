@@ -2,13 +2,9 @@
 using Gas.Utils.Settings;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Gas.Services
 {
@@ -31,14 +27,14 @@ namespace Gas.Services
                     Subject = new ClaimsIdentity(
                         new Claim[]
                         {
-                            new Claim(ClaimTypes.Name, result.StaffDetails.Username),
-                            new Claim(ClaimTypes.Email, result.StaffDetails.Email),
-                            new Claim(ClaimTypes.GivenName, result.StaffDetails.First_name),
-                            new Claim(ClaimTypes.Surname, result.StaffDetails.Last_name),
-                            new Claim(ClaimTypes.StreetAddress, result.StaffDetails.Common_street_name),
-                            new Claim(ClaimTypes.MobilePhone, result.StaffDetails.Phone_number),
-                            new Claim(ClaimTypes.Role, JsonConvert.SerializeObject(result.StaffRole)),
-                            new Claim(ClaimTypes.UserData, JsonConvert.SerializeObject(result.StaffDetails)),
+                            new Claim("Name", result.StaffDetails.Username),
+                            new Claim("Email", result.StaffDetails.Email),
+                            new Claim("GivenName", result.StaffDetails.First_name),
+                            new Claim("Surname", result.StaffDetails.Last_name),
+                            new Claim("StreetAddress", result.StaffDetails.Common_street_name),
+                            new Claim("MobilePhone", result.StaffDetails.Phone_number),
+                            new Claim("Role", JsonConvert.SerializeObject(result.StaffRole)),
+                            new Claim("UserData", JsonConvert.SerializeObject(result.StaffDetails)),
                         }),
                     NotBefore = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddHours(4),
