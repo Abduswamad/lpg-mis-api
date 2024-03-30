@@ -1,20 +1,14 @@
 using Gas.Application;
 using Gas.Application.Common.Exceptions;
-using Gas.Utils;
 using Gas.Infrastructure;
+using Gas.Utils;
 using Gas.Utils.Settings;
 using Gas.WebAppAPI.ServiceDependencies;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
-using Steeltoe.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Gas.Domain.Enums;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +33,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.ResolveConflictingActions(x => x.First());
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GMS-API", Version = "v1", Description = "Gas Management API" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GMS-API", Version = "v1", Description = "Gas Management System API" });
     // To Enable authorization using Swagger (JWT)  
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
