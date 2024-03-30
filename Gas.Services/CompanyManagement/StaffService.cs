@@ -133,8 +133,17 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Staff_id + 1;
                 }
-                string userpass = UserUtils.CapitalizeFirstLetter($"{rqModel.Firstname.ToLower()}.{rqModel.Lastname}") + CodesMessage.DefaultPassword;
+                string userpass = UserUtils.CapitalizeFirstLetter($"{rqModel.Firstname.ToLower()}.{rqModel.Lastname.ToLower()}") + CodesMessage.DefaultPassword;
                 string password = UserUtils.ComputePasswordHash(userpass);
+                if(data.Where(x=>x.Email.ToLower() == rqModel.Staffemail.ToLower()).ToList().Count > 0)
+                {
+                    QueryResEntity res = new()
+                    {
+                        Code = Codes.BadRequest,
+                        Msg = $"Staff with Email {rqModel.Staffemail} already exist with Staff username {data[0].Username}"
+                    };
+                    return res;
+                }
                 var CheckUserExist = data.Where(x => x.Username.ToLower() == rqModel.Staffusername.ToLower() || x.Staff_id_number.ToLower() == rqModel.Staffidnumber).ToList();
 
                 if (CheckUserExist.Count > 0)

@@ -1,4 +1,7 @@
-﻿using Gas.Application.Features.AccountFeatures.CommandHandler;
+﻿using FluentValidation;
+using Gas.Application.Features.AccountFeatures.CommandHandler;
+using Gas.Application.Features.AccountFeatures.Validator;
+using Gas.Application.Features.BatchItemFeatures.Validator;
 using Gas.Application.Features.StaffFeatures.CommandHandler;
 using Gas.Common;
 using Gas.Domain.Entities;
@@ -60,7 +63,15 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
                
                 if (rqModel != null)
                 {
+                    // Validate the model
+                    var validator = new ChangePasswordValidator();
+                    var validationResult = await validator.ValidateAsync(rqModel);
 
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new StaffChangePasswordCommand(rqModel));
                     return Ok(result);
@@ -99,7 +110,15 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
 
                 if (rqModel != null)
                 {
+                    // Validate the model
+                    var validator = new ChangePasswordOnResetValidator();
+                    var validationResult = await validator.ValidateAsync(rqModel);
 
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new StaffResetPasswordCommand(rqModel));
                     return Ok(result);
@@ -138,7 +157,15 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
 
                 if (rqModel != null)
                 {
+                    // Validate the model
+                    var validator = new ChangePasswordOnLoginValidator();
+                    var validationResult = await validator.ValidateAsync(rqModel);
 
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new StaffChangePasswordOnLoginCommand(rqModel));
                     return Ok(result);

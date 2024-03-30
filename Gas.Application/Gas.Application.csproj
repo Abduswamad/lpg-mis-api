@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="Features\AccountFeatures\MapperProfile\" />
     <Folder Include="Features\AccountFeatures\QueryHandler\" />
-    <Folder Include="Features\AccountFeatures\Validator\" />
     <Folder Include="Features\CylinderFeatures\Validator\" />
     <Folder Include="Features\BatchTypeFeatures\CommandHandler\" />
     <Folder Include="Features\BatchTypeFeatures\MapperProfile\" />
