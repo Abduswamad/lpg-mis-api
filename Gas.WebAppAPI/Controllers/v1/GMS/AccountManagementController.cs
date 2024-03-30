@@ -177,7 +177,6 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
 
                 if (rqModel != null)
                 {
-
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new UpdateStaffStatusCommand(rqModel));
                     return Ok(result);
