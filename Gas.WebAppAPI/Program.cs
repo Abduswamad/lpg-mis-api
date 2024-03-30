@@ -126,8 +126,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-   
+    app.UseSwagger();   
 }
 else
 {
@@ -140,6 +139,7 @@ if (bool.Parse(builder.Configuration["ShowSwagger"]))
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gas API v1");
     });
 }
+
 app.UseRouting();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

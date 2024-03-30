@@ -85,9 +85,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
             return qry;
         }
 
-        public static string SpChangePasswordOnFirstLogin(RequestStaffpassChangeModel rqModel)
+        public static string SpChangePasswordOnFirstLogin(RequestStaffpassChangeOnLoginModel rqModel)
         {
-            string qry = $"SELECT * FROM {updatestaffqry}(staffid := {rqModel.Staffid},staffpassword := '{rqModel.Staffpassword}', isfirsttime := false)";
+            string qry = $"SELECT * FROM {updatestaffqry}(staffusername := {rqModel.Staffusername},staffpassword := '{rqModel.Staffpassword}', isfirsttime := false)";
             return qry;
         }
 

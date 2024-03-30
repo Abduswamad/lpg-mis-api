@@ -8,7 +8,7 @@ using MediatR;
 
 namespace Gas.Application.Features.AccountFeatures.CommandHandler
 {
-    public record StaffChangePasswordOnLoginCommand(RequestStaffpassChangeModel Request) : IRequest<Result<QueryResEntity>>;
+    public record StaffChangePasswordOnLoginCommand(RequestStaffpassChangeOnLoginModel Request) : IRequest<Result<QueryResEntity>>;
 
     internal class StaffChangePasswordOnLoginCommandHandler : IRequestHandler<StaffChangePasswordOnLoginCommand, Result<QueryResEntity>>
     {

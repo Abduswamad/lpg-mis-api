@@ -14,7 +14,7 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Staff Management.
     /// </summary>
-    [Authorize()]
+    
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
@@ -52,6 +52,7 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        [Authorize()]
         public async Task<IActionResult> ChangeStaffPassword(RequestStaffpassChangeModel rqModel)
         {
             try
@@ -90,6 +91,7 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        [Authorize()]
         public async Task<IActionResult> ResetStaffPassword(RequestStaffResetpassChangeModel rqModel)
         {
             try
@@ -129,7 +131,7 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> ChangeStaffPasswordOnLogin(RequestStaffpassChangeModel rqModel)
+        public async Task<IActionResult> ChangeStaffPasswordOnLogin(RequestStaffpassChangeOnLoginModel rqModel)
         {
             try
             {
@@ -167,6 +169,7 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        [Authorize()]
         public async Task<IActionResult> UpdateStaffStatus(RequestStaffStatusModel rqModel)
         {
             try

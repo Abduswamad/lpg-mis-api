@@ -336,21 +336,33 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckUserExist.Count <= 0)
                 {
-                    throw new Exception("Username does not exist");
+                    throw new Exception("Invalid Username or Password");
                 }
                 else
                 {
-                    if(CheckUserExist.Where(x => (bool)x.Is_first_time).ToList().Count() > 0){
+                    string password = UserUtils.ComputePasswordHash(rqModel.Password);
+                    if (CheckUserExist[0].Staff_password != password)
+                    {
+                        throw new Exception("Invalid Password");
+                    }
+                    if(CheckUserExist.Where(x => (bool)x.Is_first_time).ToList().Count() > 0)
+                    {
                         throw new Exception("Please Change Password Before you login");
                     }
-                    string password = UserUtils.ComputePasswordHash(rqModel.Password);
-                    rqModel.Password = password;
-                    IList<StaffEntity> Usersresp = conn.spGetData<StaffEntity>(null, SpStaff.SpGetStaffLogin(rqModel));
-                    if(Usersresp.Count > 0)
+                    if (CheckUserExist.Where(x => !(bool)x.Is_active).ToList().Count() > 0)
                     {
-                        return CheckUserExist[0];
+                        throw new Exception("User InActive, Please Contact System Administrator");
                     }
-                    throw new Exception("Invalid UserName or PassWord");
+                    return CheckUserExist[0];
+
+                //    rqModel.Password = password;
+                //    IList<StaffEntity> Usersresp = conn.spGetData<StaffEntity>(null, SpStaff.SpGetStaffLogin(rqModel));
+                //    if(Usersresp.Count > 0)
+                //    {
+                //        return CheckUserExist[0];
+                //    }
+                //    throw new Exception("Invalid UserName or PassWord");
+                //
                 }
 
             }
@@ -549,26 +561,27 @@ namespace Gas.Services.CompanyManagement
             #endregion catch
         }
 
-        public QueryResEntity StaffChangePasswordOnLogin(RequestStaffpassChangeModel rqModel)
+        public QueryResEntity StaffChangePasswordOnLogin(RequestStaffpassChangeOnLoginModel rqModel)
         {
             try
             {
                 var data = GetStaff(null).OrderByDescending(x => x.Staff_id).ToList();
 
-                var CheckUserExist = data.Where(x => x.Staff_id == rqModel.Staffid).ToList();
+                var CheckUserExist = data.Where(x => x.Username == rqModel.Staffusername).ToList();
 
                 if (CheckUserExist.Count <= 0)
                 {
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
-                        Msg = $"Staff ID doesn't Exist"
+                        Msg = $"Staff Name doesn't Exist"
                     };
                     return res;
                 }
                 else
                 {
                     string password = UserUtils.ComputePasswordHash(rqModel.Oldpassword);
+
                     string newpassword = UserUtils.ComputePasswordHash(rqModel.Staffpassword);
 
                     if (CheckUserExist.Where(x => x.Staff_password == password).ToList().Count() <= 0)

@@ -83,6 +83,13 @@ namespace Gas.Model.CompanyManagement
         public string Oldpassword { get; set; } = string.Empty;
     }
 
+    public class RequestStaffpassChangeOnLoginModel
+    {
+        public string Staffusername { get; set; } = string.Empty;
+        public string Staffpassword { get; set; } = string.Empty;
+        public string Oldpassword { get; set; } = string.Empty;
+    }
+
     public class RequestStaffResetpassChangeModel
     {
         public int Staffid { get; set; }
