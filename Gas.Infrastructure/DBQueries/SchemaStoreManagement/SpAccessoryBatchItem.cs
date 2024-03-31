@@ -104,7 +104,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             {
                 string qry = $"SELECT * FROM {getAccessorystockqry}({(rqModel.Store != null ? $"store := {rqModel.Store}, " : "")} " +
                         $"{(rqModel.Accessoryid != null ? $"Accessoryid := {rqModel.Accessoryid}, " : "")} " +
-                        $"{(rqModel.Stockdate != null ? $"stockdate := {rqModel.Stockdate}, " : "")} " +
+                        $"{(rqModel.Stockdate != null ? $"stockdate := '{rqModel.Stockdate?.ToString("yyyy-MM-dd")}', " : "")} " +
                         $")";
 
                 string input = qry;

@@ -6,9 +6,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
     {
         #region procedures
         private static readonly string dbSchema = "store.";
-        private static readonly string getBatchqry = $"{dbSchema}ufn_insert_batch";
+        private static readonly string insertBatchqry = $"{dbSchema}ufn_insert_batch";
         private static readonly string getCylinderstockqry = $"{dbSchema}ufn_get_cylinder_stock";
-        private static readonly string insertBatchqry = $"{dbSchema}ufn_select_batch";
+        private static readonly string getBatchqry = $"{dbSchema}ufn_select_batch";
 
 
         #endregion procedures
@@ -30,7 +30,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
                       $"{(rqModel.Batchdriver != null ? $"batchdriver := {rqModel.Batchdriver}, " : "")} " +
                       $"{(rqModel.Batchdepo != null ? $"batchdepo := {rqModel.Batchdepo}, " : "")} " +
                       $"{(rqModel.Batchtruck != null ? $"batchtruck := {rqModel.Batchtruck}, " : "")} " +
-                      $"{(rqModel.Batchdate != null ? $"batchdate := {rqModel.Batchdate}, " : "")} " +
+                      $"{(rqModel.Batchdate != null ? $"batchdate := '{rqModel.Batchdate?.ToString("yyyy-MM-dd")}', " : "")} " +
                       $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
                       $")";
 
@@ -59,7 +59,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
                         $"{(rqModel.Batchdriver != null ? $"batchdriver := {rqModel.Batchdriver}, " : "")} " +
                         $"{(rqModel.Batchdepo != null ? $"batchdepo := {rqModel.Batchdepo}, " : "")} " +
                         $"{(rqModel.Batchtruck != null ? $"batchtruck := {rqModel.Batchtruck}, " : "")} " +
-                        $"{(rqModel.Batchdate != null ? $"batchdate := {rqModel.Batchdate}, " : "")} " +
+                        $"{(rqModel.Batchdate != null ? $"batchdate := '{rqModel.Batchdate?.ToString("yyyy-MM-dd")}', " : "")} " +
                         $")";
 
             string input = qry;
@@ -89,7 +89,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
                 string qry = $"SELECT * FROM {getCylinderstockqry}({(rqModel.Store != null ? $"store := {rqModel.Store}, " : "")} " +
                         $"{(rqModel.Cylinderid != null ? $"cylinderid := {rqModel.Cylinderid}, " : "")} " +
                         $"{(rqModel.Cylinderstatusid != null ? $"cylinderstatusid := {rqModel.Cylinderstatusid}, " : "")} " +
-                        $"{(rqModel.Stockdate != null ? $"stockdate := {rqModel.Stockdate}, " : "")} " +
+                        $"{(rqModel.Stockdate != null ? $"stockdate := '{rqModel.Stockdate?.ToString("yyyy-MM-dd")}', " : "")} " +
                         $")";
 
                 string input = qry;

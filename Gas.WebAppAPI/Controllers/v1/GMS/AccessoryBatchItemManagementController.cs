@@ -203,6 +203,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+      //  [AllowAnonymous]
         public async Task<IActionResult> GetAccessoryStore(AccessorystockModel rqModel)
         {
             try
