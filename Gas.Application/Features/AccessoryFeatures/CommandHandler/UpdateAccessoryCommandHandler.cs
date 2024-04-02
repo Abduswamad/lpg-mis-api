@@ -12,11 +12,6 @@ namespace Gas.Application.Features.AccessoryFeatures.CommandHandler
 
     internal class UpdateAccessoryCommandHandler : IRequestHandler<UpdateAccessoryCommand, Result<QueryResEntity>>
     {
-        private readonly IMapper _mapper;
-        public UpdateAccessoryCommandHandler(IMapper mapper)
-        {
-            _mapper = mapper;
-        }
         public async Task<Result<QueryResEntity>> Handle(UpdateAccessoryCommand request, CancellationToken cancellationToken)
         {
             try
