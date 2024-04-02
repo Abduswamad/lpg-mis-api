@@ -282,6 +282,54 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             }
         }
 
+
+        /// <summary>
+        /// API Endpoint for Adding Full BatchItem With Checks.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with BatchItem Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("AddFullBatchItemWithCheck")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> AddFullBatchItemWithCheck(AddBatchItemWithChecksModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new AddFullCylinderBatchItemWithChecksModelValidator(); // Assuming you have a validator for AddBatchItemModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new AddFullBatchItemWithChecksCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("BatchItem Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         #endregion BatchItem
 
     }

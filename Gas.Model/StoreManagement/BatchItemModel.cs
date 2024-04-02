@@ -57,4 +57,18 @@ namespace Gas.Model.StoreManagement
 
     }
 
+    public class AddBatchItemWithChecksModel
+    {
+        public int? Batchtype { get; set; }
+        public int? Batchtruck { get; set; }
+        public int? Batchdriver { get; set; }
+        public int? Batchdepo { get; set; }
+        public DateTime? Batchdate { get; set; }
+        public int? Store { get; set; }
+        public DateTime? Stockdate { get; set; }
+        public List<CylinderBatchItemListModel?> Cylinders { get; set; } = new List<CylinderBatchItemListModel?>();
+        public List<AccessoryBatchItemListModel?> Accessors { get; set; } = new List<AccessoryBatchItemListModel?>();
+
+    }
+
 }
