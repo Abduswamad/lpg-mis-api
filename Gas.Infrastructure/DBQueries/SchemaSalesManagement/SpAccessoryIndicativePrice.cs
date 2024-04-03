@@ -30,13 +30,13 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                       $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                       $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
                       $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice}, " : "")} " +
-                      $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive} " : "")} " +
+                      $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
                       $")";
 
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex >= 0)
+                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }
@@ -56,13 +56,13 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string qry = $"SELECT * FROM {insertAccessoryIndicativePriceqry}({(rqModel.Accessoryindicativepriceid != null ? $"accessoryindicativepriceid := {rqModel.Accessoryindicativepriceid}, " : "")} " +
                      $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                      $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
-                     $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice} " : "")} " +
+                     $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice}, " : "")} " +
                      $")";
 
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex >= 0)
+            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
@@ -80,13 +80,13 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string qry = $"SELECT * FROM {UpdateAccessoryIndicativePriceqry}({(rqModel.Accessoryindicativepriceid != null ? $"accessoryindicativepriceid := {rqModel.Accessoryindicativepriceid}, " : "")} " +
                      $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                      $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
-                     $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice} " : "")} " +
+                     $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice}, " : "")} " +
                      $")";
 
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex >= 0)
+            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
@@ -108,7 +108,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex >= 0)
+            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
             {
                 result = input.Remove(lastCommaIndex, 1);
             }

@@ -44,7 +44,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex >= 0)
+                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }

@@ -5,7 +5,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
     public static class SpCylindercategory
     {
         #region procedures
-        private static readonly string dbSchema = "public.";
+        private static readonly string dbSchema = "sales.";
         private static readonly string getCylindercategoryqry = $"{dbSchema}ufn_select_cylinder_category";
         private static readonly string insCylindercategoryqry = $"{dbSchema}ufn_insert_cylinder_category";
         private static readonly string updateCylindercategoryqry = $"{dbSchema}ufn_update_cylinder_category";
@@ -44,7 +44,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex >= 0)
+                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }

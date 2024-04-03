@@ -59,7 +59,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex >= 0)
+                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }
@@ -87,7 +87,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
 
         public static string SpChangePasswordOnFirstLogin(RequestStaffpassChangeOnLoginModel rqModel)
         {
-            string qry = $"SELECT * FROM {updatestaffqry}(staffusername := {rqModel.Staffusername},staffpassword := '{rqModel.Staffpassword}', isfirsttime := false)";
+            string qry = $"SELECT * FROM {updatestaffqry}(staffusername := '{rqModel.Staffusername}',staffpassword := '{rqModel.Staffpassword}', isfirsttime := false)";
             return qry;
         }
 
