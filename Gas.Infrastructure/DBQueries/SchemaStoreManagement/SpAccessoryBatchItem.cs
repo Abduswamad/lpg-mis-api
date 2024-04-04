@@ -28,7 +28,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             {
               string  qry = $"SELECT * FROM {getBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +
                       $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
-                      $"{(rqModel.Accessoryquantity != null ? $"accessoryquantity := {rqModel.Accessoryquantity}, " : "")} " +
+                      $"{(rqModel.Accessoryquantity != null ? $"cylinderquantity := {rqModel.Accessoryquantity}, " : "")} " +
                       $")";
 
                 string input = qry;
