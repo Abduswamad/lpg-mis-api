@@ -15,8 +15,8 @@ namespace Gas.Model.SalesManagement
         public int? Shopid { get; set; }
         public DateTime? Saledate { get; set; }
         public int? Salequantity { get; set; }
-        public float? Saleprice { get; set; }
-        public float? Saledescription { get; set; }
+        public double? Saleprice { get; set; }
+        public string Saledescription { get; set; } = string.Empty;
 
     }
     public class InsCylinderSaleModel
@@ -29,7 +29,7 @@ namespace Gas.Model.SalesManagement
         public int? Shopid { get; set; }
         public DateTime? Saledate { get; set; }
         public int? Salequantity { get; set; }
-        public float? Saleprice { get; set; }
+        public double? Saleprice { get; set; }
         public string? Saledescription { get; set; }
     }
 
@@ -44,7 +44,7 @@ namespace Gas.Model.SalesManagement
         public int? Shopid { get; set; }
         public DateTime? Saledate { get; set; }
         public int? Salequantity { get; set; }
-        public float? Saleprice { get; set; }
+        public double? Saleprice { get; set; }
 
     }
 

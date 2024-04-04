@@ -106,7 +106,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> AddAccessorySale(AddAccessorySaleModel rqModel)
+        public async Task<IActionResult> AddAccessorySale(AddAccessorySaleModel? rqModel)
         {
             try
             {

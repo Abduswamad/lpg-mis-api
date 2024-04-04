@@ -23,7 +23,7 @@ namespace Gas.Application.Features.CylinderSaleFeatures.Validator
         {
             return number > 0;
         }
-        private bool BeValidFloat(float? number)
+        private bool BeValidFloat(double? number)
         {
             return number > 0;
         }
