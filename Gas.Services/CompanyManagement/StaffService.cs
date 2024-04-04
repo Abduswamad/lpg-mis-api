@@ -611,6 +611,7 @@ namespace Gas.Services.CompanyManagement
                         };
                         return res;
                     }
+                    rqModel.Staffid = CheckUserExist[0].Staff_id;
                     rqModel.Staffpassword = newpassword;
                     IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpChangePasswordOnFirstLogin(rqModel));
                     return Staff.First();

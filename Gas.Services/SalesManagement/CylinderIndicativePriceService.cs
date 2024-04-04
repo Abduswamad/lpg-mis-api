@@ -1,6 +1,7 @@
 ﻿using DBConnector;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.SalesManagement;
+using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaSalesManagement;
 using Gas.Model.SalesManagement;
 using Gas.Utils.Settings;
@@ -123,6 +124,18 @@ namespace Gas.Services.SalesManagement
                 }
                 else
                 {
+                    var checkeddata = data.Where(x => x.Cylinder_id == rqModel.Cylinderid && x.Cylinder_category_id == rqModel.Cylindercategory).ToList();
+
+                    if (checkeddata.Count > 0)
+                    {
+                        QueryResEntity queryResEntity = new QueryResEntity()
+                        {
+                            Code = Codes.BadRequest,
+                            Msg = $"Cylinder already contain Price"
+                        };
+                        return queryResEntity;
+
+                    }
                     number = data[0].Cylinder_indicative_price_id + 1;
                 }
                 rqModel.Cylinderindicativepriceid = number;
@@ -175,6 +188,19 @@ namespace Gas.Services.SalesManagement
         {
             try
             {
+                var data = GetCylinderIndicativePrice(null).Where(x => x.Cylinder_id == rqModel.Cylinderid && x.Cylinder_category_id == rqModel.Cylindercategory).ToList();
+                if (data.Count > 0)
+                {
+                    if (data[0].Cylinder_indicative_price_id != rqModel.Cylinderindicativepriceid)
+                    {
+                        QueryResEntity queryResEntity = new QueryResEntity()
+                        {
+                            Code = Codes.BadRequest,
+                            Msg = "Cylinder already contain Price"
+                        };
+                        return queryResEntity;
+                    }
+                }
                 IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpCylinderIndicativePrice.SpUpdateCylinderIndicativePrice(rqModel));
                 return batch.First();
 

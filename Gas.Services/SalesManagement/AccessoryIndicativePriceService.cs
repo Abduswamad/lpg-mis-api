@@ -1,6 +1,7 @@
 ﻿using DBConnector;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.SalesManagement;
+using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaSalesManagement;
 using Gas.Model.SalesManagement;
 using Gas.Utils.Settings;
@@ -123,8 +124,21 @@ namespace Gas.Services.SalesManagement
                 }
                 else
                 {
+                    var checkeddata = data.Where(x => x.Accessory_id == rqModel.Accessoryid).ToList();
+
+                    if (checkeddata.Count > 0)
+                    {
+                        QueryResEntity queryResEntity = new QueryResEntity()
+                        {
+                            Code = Codes.BadRequest,
+                            Msg = $"Accessory already contain Price"
+                        };
+                        return queryResEntity;
+
+                    }
                     number = data[0].Accessory_indicative_price_id + 1;
                 }
+                
                 rqModel.Accessoryindicativepriceid = number;
                 IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpAccessoryIndicativePrice.SpInsertAccessoryIndicativePrice(rqModel));
                 return batch.First();
@@ -175,8 +189,22 @@ namespace Gas.Services.SalesManagement
         {
             try
             {
+                var data = GetAccessoryIndicativePrice(null).Where(x => x.Accessory_id == rqModel.Accessoryid).ToList();
+                if (data.Count > 0)
+                {
+                    if (data[0].Accessory_indicative_price_id != rqModel.Accessoryindicativepriceid)
+                    {
+                        QueryResEntity queryResEntity = new QueryResEntity()
+                        {
+                            Code = Codes.BadRequest,
+                            Msg = "Accessory already contain Price"
+                        };
+                        return queryResEntity;
+                    }                   
+                }
                 IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpAccessoryIndicativePrice.SpUpdateAccessoryIndicativePrice(rqModel));
                 return batch.First();
+
 
             }
             #region catch

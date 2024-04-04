@@ -33,13 +33,13 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                       $"{(rqModel.Saleprice != null ? $"saleprice := {rqModel.Saleprice}, " : "")} " +
                       $"{(rqModel.Saledate != null ? $"saledate := {rqModel.Saledate}, " : "")} " +
                       $"{(rqModel.Salequantity != null ? $"salequantity := {rqModel.Salequantity}, " : "")} " +
-                      $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid} " : "")} " +
+                      $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid}, " : "")} " +
                       $")";
 
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+                if (lastCommaIndex >= 0)
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }
@@ -70,7 +70,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
@@ -91,7 +91,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }

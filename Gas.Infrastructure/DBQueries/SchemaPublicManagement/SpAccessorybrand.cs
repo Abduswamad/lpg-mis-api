@@ -38,13 +38,13 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
             {
               string  qry = $"SELECT * FROM {getAccessorybrandqry}({(rqModel.Accessorybrandid != null ? $"accessorybrandid := {rqModel.Accessorybrandid}, " : "")} " +
                       $"{(!string.IsNullOrEmpty(rqModel.Accessorybrandname) ? $"accessorybrandname := '{rqModel.Accessorybrandname}', " : "")} " +
-                      $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive} " : "")} " +
+                      $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
                       $")";
 
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+                if (lastCommaIndex >= 0)
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }

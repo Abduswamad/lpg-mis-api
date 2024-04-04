@@ -36,7 +36,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+                if (lastCommaIndex >= 0)
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }
@@ -62,7 +62,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
@@ -86,7 +86,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
@@ -102,13 +102,13 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         {
             string result = "";
             string qry = $"SELECT * FROM {UpdateAccessoryIndicativePriceqry}({(rqModel.Accessoryindicativepriceid != null ? $"accessoryindicativepriceid := {rqModel.Accessoryindicativepriceid}, " : "")} " +
-                     $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive} " : "")} " +
+                     $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
                      $")";
 
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }

@@ -34,7 +34,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
                 string input = qry;
                 int lastCommaIndex = input.LastIndexOf(',');
 
-                if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+                if (lastCommaIndex >= 0)
                 {
                      result = input.Remove(lastCommaIndex, 1);
                 }
@@ -60,7 +60,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
@@ -83,7 +83,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             string input = qry;
             int lastCommaIndex = input.LastIndexOf(',');
 
-            if (lastCommaIndex != -1 && qry.EndsWith(", )") && qry.EndsWith(",)") && qry.EndsWith(",  )"))
+            if (lastCommaIndex >= 0)
             {
                 result = input.Remove(lastCommaIndex, 1);
             }
