@@ -59,7 +59,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
                         $"{(rqModel.Batchdriver != null ? $"batchdriver := {rqModel.Batchdriver}, " : "")} " +
                         $"{(rqModel.Batchdepo != null ? $"batchdepo := {rqModel.Batchdepo}, " : "")} " +
                         $"{(rqModel.Batchtruck != null ? $"batchtruck := {rqModel.Batchtruck}, " : "")} " +
-                        $"{(rqModel.Batchdate != null ? $"batchdate := '{rqModel.Batchdate?.ToString("yyyy-MM-dd")}', " : "")} " +
+                        $"{(rqModel.Batchdate != null ? $"batchdate := '{rqModel.Batchdate}', " : "")} " +
                         $")";
 
             string input = qry;

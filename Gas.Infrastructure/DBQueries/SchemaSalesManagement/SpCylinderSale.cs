@@ -33,7 +33,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                       $"{(rqModel.Driverid != null ? $"driverid := {rqModel.Driverid}, " : "")} " +
                       $"{(rqModel.Truckid != null ? $"truckid := {rqModel.Truckid}, " : "")} " +
                       $"{(rqModel.Saleprice != null ? $"saleprice := {rqModel.Saleprice}, " : "")} " +
-                      $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate}', " : "")} " +
+                      $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate?.ToString("yyyy-MM-dd")}', " : "")} " +
                       $"{(rqModel.Salequantity != null ? $"salequantity := {rqModel.Salequantity}, " : "")} " +
                       $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid}, " : "")} " +
                       $")";
@@ -64,7 +64,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                       $"{(rqModel.Driverid != null ? $"driverid := {rqModel.Driverid}, " : "")} " +
                       $"{(rqModel.Truckid != null ? $"truckid := {rqModel.Truckid}, " : "")} " +
                       $"{(rqModel.Saleprice != null ? $"saleprice := {rqModel.Saleprice}, " : "")} " +
-                      $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate?.ToString("yyyy-MM-dd")}', " : "")} " +
+                      $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate}', " : "")} " +
                       $"{(rqModel.Salequantity != null ? $"salequantity := {rqModel.Salequantity}, " : "")} " +
                       $"{(!string.IsNullOrEmpty(rqModel.Saledescription) ? $"saledescription := '{rqModel.Saledescription}', " : "")} " +
                       $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid}, " : "")} " +
