@@ -25,4 +25,12 @@ namespace Gas.Domain.Entity.SalesManagement
         public string Description { get; set; } = string.Empty;
     }
 
+    public class CylinderTotalSaleEntity
+    {
+        public string Cylinder_name { get; set; } = string.Empty;
+        public string Cylinder_category_name { get; set; } = string.Empty;
+        public int? Total_quantity { get; set; }
+        public decimal? Total_price { get; set; }
+    }
+
 }

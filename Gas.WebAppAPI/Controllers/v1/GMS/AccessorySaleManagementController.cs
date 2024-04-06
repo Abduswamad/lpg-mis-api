@@ -186,6 +186,34 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             }
         }
 
+        /// <summary>
+        /// API Endpoint for Displaying Accessory Total Sale.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with Accessory Total Sale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("GetAccessoryTotalSales")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<AccessoryTotalSaleEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetAccessoryTotalSales(SalesTotalModel? rqModel)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetAccessoryTotalSaleQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
         #endregion AccessorySale
 
     }

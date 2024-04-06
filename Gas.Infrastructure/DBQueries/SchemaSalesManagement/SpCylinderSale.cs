@@ -10,6 +10,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string insertCylinderSaleqry = $"{dbSchema}ufn_insert_cylinder_sale";
         private static readonly string getCylinderSaleqry = $"{dbSchema}ufn_select_cylinder_sale";
         private static readonly string deleteCylinderSaleqry = $"{dbSchema}ufn_delete_cylinder_sale";
+        private static readonly string getCylinderTotalSaleqry = $"{dbSchema}ufn_select_cylinder_sale_total";
 
 
         #endregion procedures
@@ -88,6 +89,28 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         {
             string result = "";
             string qry = $"SELECT * FROM {deleteCylinderSaleqry}({(rqModel.CylinderSaleid != null ? $"cylindersaleid := {rqModel.CylinderSaleid}, " : "")} " +
+                     $")";
+
+            string input = qry;
+            int lastCommaIndex = input.LastIndexOf(',');
+
+            if (lastCommaIndex >= 0)
+            {
+                result = input.Remove(lastCommaIndex, 1);
+            }
+            else
+            {
+                result = qry;
+            }
+
+            return result;
+        }
+
+        public static string SpCylinderTotalSale(SalesTotalModel? rqModel)
+        {
+            string result = "";
+            string qry = $"SELECT * FROM {getCylinderTotalSaleqry}({(rqModel.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
+                      $"{(rqModel.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
                      $")";
 
             string input = qry;

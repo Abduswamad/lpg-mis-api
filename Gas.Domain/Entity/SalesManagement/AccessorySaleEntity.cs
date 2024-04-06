@@ -23,4 +23,11 @@ namespace Gas.Domain.Entity.SalesManagement
         public string Description { get; set; } = string.Empty;
     }
 
+    public class AccessoryTotalSaleEntity
+    {
+        public string Accessory_name { get; set; } = string.Empty;
+        public int? Total_quantity { get; set; }
+        public decimal? Total_price { get; set; }
+    }
+
 }

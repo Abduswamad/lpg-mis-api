@@ -21,21 +21,28 @@ namespace Gas.Services
                 // 2. Create Private Key to Encrypted
                 var tokenKey = Encoding.ASCII.GetBytes(ServiceSettings.GetWorkerServiceSettings().Jwt.Key);
 
+                var claims = new List<Claim>();
+
+                foreach (var property in typeof(StaffEntity).GetProperties())
+                {
+                    claims.Add(new Claim(property.Name, property.GetValue(result.StaffDetails)?.ToString() ?? ""));
+                }
+
+                if (result.StaffRole != null)
+                {
+                    foreach (var role in result.StaffRole)
+                    {
+                        claims.Add(new Claim("role", role.Role_name));
+                    }
+                }
+
+               // claims.Add(new Claim("UserData", JsonConvert.SerializeObject(result.StaffDetails)));
+
+
                 //3. Create JETdescriptor
                 var tokenDescriptor = new SecurityTokenDescriptor()
                 {
-                    Subject = new ClaimsIdentity(
-                        new Claim[]
-                        {
-                            new Claim("Name", result.StaffDetails.Username),
-                            new Claim("Email", result.StaffDetails.Email),
-                            new Claim("GivenName", result.StaffDetails.First_name),
-                            new Claim("Surname", result.StaffDetails.Last_name),
-                            new Claim("StreetAddress", result.StaffDetails.Common_street_name),
-                            new Claim("MobilePhone", result.StaffDetails.Phone_number),
-                            new Claim("Role", JsonConvert.SerializeObject(result.StaffRole)),
-                            new Claim("UserData", JsonConvert.SerializeObject(result.StaffDetails)),
-                        }),
+                    Subject = new ClaimsIdentity(claims),
                     NotBefore = DateTime.UtcNow,
                     Expires = DateTime.UtcNow.AddHours(4),
                     SigningCredentials = new SigningCredentials(

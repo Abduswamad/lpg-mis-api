@@ -1,4 +1,5 @@
-﻿using Gas.Application.Features.CylinderSaleFeatures.CommandHandler;
+﻿using Gas.Application.Features.CylinderSaleFeatures.QueryHandler;
+using Gas.Application.Features.CylinderSaleFeatures.CommandHandler;
 using Gas.Application.Features.CylinderSaleFeatures.QueryHandler;
 using Gas.Application.Features.CylinderSaleFeatures.Validator;
 using Gas.Common;
@@ -185,6 +186,34 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// API Endpoint for Displaying Cylinder Total Sale.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with Cylinder Total Sale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("GetCylinderTotalSales")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<CylinderTotalSaleEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetCylinderTotalSales(SalesTotalModel? rqModel)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetCylinderTotalSaleQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         #endregion CylinderSale
 

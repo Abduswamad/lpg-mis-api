@@ -53,5 +53,11 @@ namespace Gas.Model.SalesManagement
         public int? CylinderSaleid { get; set; }
     }
 
+    public class SalesTotalModel
+    {
+        public DateTime Startdate { get; set; }
+        public DateTime Enddate { get; set; }
+    }
+
 
 }

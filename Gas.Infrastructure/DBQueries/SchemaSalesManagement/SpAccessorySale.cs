@@ -10,6 +10,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string insertAccessorySaleqry = $"{dbSchema}ufn_insert_accessory_sale";
         private static readonly string getAccessorySaleqry = $"{dbSchema}ufn_select_accessory_sale";
         private static readonly string deleteAccessorySaleqry = $"{dbSchema}ufn_delete_accessory_sale";
+        private static readonly string getAccessoryTotalSaleqry = $"{dbSchema}ufn_select_accessory_sale_total";
 
 
         #endregion procedures
@@ -86,6 +87,28 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         {
             string result = "";
             string qry = $"SELECT * FROM {deleteAccessorySaleqry}({(rqModel.AccessorySaleid != null ? $"accessorysaleid := {rqModel.AccessorySaleid}, " : "")} " +
+                     $")";
+
+            string input = qry;
+            int lastCommaIndex = input.LastIndexOf(',');
+
+            if (lastCommaIndex >= 0)
+            {
+                result = input.Remove(lastCommaIndex, 1);
+            }
+            else
+            {
+                result = qry;
+            }
+
+            return result;
+        }
+
+        public static string SpAccessoryTotalSale(SalesTotalModel? rqModel)
+        {
+            string result = "";
+            string qry = $"SELECT * FROM {getAccessoryTotalSaleqry}({(rqModel.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
+                      $"{(rqModel.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
                      $")";
 
             string input = qry;
