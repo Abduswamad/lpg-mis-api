@@ -1,4 +1,5 @@
 ﻿using DBConnector;
+using Gas.Config;
 using Gas.Domain.Entities;
 using Gas.Domain.Entity.CompanyManagement;
 using Gas.Domain.Enums;
@@ -160,6 +161,25 @@ namespace Gas.Services.CompanyManagement
                     rqModel.Staffpassword = password;
                     rqModel.Staffid = number;
                     IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpInsStaff(rqModel));
+
+
+                    //send Email after staff is Added
+                    if(Staff.Count > 0)
+                    {
+                        if (ServiceSettings.GetWorkerServiceSettings().systemFeature.SendEmail)
+                        {
+                            if (!string.IsNullOrEmpty(rqModel.Staffemail))
+                            {
+                                var sent = NotificationService.SendMailService(
+                                MessageGasConfigurations.EmailForPassword(rqModel.Staffusername,
+                                ServiceSettings.GetWorkerServiceSettings().Email.PortalURL, userpass,
+                                ServiceSettings.GetWorkerServiceSettings().Email.CompanyName), rqModel.Staffemail);
+                            }
+                            
+                        }
+                    }
+                   
+
                     return Staff.First();
                 }
 
@@ -525,6 +545,20 @@ namespace Gas.Services.CompanyManagement
 
                     rqModel.Staffpassword = newpassword;
                     IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null, SpStaff.SpResetPassword(rqModel));
+
+                    if (Staff.Count > 0)
+                    {
+                        if (ServiceSettings.GetWorkerServiceSettings().systemFeature.SendEmail)
+                        {
+                            if (!string.IsNullOrEmpty(CheckUserExist[0].Email))
+                            {
+                                var sent = NotificationService.SendMailService(
+                                MessageGasConfigurations.EmailForResetPassword(CheckUserExist[0].Username, rqModel.Staffpassword), CheckUserExist[0].Email);
+                            }
+                        }
+                    }
+                    
+
                     return Staff.First();
                 }
 

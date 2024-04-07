@@ -1,7 +1,6 @@
 ﻿using Gas.Domain.Entity.CompanyManagement;
 using Gas.Utils.Settings;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -56,6 +55,7 @@ namespace Gas.Services
             }
             catch (Exception ex)
             {
+                Logger.Logger.Error($"Error sending email: {ex.Message}");
                 return ex.Message;
             }
 
