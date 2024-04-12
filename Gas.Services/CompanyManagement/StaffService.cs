@@ -7,7 +7,6 @@ using Gas.Infrastructure.DBQueries.SchemaCompanyManagement;
 using Gas.Model.CompanyManagement;
 using Gas.Utils;
 using Gas.Utils.Settings;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
@@ -149,6 +148,17 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckUserExist.Count > 0)
                 {
+
+                    if ((bool)!CheckUserExist[0].Is_active)
+                    {
+                        RequestStaffStatusModel rqIsActiveModel = new RequestStaffStatusModel()
+                        {
+                            Staffid = (int)CheckUserExist[0].Staff_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusStaff(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,

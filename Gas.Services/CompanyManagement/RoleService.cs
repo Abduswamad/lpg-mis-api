@@ -4,9 +4,7 @@ using Gas.Domain.Entity.CompanyManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaCompanyManagement;
 using Gas.Model.CompanyManagement;
-using Gas.Utils;
 using Gas.Utils.Settings;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
@@ -132,6 +130,16 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckRoleExist.Count > 0)
                 {
+                    if ((bool)!CheckRoleExist[0].Is_active)
+                    {
+                        RequestRoleStatusModel rqIsActiveModel = new RequestRoleStatusModel()
+                        {
+                            Roleid = (int)CheckRoleExist[0].Role_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusRole(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,

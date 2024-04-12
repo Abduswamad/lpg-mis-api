@@ -1,5 +1,4 @@
-﻿using Gas.Application.Features.CylinderSaleFeatures.QueryHandler;
-using Gas.Application.Features.CylinderSaleFeatures.CommandHandler;
+﻿using Gas.Application.Features.CylinderSaleFeatures.CommandHandler;
 using Gas.Application.Features.CylinderSaleFeatures.QueryHandler;
 using Gas.Application.Features.CylinderSaleFeatures.Validator;
 using Gas.Common;
@@ -148,7 +147,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
         [HttpDelete("DeleteCylinderSale")]
-        [Restrict(AllowVerbs = "PUT")]
+        [Restrict(AllowVerbs = "DELETE")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

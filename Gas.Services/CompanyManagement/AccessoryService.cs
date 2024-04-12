@@ -128,14 +128,25 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Accessory_id + 1;
                 }
-                var CheckAccessoryExist = data.Where(x => x.Accessory_name.ToLower() == rqModel.Accessoryname.ToLower()).ToList();
+                var CheckAccessoryExist = data.Where(x => x.Accessory_name.ToLower() == rqModel.Accessoryname.ToLower() && x.Accessory_brand_id == rqModel.Accessorybrand).ToList();
 
                 if (CheckAccessoryExist.Count > 0)
                 {
+
+                    if ((bool)!CheckAccessoryExist[0].Is_active)
+                    {
+                        RequestAccessoryStatusModel rqIsActiveModel = new RequestAccessoryStatusModel()
+                        {
+                            Accessoryid = (int)CheckAccessoryExist[0].Accessory_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusAccessory(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
-                        Msg = $"Accessory with Accessory Name {rqModel.Accessoryname} already exist"
+                        Msg = $"Accessory with Accessory Name {rqModel.Accessoryname} of brand {CheckAccessoryExist[0].Accessory_brand_name} already exist"
                     };
                     return res;
                 }

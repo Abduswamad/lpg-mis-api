@@ -4,9 +4,7 @@ using Gas.Domain.Entity.CompanyManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaCompanyManagement;
 using Gas.Model.CompanyManagement;
-using Gas.Utils;
 using Gas.Utils.Settings;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
@@ -132,6 +130,16 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckDepoExist.Count > 0)
                 {
+                    if ((bool)!CheckDepoExist[0].Is_active)
+                    {
+                        RequestDepoStatusModel rqIsActiveModel = new RequestDepoStatusModel()
+                        {
+                            Depoid = (int)CheckDepoExist[0].Depo_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusDepo(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,

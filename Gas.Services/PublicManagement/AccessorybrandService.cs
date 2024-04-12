@@ -4,9 +4,7 @@ using Gas.Domain.Entity.PublicManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaPublicManagement;
 using Gas.Model.PublicManagement;
-using Gas.Utils;
 using Gas.Utils.Settings;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
@@ -144,6 +142,16 @@ namespace Gas.Services.PublicManagement
 
                 if (CheckAccessorybrandExist.Count > 0)
                 {
+                    if ((bool)!CheckAccessorybrandExist[0].Is_active)
+                    {
+                        RequestAccessorybrandStatusModel rqIsActiveModel = new RequestAccessorybrandStatusModel()
+                        {
+                            Accessorybrandid = (int)CheckAccessorybrandExist[0].Accessory_brand_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusAccessorybrand(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,

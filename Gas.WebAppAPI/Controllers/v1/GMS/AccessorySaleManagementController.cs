@@ -147,7 +147,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         /// <response code="200">Successfully.</response>
         /// <response code="400">Invalid request data.</response>
         [HttpDelete("DeleteAccessorySale")]
-        [Restrict(AllowVerbs = "PUT")]
+        [Restrict(AllowVerbs = "DELETE")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]

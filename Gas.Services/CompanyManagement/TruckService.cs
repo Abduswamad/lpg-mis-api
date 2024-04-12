@@ -4,9 +4,7 @@ using Gas.Domain.Entity.CompanyManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaCompanyManagement;
 using Gas.Model.CompanyManagement;
-using Gas.Utils;
 using Gas.Utils.Settings;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
@@ -132,6 +130,16 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckTruckExist.Count > 0)
                 {
+                    if ((bool)!CheckTruckExist[0].Is_active)
+                    {
+                        RequestTruckStatusModel rqIsActiveModel = new RequestTruckStatusModel()
+                        {
+                            Truckid = (int)CheckTruckExist[0].Truck_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusTruck(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,

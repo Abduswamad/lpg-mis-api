@@ -58,16 +58,16 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         public static string SpInsertCylinderSale(InsCylinderSaleModel? rqModel)
         {
             string result = "";
-            string qry = $"SELECT * FROM {insertCylinderSaleqry}({(rqModel.CylinderSaleid != null ? $"Cylindersaleid := {rqModel.CylinderSaleid}, " : "")} " +
-                      $"{(rqModel.Cylinderid != null ? $"Cylinderid := {rqModel.Cylinderid}, " : "")} " +
-                      $"{(rqModel.Cylindercategory != null ? $"cylindercategory := {rqModel.Cylindercategory}, " : "")} " +
+            string qry = $"SELECT * FROM {insertCylinderSaleqry}({(rqModel.CylinderSaleid != null ? $"cylindersaleid := {rqModel.CylinderSaleid}, " : "")} " +
                       $"{(rqModel.Driverid != null ? $"driverid := {rqModel.Driverid}, " : "")} " +
+                      $"{(rqModel.Cylinderid != null ? $"cylinderid := {rqModel.Cylinderid}, " : "")} " +
                       $"{(rqModel.Truckid != null ? $"truckid := {rqModel.Truckid}, " : "")} " +
-                      $"{(rqModel.Saleprice != null ? $"saleprice := {rqModel.Saleprice}, " : "")} " +
+                      $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid}, " : "")} " +
+                      $"{(rqModel.Cylindercategory != null ? $"cylindercategory := {rqModel.Cylindercategory}, " : "")} " +
                       $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate}', " : "")} " +
                       $"{(rqModel.Salequantity != null ? $"salequantity := {rqModel.Salequantity}, " : "")} " +
+                      $"{(rqModel.Saleprice != null ? $"saleprice := {rqModel.Saleprice}, " : "")} " +
                       $"{(!string.IsNullOrEmpty(rqModel.Saledescription) ? $"saledescription := '{rqModel.Saledescription}', " : "")} " +
-                      $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid}, " : "")} " +
                      $")";
 
             string input = qry;

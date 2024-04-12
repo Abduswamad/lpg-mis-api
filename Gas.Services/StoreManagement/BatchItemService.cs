@@ -3,7 +3,6 @@ using Gas.Domain.Entities;
 using Gas.Domain.Entity.StoreManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaStoreManagement;
-using Gas.Model.PublicManagement;
 using Gas.Model.StoreManagement;
 using Gas.Utils.Settings;
 using Npgsql;

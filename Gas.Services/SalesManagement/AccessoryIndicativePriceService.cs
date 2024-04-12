@@ -3,6 +3,7 @@ using Gas.Domain.Entities;
 using Gas.Domain.Entity.SalesManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaSalesManagement;
+using Gas.Model.CompanyManagement;
 using Gas.Model.SalesManagement;
 using Gas.Utils.Settings;
 using Npgsql;
@@ -128,6 +129,17 @@ namespace Gas.Services.SalesManagement
 
                     if (checkeddata.Count > 0)
                     {
+                        if ((bool)!checkeddata[0].Is_active)
+                        {
+                            UpdateAccessoryIndicativePriceStatusModel rqIsActiveModel = new UpdateAccessoryIndicativePriceStatusModel()
+                            {
+                                Accessoryindicativepriceid = (int)checkeddata[0].Accessory_indicative_price_id,
+                                IsActive = true
+                            };
+                            var status = UpdateAccessoryIndicativePriceStatus(rqIsActiveModel);
+                            return status;
+                        }
+
                         QueryResEntity queryResEntity = new QueryResEntity()
                         {
                             Code = Codes.BadRequest,

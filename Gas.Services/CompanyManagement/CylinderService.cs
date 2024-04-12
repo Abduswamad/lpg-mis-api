@@ -132,6 +132,16 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckCylinderExist.Count > 0)
                 {
+                    if ((bool)!CheckCylinderExist[0].Is_active)
+                    {
+                        RequestCylinderStatusModel rqIsActiveModel = new RequestCylinderStatusModel()
+                        {
+                            Cylinderid = (int)CheckCylinderExist[0].Cylinder_id,
+                            Isactive = true
+                        };
+                        var status = UpdateStatusCylinder(rqIsActiveModel);
+                        return status;
+                    }
                     QueryResEntity res = new()
                     {
                         Code = Codes.BadRequest,
