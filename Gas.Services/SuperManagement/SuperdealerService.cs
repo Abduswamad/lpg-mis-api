@@ -4,9 +4,7 @@ using Gas.Domain.Entity.PublicManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaPublicManagement;
 using Gas.Model.PublicManagement;
-using Gas.Utils;
 using Gas.Utils.Settings;
-using Microsoft.Extensions.Logging;
 using Npgsql;
 using System.Data.SqlClient;
 
