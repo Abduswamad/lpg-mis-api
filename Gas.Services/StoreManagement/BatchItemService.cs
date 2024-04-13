@@ -445,7 +445,7 @@ namespace Gas.Services.StoreManagement
 
                         if (getStore != null)
                         {
-                            if (getStore.Count >= 0)
+                            if (getStore.Count > 0)
                             {
                                 if (rqModel.Batchtype == CodesBatchType.OUT)
                                 {
@@ -513,7 +513,7 @@ namespace Gas.Services.StoreManagement
 
                         if (getStore != null)
                         {
-                            if (getStore.Count >= 0)
+                            if (getStore.Count > 0)
                             {
                                 if (rqModel.Batchtype == CodesBatchType.OUT)
                                 {
