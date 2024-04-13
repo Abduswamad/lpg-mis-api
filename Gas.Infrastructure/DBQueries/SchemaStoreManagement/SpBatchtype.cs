@@ -7,8 +7,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
         #region procedures
         private static readonly string dbSchema = "store.";
         private static readonly string getBatchtypeqry = $"{dbSchema}ufn_select_batch_type";
-
-        
+                
 
         #endregion procedures
 
