@@ -314,6 +314,7 @@ namespace Gas.Services.StoreManagement
 
                             queryResEntity = AddAccessoryBatchItem(rqAccessoryModel);
                         }
+                        
                         else if (getStore != null)
                         {
                             if (getStore.Count > 0)
