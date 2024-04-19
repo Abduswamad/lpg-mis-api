@@ -112,6 +112,83 @@ namespace Gas.Services.StoreManagement
             #endregion catch
         }
 
+        public FullBatchItemEntity GetBatchItemById(int Batchid)
+        {
+            FullBatchItemEntity fullBatchItemEntity = new FullBatchItemEntity();
+            List<CylinderEntity> cylinderEntities = new List<CylinderEntity>();
+            List<AccessoryEntity> accessoryEntities = new List<AccessoryEntity>();
+            GetBatchItemModel? rqModel = new GetBatchItemModel
+            {
+                Batchid = Batchid
+            };
+            var rqCylinderModel = GetBatchItem(rqModel);
+
+            if (rqCylinderModel.Count>0)
+            {
+                fullBatchItemEntity.Batch_id = rqCylinderModel[0].Batch_id;
+                fullBatchItemEntity.Batch_type_id = rqCylinderModel[0].Batch_type_id;
+                fullBatchItemEntity.Batch_type_name = rqCylinderModel[0].Batch_type_name;
+                fullBatchItemEntity.Truck_id = rqCylinderModel[0].Truck_id;
+                fullBatchItemEntity.Plate_number = rqCylinderModel[0].Plate_number;
+                fullBatchItemEntity.Driver_id = rqCylinderModel[0].Driver_id;
+                fullBatchItemEntity.Driver_name = rqCylinderModel[0].Driver_name;
+                fullBatchItemEntity.Depo_id = rqCylinderModel[0].Depo_id;
+                fullBatchItemEntity.Depo_name = rqCylinderModel[0].Depo_name;
+                fullBatchItemEntity.Batch_date = rqCylinderModel[0].Batch_date;
+
+                foreach (var item in rqCylinderModel)
+                {
+                    CylinderEntity cylinderEntity = new CylinderEntity();
+
+                    cylinderEntity.Cylinder_id = item.Cylinder_id;
+                    cylinderEntity.Cylinder_name = item.Cylinder_name;
+                    cylinderEntity.Cylinder_company_id = item.Cylinder_company_id;
+                    cylinderEntity.Cylinder_company_name = item.Cylinder_company_name;
+                    cylinderEntity.Super_dealer_id = item.Super_dealer_id;
+                    cylinderEntity.Super_dealer_name = item.Super_dealer_name;
+                    cylinderEntity.Cylinder_status_id = item.Cylinder_status_id;
+                    cylinderEntity.Cylinder_status_name = item.Cylinder_status_name;
+                    cylinderEntity.Cylinder_quantity = item.Cylinder_quantity;
+
+                    cylinderEntities.Add(cylinderEntity);
+
+                }
+
+                fullBatchItemEntity.Cylinders = cylinderEntities;
+
+                GetAccessoryBatchItemModel? rqModel2 = new GetAccessoryBatchItemModel
+                {
+                    Batchid = Batchid
+                };
+
+                var rqcessoryModel = new AccessoryBatchItemService().GetAccessoryBatchItem(rqModel2);
+
+                foreach(var item in rqcessoryModel)
+                {
+                    AccessoryEntity accessoryEntity = new AccessoryEntity();
+
+                    accessoryEntity.Accessory_id = item.Accessory_id;
+                    accessoryEntity.Accessory_name = item.Accessory_name;
+                    accessoryEntity.Accessory_brand_id = item.Accessory_brand_id;
+                    accessoryEntity.Accessory_brand_name = item.Accessory_brand_name;
+                    accessoryEntity.Super_dealer_id = item.Super_dealer_id;
+                    accessoryEntity.Super_dealer_name = item.Super_dealer_name;
+                    accessoryEntity.Accessory_quantity = item.Accessory_quantity;
+
+                    accessoryEntities.Add(accessoryEntity);
+
+                }
+
+                fullBatchItemEntity.Accessorys = accessoryEntities;
+
+                return fullBatchItemEntity;
+            }
+            else
+            {
+                return fullBatchItemEntity;
+            }
+        }
+
         public QueryResEntity AddBatchItem(InsBatchItemModel rqModel)
         {
             try

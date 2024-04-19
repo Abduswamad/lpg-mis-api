@@ -40,6 +40,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 
         #region BatchItem
 
+        
         /// <summary>
         /// API Endpoint for Displaying All BatchItem.
         /// </summary>
@@ -81,7 +82,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetBatchItem(GetBatchItemModel? rqModel)
+        public async Task<IActionResult> GetBatchItemByModel(GetBatchItemModel? rqModel)
         {
             try
             {

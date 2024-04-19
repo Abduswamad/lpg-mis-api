@@ -11,6 +11,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Gas.Application.Features.BatchItemFeatures.QueryHandler;
 
 namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 {
@@ -38,6 +39,33 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         #region Batch
+
+        /// <summary>
+        /// API Endpoint for Displaying All BatchItem By BatchID.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with BatchItem Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpGet("GetBatch/{Batchid}")]
+        [Restrict(AllowVerbs = "GET")]
+        [Produces("application/json")]
+        //[ProducesResponseType(typeof(Result<FullBatchItemEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetBatchByBatchId(int Batchid)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetBatchItemByBatchIdQuery(Batchid));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         /// <summary>
         /// API Endpoint for Displaying All Batch.
@@ -80,7 +108,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetBatch(GetBatchModel? rqModel)
+        public async Task<IActionResult> GetBatchByModel(GetBatchModel? rqModel)
         {
             try
             {

@@ -3,7 +3,6 @@ using Gas.Domain.Entities;
 using Gas.Domain.Entity.StoreManagement;
 using Gas.Domain.Enums;
 using Gas.Infrastructure.DBQueries.SchemaStoreManagement;
-using Gas.Model.PublicManagement;
 using Gas.Model.StoreManagement;
 using Gas.Utils.Settings;
 using Npgsql;
@@ -290,16 +289,32 @@ namespace Gas.Services.StoreManagement
                 {
                     foreach (var accessory in rqModel.Accessors)
                     {
-                        AccessorystockModel? rqStoreModel = new AccessorystockModel
+                        IList<AccessorystockEntity> getStore = null;
+
+                        if (rqModel.Batchtype == CodesBatchType.OUT)
                         {
-                            Stockdate = rqModel.Stockdate,
-                            Store = rqModel.Store,
-                            Accessoryid = accessory.Accessoryid,
-                        };
+                            AccessorystockModel? rqStoreModel = new AccessorystockModel
+                            {
+                                Stockdate = rqModel.Stockdate,
+                                Store = rqModel.Store,
+                                Accessoryid = accessory.Accessoryid,
+                            };
 
-                        var getStore = GetAccessorystock(rqStoreModel);
+                            getStore = GetAccessorystock(rqStoreModel);
+                        }                           
 
-                        if (getStore != null)
+                        if (rqModel.Batchtype == CodesBatchType.IN)
+                        {
+                            InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                            {
+                                Accessoryid = accessory.Accessoryid,
+                                Accessoryquantity = accessory.Accessoryquantity,
+                                Batchid = batch
+                            };
+
+                            queryResEntity = AddAccessoryBatchItem(rqAccessoryModel);
+                        }
+                        else if (getStore != null)
                         {
                             if (getStore.Count > 0)
                             {
@@ -353,8 +368,7 @@ namespace Gas.Services.StoreManagement
                             };
                         }
                     }
-                }
-               
+                }               
 
                 return queryResEntity;
 
