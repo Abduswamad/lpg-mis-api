@@ -1,7 +1,5 @@
-﻿using FluentValidation;
-using Gas.Application.Features.AccountFeatures.CommandHandler;
+﻿using Gas.Application.Features.AccountFeatures.CommandHandler;
 using Gas.Application.Features.AccountFeatures.Validator;
-using Gas.Application.Features.BatchItemFeatures.Validator;
 using Gas.Application.Features.StaffFeatures.CommandHandler;
 using Gas.Common;
 using Gas.Domain.Entities;
@@ -17,7 +15,7 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Staff Management.
     /// </summary>
-    
+
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]

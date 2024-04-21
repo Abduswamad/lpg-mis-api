@@ -64,7 +64,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                       $"{(rqModel.Truckid != null ? $"truckid := {rqModel.Truckid}, " : "")} " +
                       $"{(rqModel.Shopid != null ? $"shopid := {rqModel.Shopid}, " : "")} " +
                       $"{(rqModel.Cylindercategory != null ? $"cylindercategory := {rqModel.Cylindercategory}, " : "")} " +
-                      $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate}', " : "")} " +
+                      $"{(rqModel.Saledate != null ? $"saledate := '{rqModel.Saledate?.ToString("yyyy-MM-dd")}', " : "")} " +
                       $"{(rqModel.Salequantity != null ? $"salequantity := {rqModel.Salequantity}, " : "")} " +
                       $"{(rqModel.Saleprice != null ? $"saleprice := {rqModel.Saleprice}, " : "")} " +
                       $"{(!string.IsNullOrEmpty(rqModel.Saledescription) ? $"saledescription := '{rqModel.Saledescription}', " : $"saledescription := '',")} " +

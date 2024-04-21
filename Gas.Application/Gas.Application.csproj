@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Gas.Common\Gas.Common.csproj" />
     <ProjectReference Include="..\Gas.Domain\Gas.Domain.csproj" />
     <ProjectReference Include="..\Gas.Model\Gas.Model.csproj" />
     <ProjectReference Include="..\Gas.Services\Gas.Services.csproj" />

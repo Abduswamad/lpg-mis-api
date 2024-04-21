@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using FluentValidation;
-using Gas.Domain.Entities;
+﻿using Gas.Common;
 using Gas.Domain.Entity.CompanyManagement;
 using Gas.Model.CompanyManagement;
 using Gas.Services;
@@ -31,6 +29,11 @@ namespace Gas.Application.Features.AccountFeatures.CommandHandler
                         StaffDetails = resp,
                         StaffRole = (List<StaffRoleEntity>)resprole
                     };
+                    if(resp.Super_dealer_id == null || resp.Super_dealer_id == 0)
+                    {
+                        return await Result<StaffLoginEntity>.FailureAsync($"User {resp.First_name} {resp.Middle_name} {resp.Last_name} does not belong to any Super Dealer Registered");
+                    }
+                    UserData.SuperDealerId = resp.Super_dealer_id;
                     staffLoginEntity.Token = new Authentication().Token_Authentication(staffLoginEntity);
                     return await Result<StaffLoginEntity>.SuccessAsync(staffLoginEntity);
                 }
