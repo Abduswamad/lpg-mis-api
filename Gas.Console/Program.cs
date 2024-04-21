@@ -1,56 +1,108 @@
-﻿using iText.Html2pdf;
-using iText.Kernel.Pdf;
-using System.Net;
-using System.Net.Mail;
-using System.Runtime.Caching;
+﻿using System;
+using System.Collections;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
-
-
-public static class Program
+class Program
 {
-    private static readonly ObjectCache _cache = MemoryCache.Default;
-
-    public static string GetData(int id)
+    static void Main()
     {
-        string cacheKey = $"Data_{id}";
+        // The data to be encrypted
+        string originalData = "http://192.168.15.159:9002/Account";
 
-        // Check if data is already cached
-        if (_cache.Contains(cacheKey))
-        {
-            Console.WriteLine($"Data for ID {id} found in cache.");
-            return _cache.Get(cacheKey) as string;
-        }
-        else
-        {
-            Console.WriteLine($"Data for ID {id} not found in cache. Fetching from source.");
-            // Fetch data from the source (e.g., database, external service)
-            string data = FetchDataFromSource(id);
+        // Generate a random encryption key and IV
+       // byte[] key = GenerateRandomKey();
+        byte[] key = Convert.FromBase64String("SypHKKp0pDBlm6HDQYvt9Zx2i12kKDUbrCPBP9jt/jA=");
+        string base64StringKey = Convert.ToBase64String(key);
+        Console.WriteLine("base64StringKey: " + base64StringKey);
 
-            // Cache the data with a specific expiration time (e.g., 1 hour)
-            CacheItemPolicy policy = new CacheItemPolicy
-            {
-                AbsoluteExpiration = DateTimeOffset.Now.AddHours(1)
-            };
-            _cache.Set(cacheKey, data, policy);
+       // byte[] iv = GenerateRandomIV();
+        byte[] iv = Convert.FromBase64String("Mp1+wVOpPnih3xOfhoO0/Q==");
+        string base64Stringiv = Convert.ToBase64String(iv);
+        Console.WriteLine("base64Stringiv: " + base64Stringiv);       
 
-            return data;
-        }
-    }
+        
+        // Encrypt the data
+        byte[] encryptedData = EncryptData(originalData, key, iv);
 
-    private static string FetchDataFromSource(int id)
-    {
-        // Simulate fetching data from a source (e.g., database, external service)
-        return $"Data for ID {id}";
-    }
-    public static void Main(string[] args)
-    {
-        hapa:
+        // Decrypt the data
+        string decryptedData = DecryptData(encryptedData, key, iv);
 
-        var data = GetData(1);
-        Console.WriteLine(data);
+        // Display the original, encrypted, and decrypted data
+        Console.WriteLine("Original Data: " + originalData);
+        Console.WriteLine("Encrypted Data (Base64): " + Convert.ToBase64String(encryptedData));
+        Console.WriteLine("Decrypted Data: " + decryptedData);
 
-        goto hapa;
         Console.ReadKey();
+    }
+
+    static byte[] GenerateRandomKey()
+    {
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.GenerateKey();
+            return aesAlg.Key;
+        }
+    }
+
+    static byte[] GenerateRandomIV()
+    {
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.GenerateIV();
+            return aesAlg.IV;
+        }
+    }
+
+    static byte[] EncryptData(string data, byte[] key, byte[] iv)
+    {
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = key;
+            aesAlg.IV = iv;
+
+            // Create an encryptor to perform the stream transform
+            ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+            // Create the streams used for encryption
+            using (MemoryStream msEncrypt = new MemoryStream())
+            {
+                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                {
+                    using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                    {
+                        // Write all data to the stream
+                        swEncrypt.Write(data);
+                    }
+                    return msEncrypt.ToArray();
+                }
+            }
+        }
+    }
+
+    static string DecryptData(byte[] encryptedData, byte[] key, byte[] iv)
+    {
+        using (Aes aesAlg = Aes.Create())
+        {
+            aesAlg.Key = key;
+            aesAlg.IV = iv;
+
+            // Create a decryptor to perform the stream transform
+            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+            // Create the streams used for decryption
+            using (MemoryStream msDecrypt = new MemoryStream(encryptedData))
+            {
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                {
+                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    {
+                        // Read the decrypted bytes from the decrypting stream and place them in a string
+                        return srDecrypt.ReadToEnd();
+                    }
+                }
+            }
+        }
     }
 }

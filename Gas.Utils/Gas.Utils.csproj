@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Gas.Domain\Gas.Domain.csproj" />
+    <ProjectReference Include="..\Gas.Extensions\Gas.Extensions.csproj" />
   </ItemGroup>
 
 </Project>
