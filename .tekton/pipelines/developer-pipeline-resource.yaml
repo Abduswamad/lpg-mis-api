@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: gas-management-developer-repo
+spec:
+  type: git
+  params:
+    - name: revision
+      value: developer
+    - name: url
+      value: https://github.com/frankkamando/GasManagementSystemAPI.git
