@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lpg-api-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lpg-api
+  template:
+    metadata:
+      labels:
+        app: lpg-api
+    spec:
+      containers:
+      - name: lpg-api
+        image: lpg_api:${{inputs.params.imageTag}}
+        ports:
+        - containerPort: 80
