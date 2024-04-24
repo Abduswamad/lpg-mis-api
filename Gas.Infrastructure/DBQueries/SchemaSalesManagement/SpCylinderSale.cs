@@ -55,7 +55,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpInsertCylinderSale(InsCylinderSaleModel? rqModel)
+        public static string SpInsertCylinderSale(InsCylinderSaleModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {insertCylinderSaleqry}({(rqModel.CylinderSaleid != null ? $"cylindersaleid := {rqModel.CylinderSaleid}, " : "")} " +
@@ -85,7 +85,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpDeleteCylinderSale(DeleteCylinderSaleModel? rqModel)
+        public static string SpDeleteCylinderSale(DeleteCylinderSaleModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {deleteCylinderSaleqry}({(rqModel.CylinderSaleid != null ? $"cylindersaleid := {rqModel.CylinderSaleid}, " : "")} " +
@@ -109,8 +109,8 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         public static string SpCylinderTotalSale(SalesTotalModel? rqModel)
         {
             string result = "";
-            string qry = $"SELECT * FROM {getCylinderTotalSaleqry}({(rqModel.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
-                      $"{(rqModel.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
+            string qry = $"SELECT * FROM {getCylinderTotalSaleqry}({(rqModel?.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
+                      $"{(rqModel?.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
                      $")";
 
             string input = qry;

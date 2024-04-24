@@ -51,7 +51,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpInsertCylinderIndicativePrice(InsCylinderIndicativePriceModel? rqModel)
+        public static string SpInsertCylinderIndicativePrice(InsCylinderIndicativePriceModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {insertCylinderIndicativePriceqry}({(rqModel.Cylinderindicativepriceid != null ? $"cylinderindicativepriceid := {rqModel.Cylinderindicativepriceid}, " : "")} " +
@@ -76,7 +76,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpUpdateCylinderIndicativePrice(UpdateCylinderIndicativePriceModel? rqModel)
+        public static string SpUpdateCylinderIndicativePrice(UpdateCylinderIndicativePriceModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {UpdateCylinderIndicativePriceqry}({(rqModel.Cylinderindicativepriceid != null ? $"cylinderindicativepriceid := {rqModel.Cylinderindicativepriceid}, " : "")} " +
@@ -101,7 +101,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpUpdateCylinderIndicativePriceStatus(UpdateCylinderIndicativePriceStatusModel? rqModel)
+        public static string SpUpdateCylinderIndicativePriceStatus(UpdateCylinderIndicativePriceStatusModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {UpdateCylinderIndicativePriceqry}({(rqModel.Cylinderindicativepriceid != null ? $"Cylinderindicativepriceid := {rqModel.Cylinderindicativepriceid}, " : "")} " +

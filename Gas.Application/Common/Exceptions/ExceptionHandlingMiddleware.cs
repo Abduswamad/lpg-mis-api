@@ -49,7 +49,7 @@ namespace Gas.Application.Common.Exceptions
 
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            var solutionName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            var solutionName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule!.FileName);
             var problemDetails = new ValidationProblemDetails
             {
                 Instance = $"urn:"+ solutionName + ":error:"+ Guid.NewGuid()

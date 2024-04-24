@@ -27,8 +27,9 @@
             catch (Exception e)
             {
                 // TODO: handle exception  
+                throw new Exception(e.Message); 
             }
-            return "";
+            //return "";
         }
 
         public static String Convert(Int64 i)

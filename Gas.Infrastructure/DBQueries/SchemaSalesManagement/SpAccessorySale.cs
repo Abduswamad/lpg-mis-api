@@ -54,7 +54,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpInsertAccessorySale(InsAccessorySaleModel? rqModel)
+        public static string SpInsertAccessorySale(InsAccessorySaleModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {insertAccessorySaleqry}({(rqModel.AccessorySaleid != null ? $"accessorysaleid := {rqModel.AccessorySaleid}, " : "")} " +
@@ -83,7 +83,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpDeleteAccessorySale(DeleteAccessorySaleModel? rqModel)
+        public static string SpDeleteAccessorySale(DeleteAccessorySaleModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {deleteAccessorySaleqry}({(rqModel.AccessorySaleid != null ? $"accessorysaleid := {rqModel.AccessorySaleid}, " : "")} " +
@@ -107,8 +107,8 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         public static string SpAccessoryTotalSale(SalesTotalModel? rqModel)
         {
             string result = "";
-            string qry = $"SELECT * FROM {getAccessoryTotalSaleqry}({(rqModel.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
-                      $"{(rqModel.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
+            string qry = $"SELECT * FROM {getAccessoryTotalSaleqry}({(rqModel?.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
+                      $"{(rqModel?.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
                      $")";
 
             string input = qry;

@@ -51,7 +51,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             return result;
         }
 
-        public static string SpInsertBatch(InsBatchModel? rqModel)
+        public static string SpInsertBatch(InsBatchModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {insertBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +

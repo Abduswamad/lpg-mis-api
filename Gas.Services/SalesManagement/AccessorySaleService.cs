@@ -17,7 +17,7 @@ namespace Gas.Services.SalesManagement
         {
             try
             {
-                IList<AccessorySaleEntity> Batch = conn.spGetData<AccessorySaleEntity>(null, SpAccessorySale.SpGetAccessorySale(null));
+                IList<AccessorySaleEntity> Batch = conn.spGetData<AccessorySaleEntity>(null!, SpAccessorySale.SpGetAccessorySale(null));
                 return Batch;
             }
             #region catch
@@ -26,13 +26,13 @@ namespace Gas.Services.SalesManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -65,7 +65,7 @@ namespace Gas.Services.SalesManagement
         {
             try
             {
-                IList<AccessorySaleEntity> Batch = conn.spGetData<AccessorySaleEntity>(null, SpAccessorySale.SpGetAccessorySale(rqModel!));
+                IList<AccessorySaleEntity> Batch = conn.spGetData<AccessorySaleEntity>(null!, SpAccessorySale.SpGetAccessorySale(rqModel!));
                 return Batch;
             }
             #region catch
@@ -74,13 +74,13 @@ namespace Gas.Services.SalesManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -124,7 +124,7 @@ namespace Gas.Services.SalesManagement
                     number = data[0].Accessory_sale_id + 1;
                 }
                 rqModel.AccessorySaleid = number;
-                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpAccessorySale.SpInsertAccessorySale(rqModel));
+                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null!, SpAccessorySale.SpInsertAccessorySale(rqModel));
                 return batch.First();
 
             }
@@ -134,13 +134,13 @@ namespace Gas.Services.SalesManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -173,7 +173,7 @@ namespace Gas.Services.SalesManagement
         {
             try
             {
-                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null, SpAccessorySale.SpDeleteAccessorySale(rqModel));
+                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null!, SpAccessorySale.SpDeleteAccessorySale(rqModel));
                 return batch.First();
 
             }
@@ -183,13 +183,13 @@ namespace Gas.Services.SalesManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -222,7 +222,7 @@ namespace Gas.Services.SalesManagement
         {
             try
             {
-                IList<AccessoryTotalSaleEntity> Batch = conn.spGetData<AccessoryTotalSaleEntity>(null, SpAccessorySale.SpAccessoryTotalSale(rqModel!));
+                IList<AccessoryTotalSaleEntity> Batch = conn.spGetData<AccessoryTotalSaleEntity>(null!, SpAccessorySale.SpAccessoryTotalSale(rqModel!));
                 return Batch;
             }
             #region catch
@@ -231,13 +231,13 @@ namespace Gas.Services.SalesManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else

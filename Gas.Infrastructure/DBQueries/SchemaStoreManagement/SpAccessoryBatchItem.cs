@@ -48,7 +48,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             return result;
         }
 
-        public static string SpInsertAccessoryBatchItem(InsAccessoryBatchItemModel? rqModel)
+        public static string SpInsertAccessoryBatchItem(InsAccessoryBatchItemModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {insertBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +
@@ -71,7 +71,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             return result;
         }
 
-        public static string SpDeleteAccessoryBatchItem(DelAccessoryBatchItemModel? rqModel)
+        public static string SpDeleteAccessoryBatchItem(DelAccessoryBatchItemModel rqModel)
         {
             string result = "";
             string qry = $"SELECT * FROM {deleteBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +

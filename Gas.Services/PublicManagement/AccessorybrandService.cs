@@ -19,8 +19,8 @@ namespace Gas.Services.PublicManagement
         {
             try
             {
-                IList<AccessorybrandEntity> Accessorybrand = conn.spGetData<AccessorybrandEntity>(null, SpAccessorybrand.SpGetAccessorybrand(null));
-                return Accessorybrand.Where(x => (bool)x.Is_active).ToList();
+                IList<AccessorybrandEntity> Accessorybrand = conn.spGetData<AccessorybrandEntity>(null!, SpAccessorybrand.SpGetAccessorybrand(null));
+                return Accessorybrand.Where(x => (bool)x.Is_active!).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -28,13 +28,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else if (ex.SqlState == "42883")
@@ -74,7 +74,7 @@ namespace Gas.Services.PublicManagement
         {
             try
             {
-                IList<AccessorybrandEntity> Accessorybrand = conn.spGetData<AccessorybrandEntity>(null, SpAccessorybrand.SpGetAccessorybrand(rqModel!));
+                IList<AccessorybrandEntity> Accessorybrand = conn.spGetData<AccessorybrandEntity>(null!, SpAccessorybrand.SpGetAccessorybrand(rqModel!));
                 return Accessorybrand;
             }
             #region catch
@@ -83,13 +83,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else if (ex.SqlState == "42883")
@@ -142,11 +142,11 @@ namespace Gas.Services.PublicManagement
 
                 if (CheckAccessorybrandExist.Count > 0)
                 {
-                    if ((bool)!CheckAccessorybrandExist[0].Is_active)
+                    if ((bool)!CheckAccessorybrandExist[0].Is_active!)
                     {
                         RequestAccessorybrandStatusModel rqIsActiveModel = new RequestAccessorybrandStatusModel()
                         {
-                            Accessorybrandid = (int)CheckAccessorybrandExist[0].Accessory_brand_id,
+                            Accessorybrandid = (int)CheckAccessorybrandExist[0].Accessory_brand_id!,
                             Isactive = true
                         };
                         var status = UpdateStatusAccessorybrand(rqIsActiveModel);
@@ -162,7 +162,7 @@ namespace Gas.Services.PublicManagement
                 else
                 {
                     rqModel.Accessorybrandid = number;
-                    IList<QueryResEntity> Accessorybrand = conn.spGetData<QueryResEntity>(null, SpAccessorybrand.SpInsAccessorybrand(rqModel));
+                    IList<QueryResEntity> Accessorybrand = conn.spGetData<QueryResEntity>(null!, SpAccessorybrand.SpInsAccessorybrand(rqModel));
                     return Accessorybrand.First();
                 }
 
@@ -173,13 +173,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else if (ex.SqlState == "42883")
@@ -220,7 +220,7 @@ namespace Gas.Services.PublicManagement
             {
                 var data = GetAccessorybrand(null).OrderByDescending(x => x.Accessory_brand_id).ToList();
 
-                IList<QueryResEntity> Accessorybrand = conn.spGetData<QueryResEntity>(null, SpAccessorybrand.SpUpdateAccessorybrand(rqModel));
+                IList<QueryResEntity> Accessorybrand = conn.spGetData<QueryResEntity>(null!, SpAccessorybrand.SpUpdateAccessorybrand(rqModel));
                 return Accessorybrand.First();
 
             }
@@ -230,13 +230,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else if (ex.SqlState == "42883")
@@ -290,7 +290,7 @@ namespace Gas.Services.PublicManagement
                 }
                 else
                 {
-                    IList<QueryResEntity> Accessorybrand = conn.spGetData<QueryResEntity>(null, SpAccessorybrand.SpUpdateAccessorybrandStatus(rqModel));
+                    IList<QueryResEntity> Accessorybrand = conn.spGetData<QueryResEntity>(null!, SpAccessorybrand.SpUpdateAccessorybrandStatus(rqModel));
                     return Accessorybrand.First();
                 }
 
@@ -301,13 +301,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else if (ex.SqlState == "42883")
