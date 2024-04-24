@@ -12,14 +12,14 @@ namespace Gas.Services.StoreManagement
 {
     public class AccessoryBatchItemService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all AccessoryBatchItem
         public IList<AccessoryBatchItemEntity> GetAccessoryBatchItem()
         {
             try
             {
-                IList<AccessoryBatchItemEntity> AccessoryBatchItem = conn.spGetData<AccessoryBatchItemEntity>(null, SpAccessoryBatchItem.SpGetAccessoryBatchItem(null));
+                IList<AccessoryBatchItemEntity> AccessoryBatchItem = conn.spGetData<AccessoryBatchItemEntity>(null!, SpAccessoryBatchItem.SpGetAccessoryBatchItem(null));
                 return AccessoryBatchItem;
             }
             #region catch
@@ -28,13 +28,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -68,7 +68,7 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                IList<AccessoryBatchItemEntity> AccessoryBatchItem = conn.spGetData<AccessoryBatchItemEntity>(null, SpAccessoryBatchItem.SpGetAccessoryBatchItem(rqModel!));
+                IList<AccessoryBatchItemEntity> AccessoryBatchItem = conn.spGetData<AccessoryBatchItemEntity>(null!, SpAccessoryBatchItem.SpGetAccessoryBatchItem(rqModel!));
                 return AccessoryBatchItem;
             }
             #region catch
@@ -77,13 +77,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -116,7 +116,7 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                IList<QueryResEntity> AccessoryBatchItem = conn.spGetData<QueryResEntity>(null, SpAccessoryBatchItem.SpInsertAccessoryBatchItem(rqModel));
+                IList<QueryResEntity> AccessoryBatchItem = conn.spGetData<QueryResEntity>(null!, SpAccessoryBatchItem.SpInsertAccessoryBatchItem(rqModel));
                 return AccessoryBatchItem.First();
 
             }
@@ -126,13 +126,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -165,7 +165,7 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                IList<QueryResEntity> AccessoryBatchItem = conn.spGetData<QueryResEntity>(null, SpAccessoryBatchItem.SpDeleteAccessoryBatchItem(rqModel));
+                IList<QueryResEntity> AccessoryBatchItem = conn.spGetData<QueryResEntity>(null!, SpAccessoryBatchItem.SpDeleteAccessoryBatchItem(rqModel));
                 return AccessoryBatchItem.First();
 
             }
@@ -175,13 +175,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -214,7 +214,7 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                IList<AccessorystockEntity> Batch = conn.spGetData<AccessorystockEntity>(null, SpAccessoryBatchItem.SpGetAccessoryStock(rqModel!));
+                IList<AccessorystockEntity> Batch = conn.spGetData<AccessorystockEntity>(null!, SpAccessoryBatchItem.SpGetAccessoryStock(rqModel!));
                 return Batch;
             }
             #region catch
@@ -223,13 +223,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -262,11 +262,11 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                QueryResEntity queryResEntity = new QueryResEntity();
+                QueryResEntity queryResEntity = new ();
 
-                BatchService batchService = new BatchService();
+                BatchService batchService = new ();
 
-                InsBatchModel rqBatchModel = new InsBatchModel()
+                InsBatchModel rqBatchModel = new ()
                 {
                     Batchdate = rqModel.Batchdate,
                     Batchdepo = rqModel.Batchdepo,
@@ -279,7 +279,7 @@ namespace Gas.Services.StoreManagement
 
                 if(batch == 0)
                 {
-                    queryResEntity = new QueryResEntity()
+                    queryResEntity = new ()
                     {
                         Code = Codes.BadRequest,
                         Msg = "Failed to Add batch"
@@ -289,15 +289,15 @@ namespace Gas.Services.StoreManagement
                 {
                     foreach (var accessory in rqModel.Accessors)
                     {
-                        IList<AccessorystockEntity> getStore = null;
+                        IList<AccessorystockEntity> getStore = new List<AccessorystockEntity>();
 
                         if (rqModel.Batchtype == CodesBatchType.OUT)
                         {
-                            AccessorystockModel? rqStoreModel = new AccessorystockModel
+                            AccessorystockModel? rqStoreModel = new()
                             {
                                 Stockdate = rqModel.Stockdate,
                                 Store = rqModel.Store,
-                                Accessoryid = accessory.Accessoryid,
+                                Accessoryid = accessory!.Accessoryid,
                             };
 
                             getStore = GetAccessorystock(rqStoreModel);
@@ -305,9 +305,9 @@ namespace Gas.Services.StoreManagement
 
                         if (rqModel.Batchtype == CodesBatchType.IN)
                         {
-                            InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                            InsAccessoryBatchItemModel rqAccessoryModel = new ()
                             {
-                                Accessoryid = accessory.Accessoryid,
+                                Accessoryid = accessory!.Accessoryid,
                                 Accessoryquantity = accessory.Accessoryquantity,
                                 Batchid = batch
                             };
@@ -321,9 +321,9 @@ namespace Gas.Services.StoreManagement
                             {
                                 if(rqModel.Batchtype == CodesBatchType.OUT)
                                 {
-                                    if (getStore[0].Total_quantity_remain >= accessory.Accessoryquantity)
+                                    if (getStore[0].Total_quantity_remain >= accessory!.Accessoryquantity)
                                     {
-                                        InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                        InsAccessoryBatchItemModel rqAccessoryModel = new ()
                                         {
                                             Accessoryid = accessory.Accessoryid,
                                             Accessoryquantity = accessory.Accessoryquantity,
@@ -333,7 +333,7 @@ namespace Gas.Services.StoreManagement
                                     }
                                     else
                                     {
-                                        queryResEntity = new QueryResEntity()
+                                        queryResEntity = new ()
                                         {
                                             Code = Codes.BadRequest,
                                             Msg = $"Accessory Quantity Remain {getStore[0].Total_quantity_remain}"
@@ -342,9 +342,9 @@ namespace Gas.Services.StoreManagement
                                 }
                                 else
                                 {
-                                    InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                    InsAccessoryBatchItemModel rqAccessoryModel = new ()
                                     {
-                                        Accessoryid = accessory.Accessoryid,
+                                        Accessoryid = accessory!.Accessoryid,
                                         Accessoryquantity = accessory.Accessoryquantity,
                                         Batchid = batch
                                     };
@@ -353,7 +353,7 @@ namespace Gas.Services.StoreManagement
                             }
                             else
                             {
-                                queryResEntity = new QueryResEntity()
+                                queryResEntity = new ()
                                 {
                                     Code = Codes.BadRequest,
                                     Msg = $"Accessory Store is Empty"
@@ -362,7 +362,7 @@ namespace Gas.Services.StoreManagement
                         }
                         else
                         {
-                            queryResEntity = new QueryResEntity()
+                            queryResEntity = new ()
                             {
                                 Code = Codes.BadRequest,
                                 Msg = $"Accessory Store is Empty"
@@ -380,13 +380,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else

@@ -16,25 +16,20 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Truck Management.
     /// </summary>
+    /// <remarks>
+    /// API Controller Instance for Truck Management.
+    /// </remarks>
+    /// <param name="mediator">The mediator instance used for handling communication between components.</param>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class TruckManagementController : ControllerBase
+    public class TruckManagementController(IMediator mediator) : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
         /// </summary>
-        private readonly IMediator _mediator;
-
-        /// <summary>
-        /// API Controller Instance for Truck Management.
-        /// </summary>
-        /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public TruckManagementController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         #region Truck
 

@@ -29,7 +29,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         }
         public static string SpGetDistrict(GetDistrictModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getDistrict;

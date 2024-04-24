@@ -18,7 +18,7 @@ namespace Gas.Application.Features.AccountFeatures.CommandHandler
         {
             try
             {
-                StaffTokenEntity respTokenEntity = new StaffTokenEntity();
+                StaffTokenEntity respTokenEntity = new();
 
                 var resp = new StaffService().StaffLogin(request.Request);
                 GetStaffroleModel? rqModel = new()
@@ -28,12 +28,12 @@ namespace Gas.Application.Features.AccountFeatures.CommandHandler
                 var resprole = new StaffroleService().GetStaffrole(rqModel);
                 if (resp  != null )
                 {
-                    StaffLoginEntity staffLoginEntity = new StaffLoginEntity()
+                    StaffLoginEntity staffLoginEntity = new ()
                     {
                         StaffDetails = resp,
                         StaffRole = (List<StaffRoleEntity>)resprole
                     };
-                    respTokenEntity.Access_token = new Authentication().Token_Authentication(staffLoginEntity);
+                    respTokenEntity.Access_token =  Authentication.TokenAuthentication(staffLoginEntity);
                     respTokenEntity.Expires_in = (int)TimeSpan.FromHours(4).TotalSeconds;
                     respTokenEntity.Token_type = "Bearer";
                     respTokenEntity.Message = "Granted";

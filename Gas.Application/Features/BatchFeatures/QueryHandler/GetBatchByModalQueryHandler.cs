@@ -1,14 +1,12 @@
-﻿using AutoMapper;
-using MediatR;
-using Gas.Domain.Entities;
-using Gas.Utils;
-using Gas.Domain.Entity.StoreManagement;
-using Gas.Services.StoreManagement;
+﻿using Gas.Domain.Entity.StoreManagement;
 using Gas.Model.StoreManagement;
+using Gas.Services.StoreManagement;
+using Gas.Utils;
+using MediatR;
 
 namespace Gas.Application.Features.BatchFeatures.QueryHandler
 {
-    public record GetBatchByModalQuery(GetBatchModel? rqModel) : IRequest<Result<IList<BatchEntity>>>;
+    public record GetBatchByModalQuery(GetBatchModel? RqModel) : IRequest<Result<IList<BatchEntity>>>;
 
     internal class GetBatchByModalQueryHandler : IRequestHandler<GetBatchByModalQuery, Result<IList<BatchEntity>>>
     {
@@ -16,7 +14,7 @@ namespace Gas.Application.Features.BatchFeatures.QueryHandler
         {
             try
             {
-                var resp = new BatchService().GetBatch(request.rqModel);
+                var resp = new BatchService().GetBatch(request.RqModel);
                 if (resp.Count>0)
                 {
                     //var response = _mapper.Map<List<BatchEntity>>(resp);

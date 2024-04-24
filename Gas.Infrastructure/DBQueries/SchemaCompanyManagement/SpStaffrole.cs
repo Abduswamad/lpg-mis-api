@@ -9,11 +9,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getStaffroleqry = $"{dbSchema}ufn_select_staff_role";
         private static readonly string insStaffroleqry = $"{dbSchema}ufn_insert_staff_role";
         private static readonly string updateStaffroleqry = $"{dbSchema}ufn_update_staff_role";
+        private static readonly string getStaffrole = $"SELECT * FROM {getStaffroleqry}()";
 
         #endregion procedures
 
         #region sp for Staffrole
-        public static string getStaffrole = $"SELECT * FROM {getStaffroleqry}()";
+        //public static string getStaffrole = getStaffrole;
         public static string SpInsStaffrole(InsStaffroleModel rqModel)
         {
             string qry = $"SELECT * FROM {insStaffroleqry}(roleid := {rqModel.Roleid}, staffid := {rqModel.Staffid} " +
@@ -29,7 +30,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         }
         public static string SpGetStaffrole(GetStaffroleModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getStaffrole;

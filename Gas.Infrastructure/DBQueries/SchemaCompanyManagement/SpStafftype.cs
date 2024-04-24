@@ -29,7 +29,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         }
         public static string SpGetStafftype(GetStafftypeModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getStafftype;

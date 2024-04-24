@@ -2,11 +2,11 @@
 {
     public static class  NumberToWords
     {
-        private static String[] units = { "Zero", "One", "Two", "Three",
+        private static readonly String[] units = { "Zero", "One", "Two", "Three",
     "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven",
     "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen",
     "Seventeen", "Eighteen", "Nineteen" };
-        private static String[] tens = { "", "", "Twenty", "Thirty", "Forty",
+        private static readonly String[] tens = { "", "", "Twenty", "Thirty", "Forty",
     "Fifty", "Sixty", "Seventy", "Eighty", "Ninety" };
 
         public static String ConvertAmount(double amount)
@@ -27,8 +27,9 @@
             catch (Exception e)
             {
                 // TODO: handle exception  
+                throw new Exception(e.Message); 
             }
-            return "";
+            //return "";
         }
 
         public static String Convert(Int64 i)

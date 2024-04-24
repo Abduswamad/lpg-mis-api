@@ -10,16 +10,17 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string insertAccessoryIndicativePriceqry = $"{dbSchema}ufn_insert_accessory_indicative_price";
         private static readonly string getAccessoryIndicativePriceqry = $"{dbSchema}ufn_select_accessory_indicative_price";
         private static readonly string UpdateAccessoryIndicativePriceqry = $"{dbSchema}ufn_update_accessory_indicative_price";
+        private static readonly string getAccessoryIndicativePrice = $"SELECT * FROM {getAccessoryIndicativePriceqry}()";
 
 
         #endregion procedures
 
         #region sp for AccessoryIndicativePrice
-        public static string getAccessoryIndicativePrice = $"SELECT * FROM {getAccessoryIndicativePriceqry}()";
+       // public static string getAccessoryIndicativePrice = getAccessoryIndicativePrice;
 
         public static string SpGetAccessoryIndicativePrice(GetAccessoryIndicativePriceModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getAccessoryIndicativePrice;
@@ -50,9 +51,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpInsertAccessoryIndicativePrice(InsAccessoryIndicativePriceModel? rqModel)
+        public static string SpInsertAccessoryIndicativePrice(InsAccessoryIndicativePriceModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {insertAccessoryIndicativePriceqry}({(rqModel.Accessoryindicativepriceid != null ? $"accessoryindicativepriceid := {rqModel.Accessoryindicativepriceid}, " : "")} " +
                      $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                      $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
@@ -74,9 +75,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpUpdateAccessoryIndicativePrice(UpdateAccessoryIndicativePriceModel? rqModel)
+        public static string SpUpdateAccessoryIndicativePrice(UpdateAccessoryIndicativePriceModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {UpdateAccessoryIndicativePriceqry}({(rqModel.Accessoryindicativepriceid != null ? $"accessoryindicativepriceid := {rqModel.Accessoryindicativepriceid}, " : "")} " +
                      $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                      $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
@@ -98,9 +99,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             return result;
         }
 
-        public static string SpUpdateAccessoryIndicativePriceStatus(UpdateAccessoryIndicativePriceStatusModel? rqModel)
+        public static string SpUpdateAccessoryIndicativePriceStatus(UpdateAccessoryIndicativePriceStatusModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {UpdateAccessoryIndicativePriceqry}({(rqModel.Accessoryindicativepriceid != null ? $"accessoryindicativepriceid := {rqModel.Accessoryindicativepriceid}, " : "")} " +
                      $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
                      $")";

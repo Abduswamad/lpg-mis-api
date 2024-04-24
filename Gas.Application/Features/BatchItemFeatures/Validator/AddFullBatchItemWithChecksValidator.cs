@@ -34,8 +34,8 @@ namespace Gas.Application.Features.BatchItemFeatures.Validator
             RuleFor(x => x.Batchdate).NotNull().WithMessage("Batch date is required.");
             RuleFor(x => x.Store).NotNull().WithMessage("Store is required.");
             RuleFor(x => x.Stockdate).NotNull().WithMessage("Stock date is required.");
-            RuleForEach(x => x.Cylinders).SetValidator(new CylinderBatchItemListModelValidator2());
-            RuleForEach(x => x.Accessors).SetValidator(new AccessoryBatchItemListModelValidator2());
+            RuleForEach(x => x.Cylinders).SetValidator(new CylinderBatchItemListModelValidator2()!);
+            RuleForEach(x => x.Accessors).SetValidator(new AccessoryBatchItemListModelValidator2()!);
         }
     }
 }

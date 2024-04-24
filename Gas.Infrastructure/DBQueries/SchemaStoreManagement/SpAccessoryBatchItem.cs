@@ -10,16 +10,17 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
         private static readonly string getBatchqry = $"{dbSchema}ufn_select_accessory_batch_item";
         private static readonly string deleteBatchqry = $"{dbSchema}ufn_delete_accessory_batch_item";
         private static readonly string getAccessorystockqry = $"{dbSchema}ufn_get_accessory_stock";
+        private static readonly string getBatch = $"SELECT * FROM {getBatchqry}()";
 
 
         #endregion procedures
 
         #region sp for Batch
-        public static string getBatch = $"SELECT * FROM {getBatchqry}()";
+       // public static string getBatch = getBatch;
 
         public static string SpGetAccessoryBatchItem(GetAccessoryBatchItemModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getBatch;
@@ -48,9 +49,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             return result;
         }
 
-        public static string SpInsertAccessoryBatchItem(InsAccessoryBatchItemModel? rqModel)
+        public static string SpInsertAccessoryBatchItem(InsAccessoryBatchItemModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {insertBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +
                          $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                          $"{(rqModel.Accessoryquantity != null ? $"cylinderquantity := {rqModel.Accessoryquantity}, " : "")} " +
@@ -71,9 +72,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             return result;
         }
 
-        public static string SpDeleteAccessoryBatchItem(DelAccessoryBatchItemModel? rqModel)
+        public static string SpDeleteAccessoryBatchItem(DelAccessoryBatchItemModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {deleteBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +
                         $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                         $")";
@@ -95,7 +96,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
 
         public static string SpGetAccessoryStock(AccessorystockModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getBatch;

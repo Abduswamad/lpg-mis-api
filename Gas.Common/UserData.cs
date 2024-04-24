@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Routing.Matching;
-
-namespace Gas.Common
+﻿namespace Gas.Common
 {
     public static class UserData
     {

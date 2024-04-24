@@ -31,7 +31,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         }
         public static string SpGetDepo(GetDepoModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getDepo;

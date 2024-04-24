@@ -12,15 +12,15 @@ namespace Gas.Services.CompanyManagement
 {
     public class DepoService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Depo
         public IList<DepoEntity> GetDepo()
         {
             try
             {
-                IList<DepoEntity> Depo = conn.spGetData<DepoEntity>(null, SpDepo.SpGetDepo(null));
-                return Depo.Where(x => (bool)x.Is_active).ToList();
+                IList<DepoEntity> Depo = conn.spGetData<DepoEntity>(null!, SpDepo.SpGetDepo(null));
+                return Depo.Where(x => (bool)x.Is_active!).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -28,13 +28,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -68,7 +68,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                IList<DepoEntity> Depo = conn.spGetData<DepoEntity>(null, SpDepo.SpGetDepo(rqModel!));
+                IList<DepoEntity> Depo = conn.spGetData<DepoEntity>(null!, SpDepo.SpGetDepo(rqModel!));
                 return Depo;
             }
             #region catch
@@ -77,13 +77,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -130,11 +130,11 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckDepoExist.Count > 0)
                 {
-                    if ((bool)!CheckDepoExist[0].Is_active)
+                    if ((bool)!CheckDepoExist[0].Is_active!)
                     {
-                        RequestDepoStatusModel rqIsActiveModel = new RequestDepoStatusModel()
+                        RequestDepoStatusModel rqIsActiveModel = new()
                         {
-                            Depoid = (int)CheckDepoExist[0].Depo_id,
+                            Depoid = (int)CheckDepoExist[0].Depo_id!,
                             Isactive = true
                         };
                         var status = UpdateStatusDepo(rqIsActiveModel);
@@ -150,7 +150,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     rqModel.Depoid = number;
-                    IList<QueryResEntity> Depo = conn.spGetData<QueryResEntity>(null, SpDepo.SpInsDepo(rqModel));
+                    IList<QueryResEntity> Depo = conn.spGetData<QueryResEntity>(null!, SpDepo.SpInsDepo(rqModel));
                     return Depo.First();
                 }
 
@@ -161,13 +161,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -202,7 +202,7 @@ namespace Gas.Services.CompanyManagement
             {
                 var data = GetDepo(null).OrderByDescending(x => x.Depo_id).ToList();
 
-                IList<QueryResEntity> Depo = conn.spGetData<QueryResEntity>(null, SpDepo.SpUpdateDepo(rqModel));
+                IList<QueryResEntity> Depo = conn.spGetData<QueryResEntity>(null!, SpDepo.SpUpdateDepo(rqModel));
                 return Depo.First();
 
             }
@@ -212,13 +212,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -266,7 +266,7 @@ namespace Gas.Services.CompanyManagement
                 }
                 else
                 {
-                    IList<QueryResEntity> Depo = conn.spGetData<QueryResEntity>(null, SpDepo.SpUpdateDepoStatus(rqModel));
+                    IList<QueryResEntity> Depo = conn.spGetData<QueryResEntity>(null!, SpDepo.SpUpdateDepoStatus(rqModel));
                     return Depo.First();
                 }
 
@@ -277,13 +277,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else

@@ -8,10 +8,20 @@ namespace Gas.Utils.Settings
 {
     public static class ServiceSettings
     {
-        private static SettingsModel _SettingsModel = new();
+        private static readonly SettingsModel _SettingsModel = new();
         public static SettingsModel GetWorkerServiceSettings() => _SettingsModel;
         public static void AddWorkerServiceSettings(this IServiceCollection services, IConfiguration configuration, string contentRootPath = "")
         {
+            if (services is null)
+            {
+                throw new ArgumentNullException(nameof(services));
+            }
+
+            if (configuration is null)
+            {
+                throw new ArgumentNullException(nameof(configuration));
+            }
+
             configuration = new ConfigurationBuilder()
             .SetBasePath(contentRootPath)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)

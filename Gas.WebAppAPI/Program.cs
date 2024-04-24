@@ -89,7 +89,7 @@ builder.Services.AddAuthentication(option =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-            builder.Configuration["Jwt:Key"]
+            builder.Configuration["Jwt:Key"]!
             ))
     };
     options.Events = new JwtBearerEvents
@@ -127,7 +127,7 @@ else
     app.UseSwagger();
 }
 
-if (bool.Parse(builder.Configuration["ShowSwagger"]))
+if (bool.Parse(builder.Configuration["ShowSwagger"]!))
 {
     app.UseSwaggerUI(c => {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "Gas API v1");

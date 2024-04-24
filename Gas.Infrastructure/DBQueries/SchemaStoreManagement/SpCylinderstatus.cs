@@ -16,7 +16,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
 
         public static string SpGetCylinderstatus(GetCylinderstatusModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getCylinderstatus;

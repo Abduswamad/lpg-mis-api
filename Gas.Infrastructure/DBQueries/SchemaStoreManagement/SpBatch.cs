@@ -9,16 +9,17 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
         private static readonly string insertBatchqry = $"{dbSchema}ufn_insert_batch";
         private static readonly string getCylinderstockqry = $"{dbSchema}ufn_get_cylinder_stock";
         private static readonly string getBatchqry = $"{dbSchema}ufn_select_batch";
+        private static readonly string getBatch = $"SELECT * FROM {getBatchqry}()";
 
 
         #endregion procedures
 
         #region sp for Batch
-        public static string getBatch = $"SELECT * FROM {getBatchqry}()";
+       // public static string getBatch = getBatch;
 
         public static string SpGetBatch(GetBatchModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getBatch;
@@ -51,9 +52,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
             return result;
         }
 
-        public static string SpInsertBatch(InsBatchModel? rqModel)
+        public static string SpInsertBatch(InsBatchModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {insertBatchqry}({(rqModel.Batchid != null ? $"batchid := {rqModel.Batchid}, " : "")} " +
                         $"{(rqModel.Batchtype != null ? $"batchtype := {rqModel.Batchtype}, " : "")} " +
                         $"{(rqModel.Batchdriver != null ? $"batchdriver := {rqModel.Batchdriver}, " : "")} " +
@@ -79,7 +80,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
 
         public static string SpGetCylinderStock(CylinderstockModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getBatch;

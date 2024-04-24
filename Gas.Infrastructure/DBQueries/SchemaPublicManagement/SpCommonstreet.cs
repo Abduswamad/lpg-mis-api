@@ -29,7 +29,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         }
         public static string SpGetCommonstreet(GetCommonstreetModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getCommonstreet;

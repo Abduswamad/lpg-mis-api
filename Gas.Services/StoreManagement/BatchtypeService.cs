@@ -10,15 +10,15 @@ namespace Gas.Services.StoreManagement
 {
     public class BatchtypeService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Batchtype
         public IList<BatchtypeEntity> GetBatchtype()
         {
             try
             {
-                IList<BatchtypeEntity> Batchtype = conn.spGetData<BatchtypeEntity>(null, SpBatchtype.SpGetBatchtype(null));
-                return Batchtype.Where(x => (bool)x.Is_active).ToList();
+                IList<BatchtypeEntity> Batchtype = conn.spGetData<BatchtypeEntity>(null!, SpBatchtype.SpGetBatchtype(null));
+                return Batchtype.Where(x => (bool)x.Is_active!).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -26,13 +26,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -66,7 +66,7 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                IList<BatchtypeEntity> Batchtype = conn.spGetData<BatchtypeEntity>(null, SpBatchtype.SpGetBatchtype(rqModel!));
+                IList<BatchtypeEntity> Batchtype = conn.spGetData<BatchtypeEntity>(null!, SpBatchtype.SpGetBatchtype(rqModel!));
                 return Batchtype;
             }
             #region catch
@@ -75,13 +75,13 @@ namespace Gas.Services.StoreManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else

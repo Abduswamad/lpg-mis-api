@@ -1,21 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
-
-namespace Gas.WebAppAPI
+﻿namespace Gas.WebAppAPI
 {
-
-    public class ApiVersionConstraint : IRouteConstraint
+    public class ApiVersionConstraint(int allowedVersion) : IRouteConstraint
     {
-        private readonly int _allowedVersion;
+        private readonly int _allowedVersion = allowedVersion;
 
-        public ApiVersionConstraint(int allowedVersion)
+        public bool Match(HttpContext? httpContext, IRouter? route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
         {
-            _allowedVersion = allowedVersion;
-        }
-
-        public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)
-        {
-            if (values.TryGetValue(routeKey, out object routeValue) && routeValue != null)
+            if (httpContext != null && values.TryGetValue(routeKey, out object? routeValue) && routeValue != null)
             {
                 if (int.TryParse(routeValue.ToString(), out int version))
                 {

@@ -14,47 +14,44 @@ namespace Gas.Application.Common.Exceptions
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             // Create a stream wrapper to capture the response body
-            var originalBodyStream = context.Response.Body;
-            using (var memoryStream = new MemoryStream())
+            _ = context.Response.Body;
+            using var memoryStream = new MemoryStream();
+            // Set the response body to the MemoryStream
+
+            try
             {
-                // Set the response body to the MemoryStream
-                
-                try
-                {
-                    // Proceed with the next middleware in the pipeline
-                    await next(context);
+                // Proceed with the next middleware in the pipeline
+                await next(context);
 
-                    // After the response is generated, rewind the stream to read its content
-                    memoryStream.Seek(0, SeekOrigin.Begin);
+                // After the response is generated, rewind the stream to read its content
+                memoryStream.Seek(0, SeekOrigin.Begin);
 
-                    // Read the response body
-                    var responseBody = await new StreamReader(memoryStream).ReadToEndAsync();
+                // Read the response body
+                var responseBody = await new StreamReader(memoryStream).ReadToEndAsync();
 
-                    // Log or process the responseBody as needed
-                    Console.WriteLine("Response Body: " + responseBody);
-                    //SendEmailService.SendLogs(responseBody);
-                }
-                catch (Exception e)
-                {
-                    //  Logger.Error(e);
-                    await HandleExceptionAsync(context, e);
-                }
-                finally
-                {
-                    // Restore the original response body stream
-                    context.Response.Body = memoryStream;
-                }
+                // Log or process the responseBody as needed
+                Console.WriteLine("Response Body: " + responseBody);
+                //SendEmailService.SendLogs(responseBody);
+            }
+            catch (Exception e)
+            {
+                //  Logger.Error(e);
+                await HandleExceptionAsync(context, e);
+            }
+            finally
+            {
+                // Restore the original response body stream
+                context.Response.Body = memoryStream;
             }
         }
 
         private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
         {
-            var solutionName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            var solutionName = Path.GetFileName(Environment.ProcessPath);
             var problemDetails = new ValidationProblemDetails
             {
                 Instance = $"urn:"+ solutionName + ":error:"+ Guid.NewGuid()
             };
-
             if (exception is ValidationException badHttpRequestException)
             {
                 var errors = new List<ValidationError>();
@@ -79,7 +76,7 @@ namespace Gas.Application.Common.Exceptions
                 problemDetails.ValidationErrors = errors;
 
             }
-            else if (exception is ApplicationException btException)
+            else if (exception is ApplicationException)
             {
                 problemDetails.Title = "Error Encountered!";
                 problemDetails.Type = GetTitle(exception);

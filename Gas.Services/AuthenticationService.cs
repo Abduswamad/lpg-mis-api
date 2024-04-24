@@ -9,7 +9,7 @@ namespace Gas.Services
 {
     public class Authentication 
     {
-        public string Token_Authentication(StaffLoginEntity result)
+        public static string TokenAuthentication(StaffLoginEntity result)
         {
             try
             {

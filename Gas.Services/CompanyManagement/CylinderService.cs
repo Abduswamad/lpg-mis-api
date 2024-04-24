@@ -12,15 +12,15 @@ namespace Gas.Services.CompanyManagement
 {
     public class CylinderService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Cylinder
         public IList<CylinderEntity> GetCylinder()
         {
             try
             {
-                IList<CylinderEntity> Cylinder = conn.spGetData<CylinderEntity>(null, SpCylinder.SpGetCylinder(null));
-                return Cylinder.Where(x => (bool)x.Is_active).ToList();
+                IList<CylinderEntity> Cylinder = conn.spGetData<CylinderEntity>(null!, SpCylinder.SpGetCylinder(null));
+                return Cylinder.Where(x => (bool)x.Is_active!).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -28,13 +28,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -68,7 +68,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                IList<CylinderEntity> Cylinder = conn.spGetData<CylinderEntity>(null, SpCylinder.SpGetCylinder(rqModel!));
+                IList<CylinderEntity> Cylinder = conn.spGetData<CylinderEntity>(null!, SpCylinder.SpGetCylinder(rqModel!));
                 return Cylinder;
             }
             #region catch
@@ -77,13 +77,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -130,11 +130,11 @@ namespace Gas.Services.CompanyManagement
 
                 if (CheckCylinderExist.Count > 0)
                 {
-                    if ((bool)!CheckCylinderExist[0].Is_active)
+                    if ((bool)!CheckCylinderExist[0].Is_active!)
                     {
-                        RequestCylinderStatusModel rqIsActiveModel = new RequestCylinderStatusModel()
+                        RequestCylinderStatusModel rqIsActiveModel = new()
                         {
-                            Cylinderid = (int)CheckCylinderExist[0].Cylinder_id,
+                            Cylinderid = (int)CheckCylinderExist[0].Cylinder_id!,
                             Isactive = true
                         };
                         var status = UpdateStatusCylinder(rqIsActiveModel);
@@ -150,7 +150,7 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     rqModel.Cylinderid = number;
-                    IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null, SpCylinder.SpInsCylinder(rqModel));
+                    IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null!, SpCylinder.SpInsCylinder(rqModel));
                     return Cylinder.First();
                 }
 
@@ -161,13 +161,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -202,7 +202,7 @@ namespace Gas.Services.CompanyManagement
             {
                 var data = GetCylinder(null).OrderByDescending(x => x.Cylinder_id).ToList();
 
-                IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null, SpCylinder.SpUpdateCylinder(rqModel));
+                IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null!, SpCylinder.SpUpdateCylinder(rqModel));
                 return Cylinder.First();
 
             }
@@ -212,13 +212,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -266,7 +266,7 @@ namespace Gas.Services.CompanyManagement
                 }
                 else
                 {
-                    IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null, SpCylinder.SpUpdateCylinderStatus(rqModel));
+                    IList<QueryResEntity> Cylinder = conn.spGetData<QueryResEntity>(null!, SpCylinder.SpUpdateCylinderStatus(rqModel));
                     return Cylinder.First();
                 }
 
@@ -277,13 +277,13 @@ namespace Gas.Services.CompanyManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else

@@ -34,7 +34,7 @@ namespace Gas.Model.CompanyManagement
     {
         public int? Roleid { get; set; }
         public int? Staffid { get; set; }
-        public bool Isactive { get; set; }
+        public bool? Isactive { get; set; }
 
     }
 

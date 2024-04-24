@@ -31,7 +31,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         }
         public static string SpGetTruck(GetTruckModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getTruck;

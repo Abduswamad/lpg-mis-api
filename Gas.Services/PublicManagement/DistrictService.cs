@@ -14,15 +14,15 @@ namespace Gas.Services.PublicManagement
 {
     public class DistrictService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all District
         public IList<DistrictEntity> GetDistrict()
         {
             try
             {
-                IList<DistrictEntity> District = conn.spGetData<DistrictEntity>(null, SpDistrict.SpGetDistrict(null));
-                return District.Where(x => (bool)x.Is_active).ToList();
+                IList<DistrictEntity> District = conn.spGetData<DistrictEntity>(null!, SpDistrict.SpGetDistrict(null));
+                return District.Where(x => (bool)x.Is_active!).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -30,13 +30,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -70,7 +70,7 @@ namespace Gas.Services.PublicManagement
         {
             try
             {
-                IList<DistrictEntity> District = conn.spGetData<DistrictEntity>(null, SpDistrict.SpGetDistrict(rqModel!));
+                IList<DistrictEntity> District = conn.spGetData<DistrictEntity>(null!, SpDistrict.SpGetDistrict(rqModel!));
                 return District;
             }
             #region catch
@@ -79,13 +79,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -142,7 +142,7 @@ namespace Gas.Services.PublicManagement
                 else
                 {
                     rqModel.Districtid = number;
-                    IList<QueryResEntity> District = conn.spGetData<QueryResEntity>(null, SpDistrict.SpInsDistrict(rqModel));
+                    IList<QueryResEntity> District = conn.spGetData<QueryResEntity>(null!, SpDistrict.SpInsDistrict(rqModel));
                     return District.First();
                 }
 
@@ -153,13 +153,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -194,7 +194,7 @@ namespace Gas.Services.PublicManagement
             {
                 var data = GetDistrict(null).OrderByDescending(x => x.District_id).ToList();
 
-                IList<QueryResEntity> District = conn.spGetData<QueryResEntity>(null, SpDistrict.SpUpdateDistrict(rqModel));
+                IList<QueryResEntity> District = conn.spGetData<QueryResEntity>(null!, SpDistrict.SpUpdateDistrict(rqModel));
                 return District.First();
 
             }
@@ -204,13 +204,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else
@@ -258,7 +258,7 @@ namespace Gas.Services.PublicManagement
                 }
                 else
                 {
-                    IList<QueryResEntity> District = conn.spGetData<QueryResEntity>(null, SpDistrict.SpUpdateDistrictStatus(rqModel));
+                    IList<QueryResEntity> District = conn.spGetData<QueryResEntity>(null!, SpDistrict.SpUpdateDistrictStatus(rqModel));
                     return District.First();
                 }
 
@@ -269,13 +269,13 @@ namespace Gas.Services.PublicManagement
                 if (ex.SqlState == "23514")
                 {
                     // Handle a specific constraint violation (e.g., foreign key violation)
-                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Foreign key constraint violation");
                 }
                 else if (ex.SqlState == "23505")
                 {
                     // Handle another constraint violation (e.g., unique constraint violation)
-                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException.Message);
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null?ex.Message: ex.InnerException!.Message);
                     throw new NpgsqlException("Unique constraint violation");
                 }
                 else

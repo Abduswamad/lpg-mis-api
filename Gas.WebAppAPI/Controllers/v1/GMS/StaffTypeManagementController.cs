@@ -16,25 +16,20 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Stafftype Management.
     /// </summary>
+    /// <remarks>
+    /// API Controller Instance for Stafftype Management.
+    /// </remarks>
+    /// <param name="mediator">The mediator instance used for handling communication between components.</param>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class StafftypeManagementController : ControllerBase
+    public class StafftypeManagementController(IMediator mediator) : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
         /// </summary>
-        private readonly IMediator _mediator;
-
-        /// <summary>
-        /// API Controller Instance for Stafftype Management.
-        /// </summary>
-        /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public StafftypeManagementController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         #region Stafftype
 
