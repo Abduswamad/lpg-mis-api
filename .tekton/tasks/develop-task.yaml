@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: develop-task
+spec:
+  params:
+    - name: url
+      description: "Git repository URL"
+      type: string
+    - name: revision
+      description: "Git branch or tag"
+      type: string
+      default: "develop"
+    - name: image_tag
+      description: "Tag for the Docker image"
+      type: string
+      default: "latest"
+  steps:
+    - name: clone-repo
+      image: alpine/git
+      script: |
+        git clone --branch $(params.revision) $(params.url) /workspace/source
+
+    - name: build-image
+      image: docker
+      workingDir: /workspace/source
+      script: |
+        docker build -t lpg_api:$(params.image_tag) .
+
+    - name: push-image
+      image: docker
+      workingDir: /workspace/source
+      script: |
+        docker push lpg_api:$(params.image_tag)
+
+    - name: apply-deployment
+      image: bitnami/kubectl
+      script: |
+        gcloud container clusters get-credentials lpg-cluster --region us-central1 --project single-cistern-420705
+        kubectl apply -f /kubernetes/develop-deployment.yaml -n test
