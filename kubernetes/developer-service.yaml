@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: lpg-api-service
+  namespace: test
 spec:
   selector:
     app: lpg-api
