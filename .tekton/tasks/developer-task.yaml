@@ -29,7 +29,11 @@ spec:
       workingDir: /workspace/source
       script: |
         version_build_patch=$(cat /workspace/version.txt)
-        docker build -t lpg_api:$version_build_patch .
+        # Build Docker image for each Dockerfile found in the directory
+        for dockerfile in $(find . -type f -name Dockerfile); do
+          image_name=$(dirname $dockerfile)
+          docker build -t lpg_api:${version_build_patch}-$(basename $image_name) $image_name
+        done
     - name: update-deployment-image
       image: alpine/helm:3.7.0
       workingDir: /workspace/source
@@ -40,7 +44,7 @@ spec:
       workingDir: /workspace/source
       script: |
         gcloud container clusters get-credentials lpg-cluster --region us-central1 --project single-cistern-420705
-        kubectl apply -f /workspace/source/deployment.yaml
+        kubectl apply -f /workspace/source/kubernetes/developer-deployment.yaml
   resources:
     inputs:
       - name: source

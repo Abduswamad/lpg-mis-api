@@ -18,3 +18,10 @@ spec:
         image: lpg_api:${{inputs.params.imageTag}}
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: data
+          mountPath: /data  # Mount path in the container
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: lpg-api-pvc

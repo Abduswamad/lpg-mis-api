@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tekton-dashboard-load-balancer
+  namespace: tekton-pipelines
+spec:
+  selector:
+    app.kubernetes.io/component: dashboard
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/name: dashboard
+    app.kubernetes.io/part-of: tekton-dashboard
+  ports:
+    - protocol: TCP
+      port: 8090
+      targetPort: 9097
+  type: LoadBalancer
