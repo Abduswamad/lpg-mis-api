@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-and-deploy-csharp-project-developer
+spec:
+  steps:
+    - name: clone-repo
+      image: alpine/git
+      script: |
+        git clone $(inputs.params.url) /workspace/source
+    - name: extract-version-info
+      image: alpine/git
+      workingDir: /workspace/source
+      script: |
+        version=$(git describe --tags --abbrev=0 | cut -c 2-) # Remove the 'v' prefix from version
+        build=$(git rev-list --count HEAD)
+        patch=$(git rev-parse --short HEAD)
+        echo "Version: $version"
+        echo "Build: $build"
+        echo "Patch: $patch"
+        echo "VersionBuildPatch: $version.$build.$patch" > /workspace/version.txt
+    - name: build-project
+      image: mcr.microsoft.com/dotnet/sdk:5.0
+      workingDir: /workspace/source
+      script: |
+        dotnet build
+    - name: build-docker-image
+      image: docker
+      workingDir: /workspace/source
+      script: |
+        version_build_patch=$(cat /workspace/version.txt)
+        # Build Docker image for each Dockerfile found in the directory
+        for dockerfile in $(find . -type f -name Dockerfile); do
+          image_name=$(dirname $dockerfile)
+          docker build -t lpg_api:${version_build_patch}-$(basename $image_name) $image_name
+        done
+    - name: update-deployment-image
+      image: alpine/helm:3.7.0
+      workingDir: /workspace/source
+      script: |
+        sed -i "s/\${{inputs.params.imageTag}}/$version_build_patch/g" /workspace/source/deployment.yaml
+    - name: deploy-to-kubernetes
+      image: google/cloud-sdk
+      workingDir: /workspace/source
+      script: |
+        gcloud container clusters get-credentials lpg-cluster --region us-central1 --project single-cistern-420705
+        kubectl apply -f /workspace/source/kubernetes/developer-deployment.yaml
+  resources:
+    inputs:
+      - name: source
+        type: git
+params:
+  - name: imageTag
+    description: "Docker image tag"
+    type: string

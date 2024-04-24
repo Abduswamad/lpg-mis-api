@@ -1,0 +1,12 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: csharp-developer-pipeline
+spec:
+  tasks:
+    - name: build-and-deploy-csharp-project-developer
+      taskRef:
+        name: build-and-deploy-csharp-project-developer
+  resources:
+    - name: source-repo-developer
+      type: git
