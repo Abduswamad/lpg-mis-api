@@ -11,7 +11,7 @@ namespace Gas.Services.StoreManagement
 {
     public class BatchService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Batch
         public IList<BatchEntity> GetBatch()

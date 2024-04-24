@@ -14,7 +14,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class StaffroleService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Staffrole
         public IList<StaffRoleEntity> GetStaffrole()
@@ -181,7 +181,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                QueryResEntity queryResEntity = new QueryResEntity();
+                QueryResEntity queryResEntity = new ();
                 foreach (var role in rqModel.Roles)
                 {
                     InsStaffroleModel reqModel = new InsStaffroleModel()

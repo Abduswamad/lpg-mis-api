@@ -14,7 +14,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class StaffService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all User
         public IList<StaffEntity> GetStaff()
@@ -120,7 +120,7 @@ namespace Gas.Services.CompanyManagement
         {
             try
             {
-                GetStaffModel getStaffModel = new GetStaffModel()
+                GetStaffModel getStaffModel = new()
                 {
                     Staffusername = rqModel.Staffusername
                 };
@@ -153,7 +153,7 @@ namespace Gas.Services.CompanyManagement
 
                     if ((bool)!CheckUserExist[0].Is_active!)
                     {
-                        RequestStaffStatusModel rqIsActiveModel = new RequestStaffStatusModel()
+                        RequestStaffStatusModel rqIsActiveModel = new()
                         {
                             Staffid = (int)CheckUserExist[0].Staff_id!,
                             Isactive = true
@@ -178,7 +178,7 @@ namespace Gas.Services.CompanyManagement
                     //send Email after staff is Added
                     if(Staff.Count > 0)
                     {
-                        if (ServiceSettings.GetWorkerServiceSettings().systemFeature.SendEmail)
+                        if (ServiceSettings.GetWorkerServiceSettings().SystemFeatures.SendEmail)
                         {
                             if (!string.IsNullOrEmpty(rqModel.Staffemail))
                             {
@@ -386,11 +386,11 @@ namespace Gas.Services.CompanyManagement
                     {
                         throw new Exception("Invalid Password");
                     }
-                    if(CheckUserExist.Where(x => (bool)x.Is_first_time!).ToList().Count() > 0)
+                    if(CheckUserExist.Where(x => (bool)x.Is_first_time!).ToList().Count > 0)
                     {
                         throw new Exception("Please Change Password Before you login");
                     }
-                    if (CheckUserExist.Where(x => !(bool)x.Is_active!).ToList().Count() > 0)
+                    if (CheckUserExist.Where(x => !(bool)x.Is_active!).ToList().Count > 0)
                     {
                         throw new Exception("User InActive, Please Contact System Administrator");
                     }
@@ -470,7 +470,7 @@ namespace Gas.Services.CompanyManagement
                     string password = UserUtils.ComputePasswordHash(rqModel.Oldpassword);
                     string newpassword = UserUtils.ComputePasswordHash(rqModel.Staffpassword);
 
-                    if (CheckUserExist.Where(x => x.Staff_password == password).ToList().Count() <= 0)
+                    if (CheckUserExist.Where(x => x.Staff_password == password).ToList().Count <= 0)
                     {
                         QueryResEntity res = new()
                         {
@@ -560,7 +560,7 @@ namespace Gas.Services.CompanyManagement
 
                     if (Staff.Count > 0)
                     {
-                        if (ServiceSettings.GetWorkerServiceSettings().systemFeature.SendEmail)
+                        if (ServiceSettings.GetWorkerServiceSettings().SystemFeatures.SendEmail)
                         {
                             if (!string.IsNullOrEmpty(CheckUserExist[0].Email))
                             {
@@ -639,7 +639,7 @@ namespace Gas.Services.CompanyManagement
 
                     string newpassword = UserUtils.ComputePasswordHash(rqModel.Staffpassword);
 
-                    if (CheckUserExist.Where(x => x.Staff_password == password).ToList().Count() <= 0)
+                    if (CheckUserExist.Where(x => x.Staff_password == password).ToList().Count <= 0)
                     {
                         QueryResEntity res = new()
                         {

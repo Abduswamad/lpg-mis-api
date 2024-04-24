@@ -12,7 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class RoleService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Role
         public IList<RoleEntity> GetRole()
@@ -132,7 +132,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     if ((bool)!CheckRoleExist[0].Is_active!)
                     {
-                        RequestRoleStatusModel rqIsActiveModel = new RequestRoleStatusModel()
+                        RequestRoleStatusModel rqIsActiveModel = new()
                         {
                             Roleid = (int)CheckRoleExist[0].Role_id!,
                             Isactive = true

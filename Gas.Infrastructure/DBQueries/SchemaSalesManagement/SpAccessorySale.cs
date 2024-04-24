@@ -11,16 +11,17 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string getAccessorySaleqry = $"{dbSchema}ufn_select_accessory_sale";
         private static readonly string deleteAccessorySaleqry = $"{dbSchema}ufn_delete_accessory_sale";
         private static readonly string getAccessoryTotalSaleqry = $"{dbSchema}ufn_select_accessory_sale_total";
+        private static readonly string getAccessorySale = $"SELECT * FROM {getAccessorySaleqry}()";
 
 
         #endregion procedures
 
         #region sp for AccessorySale
-        public static string getAccessorySale = $"SELECT * FROM {getAccessorySaleqry}()";
+       // public static string getAccessorySale = getAccessorySale;
 
         public static string SpGetAccessorySale(GetAccessorySaleModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getAccessorySale;
@@ -56,7 +57,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
 
         public static string SpInsertAccessorySale(InsAccessorySaleModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {insertAccessorySaleqry}({(rqModel.AccessorySaleid != null ? $"accessorysaleid := {rqModel.AccessorySaleid}, " : "")} " +
                       $"{(rqModel.Accessoryid != null ? $"accessoryid := {rqModel.Accessoryid}, " : "")} " +
                       $"{(rqModel.Driverid != null ? $"driverid := {rqModel.Driverid}, " : "")} " +
@@ -85,7 +86,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
 
         public static string SpDeleteAccessorySale(DeleteAccessorySaleModel rqModel)
         {
-            string result = "";
+            string result;
             string qry = $"SELECT * FROM {deleteAccessorySaleqry}({(rqModel.AccessorySaleid != null ? $"accessorysaleid := {rqModel.AccessorySaleid}, " : "")} " +
                      $")";
 
@@ -106,9 +107,9 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
 
         public static string SpAccessoryTotalSale(SalesTotalModel? rqModel)
         {
-            string result = "";
-            string qry = $"SELECT * FROM {getAccessoryTotalSaleqry}({(rqModel?.Startdate != null ? $"startdate := '{rqModel.Startdate.ToString("yyyy-MM-dd")}', " : "")} " +
-                      $"{(rqModel?.Enddate != null ? $"enddate := '{rqModel.Enddate.ToString("yyyy-MM-dd")}', " : "")} " +
+            string result;
+            string qry = $"SELECT * FROM {getAccessoryTotalSaleqry}({(rqModel?.Startdate != null ? $"startdate := '{rqModel.Startdate:yyyy-MM-dd}', " : "")} " +
+                      $"{(rqModel?.Enddate != null ? $"enddate := '{rqModel.Enddate:yyyy-MM-dd}', " : "")} " +
                      $")";
 
             string input = qry;

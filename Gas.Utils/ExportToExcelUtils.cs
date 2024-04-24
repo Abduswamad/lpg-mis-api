@@ -15,10 +15,11 @@ namespace Gas.Utils
             var headers = typeof(T).GetProperties().Select(prop => prop.Name).ToArray();
 
             // Convert objects to string arrays
-            List<string[]> stringArrays = new List<string[]>();
-
-            // Add headers as the first row
-            stringArrays.Add(headers);
+            List<string[]> stringArrays = new()
+            {
+                // Add headers as the first row
+                headers
+            };
 
             foreach (var item in dataList)
             {
@@ -32,10 +33,10 @@ namespace Gas.Utils
         private static MemoryStream ExportToExcel(List<string[]> dataList)
         {
             // Create a memory stream to hold the CSV data
-            MemoryStream stream = new MemoryStream();
+            MemoryStream stream = new();
 
             // Write CSV data to memory stream
-            using (StreamWriter writer = new StreamWriter(stream, Encoding.UTF8, 1024, true))
+            using (StreamWriter writer = new(stream, Encoding.UTF8, 1024, true))
             {
                 // Write data rows
                 foreach (var dataRow in dataList)
@@ -55,7 +56,7 @@ namespace Gas.Utils
             for (int i = 0; i < rowData.Length; i++)
             {
                 // Quote fields containing special characters
-                string field = rowData[i].Contains(",") || rowData[i].Contains("\"")
+                string field = rowData[i].Contains(',') || rowData[i].Contains('"')
                     ? $"\"{rowData[i].Replace("\"", "\"\"")}\""
                     : rowData[i];
 
@@ -82,11 +83,9 @@ namespace Gas.Utils
         {
             try
             {
-                using (MemoryStream excelStream = new MemoryStream())
-                {
-                    string base64Excel = ConvertToBase64(ExportToExcel(dataList).ToArray());
-                    return base64Excel;
-                }
+                using MemoryStream excelStream = new();
+                string base64Excel = ConvertToBase64(ExportToExcel(dataList).ToArray());
+                return base64Excel;
             }
             catch (Exception)
             {

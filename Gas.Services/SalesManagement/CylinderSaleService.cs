@@ -11,7 +11,7 @@ namespace Gas.Services.SalesManagement
 {
     public class CylinderSaleService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         public IList<CylinderSaleEntity> GetCylinderSale()
         {

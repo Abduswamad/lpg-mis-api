@@ -15,21 +15,25 @@ namespace Gas.Services
             string senderPassword = ServiceSettings.GetWorkerServiceSettings().Email.SenderPassword;
 
             // Create a new instance of the SmtpClient class
-            SmtpClient client = new SmtpClient(ServiceSettings.GetWorkerServiceSettings().Email.Host);
-            // Set the SMTP port for Gmail
-            client.Port = ServiceSettings.GetWorkerServiceSettings().Email.Port;
+            SmtpClient client = new(ServiceSettings.GetWorkerServiceSettings().Email.Host)
+            {
+                // Set the SMTP port for Gmail
+                Port = ServiceSettings.GetWorkerServiceSettings().Email.Port,
 
-            // Set the credentials (sender's Gmail address and password)
-            client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+                // Set the credentials (sender's Gmail address and password)
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
 
-            // Enable SSL
-            client.EnableSsl = true;
+                // Enable SSL
+                EnableSsl = true,
 
-            client.UseDefaultCredentials = false;
+                UseDefaultCredentials = false
+            };
 
             // Create a MailMessage object
-            MailMessage mail = new();
-            mail.From = new(senderEmail);
+            MailMessage mail = new()
+            {
+                From = new(senderEmail)
+            };
             mail.To.Add(recipientEmail);
             mail.Subject = ServiceSettings.GetWorkerServiceSettings().Email.Subject;
             mail.Body = body;
@@ -57,23 +61,25 @@ namespace Gas.Services
             string senderPassword = ServiceSettings.GetWorkerServiceSettings().Email.SenderPassword;
 
             // Create a new instance of the SmtpClient class
-            SmtpClient client = new SmtpClient(ServiceSettings.GetWorkerServiceSettings().Email.Host);
-            // Set the SMTP port for Gmail
-            client.Port = ServiceSettings.GetWorkerServiceSettings().Email.Port;
+            SmtpClient client = new(ServiceSettings.GetWorkerServiceSettings().Email.Host)
+            {
+                // Set the SMTP port for Gmail
+                Port = ServiceSettings.GetWorkerServiceSettings().Email.Port,
 
-            // Set the credentials (sender's Gmail address and password)
-            client.Credentials = new NetworkCredential(senderEmail, senderPassword);
+                // Set the credentials (sender's Gmail address and password)
+                Credentials = new NetworkCredential(senderEmail, senderPassword),
 
-            // Enable SSL
-            client.EnableSsl = true;
+                // Enable SSL
+                EnableSsl = true,
 
-            client.UseDefaultCredentials = false;
+                UseDefaultCredentials = false
+            };
 
             // Create a MailMessage object
             MailMessage mail = new();
 
             // Attach the PDF stream
-            Attachment attachment = new Attachment(new MemoryStream(dataToExport), attachmentName);
+            Attachment attachment = new(new MemoryStream(dataToExport), attachmentName);
             mail.Attachments.Add(attachment);
 
             mail.From = new(senderEmail);

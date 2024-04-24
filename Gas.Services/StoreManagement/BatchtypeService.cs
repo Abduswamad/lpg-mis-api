@@ -10,7 +10,7 @@ namespace Gas.Services.StoreManagement
 {
     public class BatchtypeService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Batchtype
         public IList<BatchtypeEntity> GetBatchtype()

@@ -12,7 +12,7 @@ namespace Gas.Services.StoreManagement
 {
     public class BatchItemService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all BatchItem
         public IList<BatchItemEntity> GetBatchItem()
@@ -114,10 +114,10 @@ namespace Gas.Services.StoreManagement
 
         public FullBatchItemEntity GetBatchItemById(int Batchid)
         {
-            FullBatchItemEntity fullBatchItemEntity = new FullBatchItemEntity();
-            List<CylinderEntity> cylinderEntities = new List<CylinderEntity>();
-            List<AccessoryEntity> accessoryEntities = new List<AccessoryEntity>();
-            GetBatchItemModel? rqModel = new GetBatchItemModel
+            FullBatchItemEntity fullBatchItemEntity = new ();
+            List<CylinderEntity> cylinderEntities = new ();
+            List<AccessoryEntity> accessoryEntities = new ();
+            GetBatchItemModel? rqModel = new ()
             {
                 Batchid = Batchid
             };
@@ -138,17 +138,18 @@ namespace Gas.Services.StoreManagement
 
                 foreach (var item in rqCylinderModel)
                 {
-                    CylinderEntity cylinderEntity = new CylinderEntity();
-
-                    cylinderEntity.Cylinder_id = item.Cylinder_id;
-                    cylinderEntity.Cylinder_name = item.Cylinder_name;
-                    cylinderEntity.Cylinder_company_id = item.Cylinder_company_id;
-                    cylinderEntity.Cylinder_company_name = item.Cylinder_company_name;
-                    cylinderEntity.Super_dealer_id = item.Super_dealer_id;
-                    cylinderEntity.Super_dealer_name = item.Super_dealer_name;
-                    cylinderEntity.Cylinder_status_id = item.Cylinder_status_id;
-                    cylinderEntity.Cylinder_status_name = item.Cylinder_status_name;
-                    cylinderEntity.Cylinder_quantity = item.Cylinder_quantity;
+                    CylinderEntity cylinderEntity = new()
+                    {
+                        Cylinder_id = item.Cylinder_id,
+                        Cylinder_name = item.Cylinder_name,
+                        Cylinder_company_id = item.Cylinder_company_id,
+                        Cylinder_company_name = item.Cylinder_company_name,
+                        Super_dealer_id = item.Super_dealer_id,
+                        Super_dealer_name = item.Super_dealer_name,
+                        Cylinder_status_id = item.Cylinder_status_id,
+                        Cylinder_status_name = item.Cylinder_status_name,
+                        Cylinder_quantity = item.Cylinder_quantity
+                    };
 
                     cylinderEntities.Add(cylinderEntity);
 
@@ -156,7 +157,7 @@ namespace Gas.Services.StoreManagement
 
                 fullBatchItemEntity.Cylinders = cylinderEntities;
 
-                GetAccessoryBatchItemModel? rqModel2 = new GetAccessoryBatchItemModel
+                GetAccessoryBatchItemModel? rqModel2 = new ()
                 {
                     Batchid = Batchid
                 };
@@ -165,15 +166,16 @@ namespace Gas.Services.StoreManagement
 
                 foreach(var item in rqcessoryModel)
                 {
-                    AccessoryEntity accessoryEntity = new AccessoryEntity();
-
-                    accessoryEntity.Accessory_id = item.Accessory_id;
-                    accessoryEntity.Accessory_name = item.Accessory_name;
-                    accessoryEntity.Accessory_brand_id = item.Accessory_brand_id;
-                    accessoryEntity.Accessory_brand_name = item.Accessory_brand_name;
-                    accessoryEntity.Super_dealer_id = item.Super_dealer_id;
-                    accessoryEntity.Super_dealer_name = item.Super_dealer_name;
-                    accessoryEntity.Accessory_quantity = item.Accessory_quantity;
+                    AccessoryEntity accessoryEntity = new()
+                    {
+                        Accessory_id = item.Accessory_id,
+                        Accessory_name = item.Accessory_name,
+                        Accessory_brand_id = item.Accessory_brand_id,
+                        Accessory_brand_name = item.Accessory_brand_name,
+                        Super_dealer_id = item.Super_dealer_id,
+                        Super_dealer_name = item.Super_dealer_name,
+                        Accessory_quantity = item.Accessory_quantity
+                    };
 
                     accessoryEntities.Add(accessoryEntity);
 
@@ -339,11 +341,11 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                QueryResEntity queryResEntity = new QueryResEntity();
+                QueryResEntity queryResEntity = new ();
 
-                BatchService batchService = new BatchService();
+                BatchService batchService = new();
 
-                InsBatchModel rqBatchModel = new InsBatchModel()
+                InsBatchModel rqBatchModel = new()
                 {
                     Batchdate = rqModel.Batchdate,
                     Batchdepo = rqModel.Batchdepo,
@@ -356,7 +358,7 @@ namespace Gas.Services.StoreManagement
 
                 if (batch == 0)
                 {
-                    queryResEntity = new QueryResEntity()
+                    queryResEntity = new ()
                     {
                         Code = Codes.BadRequest,
                         Msg = "Failed to Add batch"
@@ -366,7 +368,7 @@ namespace Gas.Services.StoreManagement
                 {
                     foreach (var Cylinder in rqModel.Cylinders)
                     {
-                        CylinderstockModel? rqStoreModel = new CylinderstockModel
+                        CylinderstockModel? rqStoreModel = new()
                         {
                             Stockdate = rqModel.Stockdate,
                             Store = rqModel.Store,
@@ -384,7 +386,7 @@ namespace Gas.Services.StoreManagement
                                 {
                                     if (getStore[0].Total_quantity_remain >= Cylinder.Cylinderquantity)
                                     {
-                                        InsBatchItemModel rqCylinderModel = new InsBatchItemModel()
+                                        InsBatchItemModel rqCylinderModel = new ()
                                         {
                                             Cylinderid = Cylinder.Cylinderid,
                                             Cylinderquantity = Cylinder.Cylinderquantity,
@@ -395,7 +397,7 @@ namespace Gas.Services.StoreManagement
                                     }
                                     else
                                     {
-                                        queryResEntity = new QueryResEntity()
+                                        queryResEntity = new ()
                                         {
                                             Code = Codes.BadRequest,
                                             Msg = $"Cylinder Quantity Remain {getStore[0].Total_quantity_remain}"
@@ -404,7 +406,7 @@ namespace Gas.Services.StoreManagement
                                 }
                                 else
                                 {
-                                    InsBatchItemModel rqCylinderModel = new InsBatchItemModel()
+                                    InsBatchItemModel rqCylinderModel = new ()
                                     {
                                         Cylinderid = Cylinder.Cylinderid,
                                         Cylinderquantity = Cylinder.Cylinderquantity,
@@ -416,7 +418,7 @@ namespace Gas.Services.StoreManagement
                             }
                             else
                             {
-                                queryResEntity = new QueryResEntity()
+                                queryResEntity = new ()
                                 {
                                     Code = Codes.BadRequest,
                                     Msg = $"Cylinder Store is Empty"
@@ -425,7 +427,7 @@ namespace Gas.Services.StoreManagement
                         }
                         else
                         {
-                            queryResEntity = new QueryResEntity()
+                            queryResEntity = new ()
                             {
                                 Code = Codes.BadRequest,
                                 Msg = $"Cylinder Store is Empty"
@@ -483,11 +485,11 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                QueryResEntity queryResEntity = new QueryResEntity();
+                QueryResEntity queryResEntity = new ();
 
-                BatchService batchService = new BatchService();
+                BatchService batchService = new ();
 
-                InsBatchModel rqBatchModel = new InsBatchModel()
+                InsBatchModel rqBatchModel = new ()
                 {
                     Batchdate = rqModel.Batchdate,
                     Batchdepo = rqModel.Batchdepo,
@@ -500,7 +502,7 @@ namespace Gas.Services.StoreManagement
 
                 if (batch == 0)
                 {
-                    queryResEntity = new QueryResEntity()
+                    queryResEntity = new ()
                     {
                         Code = Codes.BadRequest,
                         Msg = "Failed to Add batch"
@@ -510,7 +512,7 @@ namespace Gas.Services.StoreManagement
                 {
                     foreach (var Cylinder in rqModel.Cylinders)
                     {
-                        CylinderstockModel? rqStoreModel = new CylinderstockModel
+                        CylinderstockModel? rqStoreModel = new()
                         {
                             Stockdate = rqModel.Stockdate,
                             Store = rqModel.Store,
@@ -522,7 +524,7 @@ namespace Gas.Services.StoreManagement
 
                         if (rqModel.Batchtype == CodesBatchType.IN)
                         {
-                            InsBatchItemModel rqCylinderModel = new InsBatchItemModel()
+                            InsBatchItemModel rqCylinderModel = new ()
                             {
                                 Cylinderid = Cylinder.Cylinderid,
                                 Cylinderquantity = Cylinder.Cylinderquantity,
@@ -540,7 +542,7 @@ namespace Gas.Services.StoreManagement
                                 {
                                     if (getStore[0].Total_quantity_remain >= Cylinder.Cylinderquantity)
                                     {
-                                        InsBatchItemModel rqCylinderModel = new InsBatchItemModel()
+                                        InsBatchItemModel rqCylinderModel = new ()
                                         {
                                             Cylinderid = Cylinder.Cylinderid,
                                             Cylinderquantity = Cylinder.Cylinderquantity,
@@ -551,7 +553,7 @@ namespace Gas.Services.StoreManagement
                                     }
                                     else
                                     {
-                                        queryResEntity = new QueryResEntity()
+                                        queryResEntity = new ()
                                         {
                                             Code = Codes.BadRequest,
                                             Msg = $"Cylinder Quantity Remain {getStore[0].Total_quantity_remain}"
@@ -560,7 +562,7 @@ namespace Gas.Services.StoreManagement
                                 }
                                 else
                                 {
-                                    InsBatchItemModel rqCylinderModel = new InsBatchItemModel()
+                                    InsBatchItemModel rqCylinderModel = new ()
                                     {
                                         Cylinderid = Cylinder.Cylinderid,
                                         Cylinderquantity = Cylinder.Cylinderquantity,
@@ -572,7 +574,7 @@ namespace Gas.Services.StoreManagement
                             }
                             else
                             {
-                                queryResEntity = new QueryResEntity()
+                                queryResEntity = new ()
                                 {
                                     Code = Codes.BadRequest,
                                     Msg = $"Cylinder Store is Empty"
@@ -581,7 +583,7 @@ namespace Gas.Services.StoreManagement
                         }
                         else
                         {
-                            queryResEntity = new QueryResEntity()
+                            queryResEntity = new ()
                             {
                                 Code = Codes.BadRequest,
                                 Msg = $"Cylinder Store is Empty"
@@ -604,7 +606,7 @@ namespace Gas.Services.StoreManagement
 
                         if (rqModel.Batchtype == CodesBatchType.OUT)
                         {
-                            AccessorystockModel? rqStoreModel = new AccessorystockModel
+                            AccessorystockModel? rqStoreModel = new()
                             {
                                 Stockdate = rqModel.Stockdate,
                                 Store = rqModel.Store,
@@ -616,7 +618,7 @@ namespace Gas.Services.StoreManagement
 
                         if (rqModel.Batchtype == CodesBatchType.IN)
                         {
-                            InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                            InsAccessoryBatchItemModel rqAccessoryModel = new()
                             {
                                 Accessoryid = accessory!.Accessoryid,
                                 Accessoryquantity = accessory.Accessoryquantity,
@@ -635,7 +637,7 @@ namespace Gas.Services.StoreManagement
                                 {
                                     if (getStore[0].Total_quantity_remain >= accessory!.Accessoryquantity)
                                     {
-                                        InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                        InsAccessoryBatchItemModel rqAccessoryModel = new()
                                         {
                                             Accessoryid = accessory.Accessoryid,
                                             Accessoryquantity = accessory.Accessoryquantity,
@@ -645,7 +647,7 @@ namespace Gas.Services.StoreManagement
                                     }
                                     else
                                     {
-                                        queryResEntity = new QueryResEntity()
+                                        queryResEntity = new ()
                                         {
                                             Code = Codes.BadRequest,
                                             Msg = $"Accessory Quantity Remain {getStore[0].Total_quantity_remain}"
@@ -654,7 +656,7 @@ namespace Gas.Services.StoreManagement
                                 }
                                 else
                                 {
-                                    InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                    InsAccessoryBatchItemModel rqAccessoryModel = new()
                                     {
                                         Accessoryid = accessory!.Accessoryid,
                                         Accessoryquantity = accessory.Accessoryquantity,
@@ -665,7 +667,7 @@ namespace Gas.Services.StoreManagement
                             }
                             else
                             {
-                                queryResEntity = new QueryResEntity()
+                                queryResEntity = new ()
                                 {
                                     Code = Codes.BadRequest,
                                     Msg = $"Accessory Store is Empty"
@@ -674,7 +676,7 @@ namespace Gas.Services.StoreManagement
                         }
                         else
                         {
-                            queryResEntity = new QueryResEntity()
+                            queryResEntity = new ()
                             {
                                 Code = Codes.BadRequest,
                                 Msg = $"Accessory Store is Empty"

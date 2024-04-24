@@ -15,30 +15,24 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Staff Management.
     /// </summary>
+    /// <remarks>
+    /// API Controller Instance for Staff Management.
+    /// </remarks>
+    /// <param name="mediator">The mediator instance used for handling communication between components.</param>
 
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class AccountManagementController : ControllerBase
+    public class AccountManagementController(IConfiguration config, IMediator mediator) : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
         /// </summary>
-        private readonly IMediator _mediator;
-        public IConfiguration _configuration;
-
-        /// <summary>
-        /// API Controller Instance for Staff Management.
-        /// </summary>
-        /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public AccountManagementController(IConfiguration config,IMediator mediator)
-        {
-            _mediator = mediator;
-            _configuration = config;
-        }
+        private readonly IMediator _mediator = mediator;
+        public IConfiguration _configuration = config;
 
         #region Account
-        
+
         /// <summary>
         /// API Endpoint for Changing Staff Password.
         /// </summary>

@@ -6,7 +6,7 @@
         public string ContentRootPath { get; set; } = string.Empty;
         public EmailingModel Email { get; set; } = new EmailingModel();
         public JWTKeyModel Jwt { get; set; } = new JWTKeyModel ();
-        public SystemFeature systemFeature { get; set; } = new SystemFeature();
+        public SystemFeature SystemFeatures { get; set; } = new SystemFeature();
     }
     public class DBConnectionModel
     {

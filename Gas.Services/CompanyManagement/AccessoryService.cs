@@ -12,7 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class AccessoryService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Accessory
         public IList<AccessoryEntity> GetAccessory()
@@ -133,7 +133,7 @@ namespace Gas.Services.CompanyManagement
 
                     if ((bool)!CheckAccessoryExist[0].Is_active!)
                     {
-                        RequestAccessoryStatusModel rqIsActiveModel = new RequestAccessoryStatusModel()
+                        RequestAccessoryStatusModel rqIsActiveModel = new()
                         {
                             Accessoryid = (int)CheckAccessoryExist[0].Accessory_id!,
                             Isactive = true

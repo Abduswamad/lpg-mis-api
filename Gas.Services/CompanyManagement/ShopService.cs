@@ -12,7 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class ShopService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Shop
         public IList<ShopEntity> GetShop()
@@ -132,7 +132,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     if ((bool)!CheckShopExist[0].Is_active!)
                     {
-                        RequestShopStatusModel rqIsActiveModel = new RequestShopStatusModel()
+                        RequestShopStatusModel rqIsActiveModel = new()
                         {
                             Shopid = (int)CheckShopExist[0].Shop_id!,
                             Isactive = true

@@ -12,7 +12,7 @@ namespace Gas.Services.PublicManagement
 {
     public class AccessorybrandService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Accessorybrand
         public IList<AccessorybrandEntity> GetAccessorybrand()
@@ -144,7 +144,7 @@ namespace Gas.Services.PublicManagement
                 {
                     if ((bool)!CheckAccessorybrandExist[0].Is_active!)
                     {
-                        RequestAccessorybrandStatusModel rqIsActiveModel = new RequestAccessorybrandStatusModel()
+                        RequestAccessorybrandStatusModel rqIsActiveModel = new()
                         {
                             Accessorybrandid = (int)CheckAccessorybrandExist[0].Accessory_brand_id!,
                             Isactive = true

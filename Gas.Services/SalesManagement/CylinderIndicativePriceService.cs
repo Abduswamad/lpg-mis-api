@@ -12,7 +12,7 @@ namespace Gas.Services.SalesManagement
 {
     public class CylinderIndicativePriceService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Batch
         public IList<CylinderIndicativePriceEntity> GetCylinderIndicativePrice()
@@ -127,7 +127,7 @@ namespace Gas.Services.SalesManagement
                     var checkeddata = data.Where(x => x.Cylinder_id == rqModel.Cylinderid && x.Cylinder_category_id == rqModel.Cylindercategory).ToList();
                     if ((bool)!checkeddata[0].Is_active!)
                     {
-                        UpdateCylinderIndicativePriceStatusModel rqIsActiveModel = new UpdateCylinderIndicativePriceStatusModel()
+                        UpdateCylinderIndicativePriceStatusModel rqIsActiveModel = new ()
                         {
                             Cylinderindicativepriceid = (int)checkeddata[0].Cylinder_indicative_price_id!,
                             IsActive = true
@@ -137,7 +137,7 @@ namespace Gas.Services.SalesManagement
                     }
                     if (checkeddata.Count > 0)
                     {
-                        QueryResEntity queryResEntity = new QueryResEntity()
+                        QueryResEntity queryResEntity = new ()
                         {
                             Code = Codes.BadRequest,
                             Msg = $"Cylinder already contain Price"
@@ -202,7 +202,7 @@ namespace Gas.Services.SalesManagement
                 {
                     if (data[0].Cylinder_indicative_price_id != rqModel.Cylinderindicativepriceid)
                     {
-                        QueryResEntity queryResEntity = new QueryResEntity()
+                        QueryResEntity queryResEntity = new ()
                         {
                             Code = Codes.BadRequest,
                             Msg = "Cylinder already contain Price"

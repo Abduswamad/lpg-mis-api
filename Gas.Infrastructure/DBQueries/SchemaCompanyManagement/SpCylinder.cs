@@ -9,11 +9,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getcylinderqry = $"{dbSchema}ufn_select_cylinder";
         private static readonly string inscylinderqry = $"{dbSchema}ufn_insert_cylinder";
         private static readonly string updatecylinderqry = $"{dbSchema}ufn_update_cylinder";
+        private static readonly string getCylinder = $"SELECT * FROM {getcylinderqry}()";
 
         #endregion procedures
 
         #region sp for Cylinder
-        public static string getCylinder = $"SELECT * FROM {getcylinderqry}()";
+        //public static string getCylinder = getCylinder;
         public static string SpInsCylinder(InsCylinderModel rqModel)
         {
             string qry = $"SELECT * FROM {inscylinderqry}(cylinderid := {rqModel.Cylinderid}, cylindername := '{rqModel.Cylindername}'," +
@@ -31,7 +32,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         }
         public static string SpGetCylinder(GetCylinderModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getCylinder;

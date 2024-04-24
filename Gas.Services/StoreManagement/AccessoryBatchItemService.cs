@@ -12,7 +12,7 @@ namespace Gas.Services.StoreManagement
 {
     public class AccessoryBatchItemService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all AccessoryBatchItem
         public IList<AccessoryBatchItemEntity> GetAccessoryBatchItem()
@@ -262,11 +262,11 @@ namespace Gas.Services.StoreManagement
         {
             try
             {
-                QueryResEntity queryResEntity = new QueryResEntity();
+                QueryResEntity queryResEntity = new ();
 
-                BatchService batchService = new BatchService();
+                BatchService batchService = new ();
 
-                InsBatchModel rqBatchModel = new InsBatchModel()
+                InsBatchModel rqBatchModel = new ()
                 {
                     Batchdate = rqModel.Batchdate,
                     Batchdepo = rqModel.Batchdepo,
@@ -279,7 +279,7 @@ namespace Gas.Services.StoreManagement
 
                 if(batch == 0)
                 {
-                    queryResEntity = new QueryResEntity()
+                    queryResEntity = new ()
                     {
                         Code = Codes.BadRequest,
                         Msg = "Failed to Add batch"
@@ -293,7 +293,7 @@ namespace Gas.Services.StoreManagement
 
                         if (rqModel.Batchtype == CodesBatchType.OUT)
                         {
-                            AccessorystockModel? rqStoreModel = new AccessorystockModel
+                            AccessorystockModel? rqStoreModel = new()
                             {
                                 Stockdate = rqModel.Stockdate,
                                 Store = rqModel.Store,
@@ -305,7 +305,7 @@ namespace Gas.Services.StoreManagement
 
                         if (rqModel.Batchtype == CodesBatchType.IN)
                         {
-                            InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                            InsAccessoryBatchItemModel rqAccessoryModel = new ()
                             {
                                 Accessoryid = accessory!.Accessoryid,
                                 Accessoryquantity = accessory.Accessoryquantity,
@@ -323,7 +323,7 @@ namespace Gas.Services.StoreManagement
                                 {
                                     if (getStore[0].Total_quantity_remain >= accessory!.Accessoryquantity)
                                     {
-                                        InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                        InsAccessoryBatchItemModel rqAccessoryModel = new ()
                                         {
                                             Accessoryid = accessory.Accessoryid,
                                             Accessoryquantity = accessory.Accessoryquantity,
@@ -333,7 +333,7 @@ namespace Gas.Services.StoreManagement
                                     }
                                     else
                                     {
-                                        queryResEntity = new QueryResEntity()
+                                        queryResEntity = new ()
                                         {
                                             Code = Codes.BadRequest,
                                             Msg = $"Accessory Quantity Remain {getStore[0].Total_quantity_remain}"
@@ -342,7 +342,7 @@ namespace Gas.Services.StoreManagement
                                 }
                                 else
                                 {
-                                    InsAccessoryBatchItemModel rqAccessoryModel = new InsAccessoryBatchItemModel()
+                                    InsAccessoryBatchItemModel rqAccessoryModel = new ()
                                     {
                                         Accessoryid = accessory!.Accessoryid,
                                         Accessoryquantity = accessory.Accessoryquantity,
@@ -353,7 +353,7 @@ namespace Gas.Services.StoreManagement
                             }
                             else
                             {
-                                queryResEntity = new QueryResEntity()
+                                queryResEntity = new ()
                                 {
                                     Code = Codes.BadRequest,
                                     Msg = $"Accessory Store is Empty"
@@ -362,7 +362,7 @@ namespace Gas.Services.StoreManagement
                         }
                         else
                         {
-                            queryResEntity = new QueryResEntity()
+                            queryResEntity = new ()
                             {
                                 Code = Codes.BadRequest,
                                 Msg = $"Accessory Store is Empty"

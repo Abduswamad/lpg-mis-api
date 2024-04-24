@@ -16,25 +16,20 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Shop Management.
     /// </summary>
+    /// <remarks>
+    /// API Controller Instance for Shop Management.
+    /// </remarks>
+    /// <param name="mediator">The mediator instance used for handling communication between components.</param>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class ShopManagementController : ControllerBase
+    public class ShopManagementController(IMediator mediator) : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
         /// </summary>
-        private readonly IMediator _mediator;
-
-        /// <summary>
-        /// API Controller Instance for Shop Management.
-        /// </summary>
-        /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public ShopManagementController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         #region Shop
 

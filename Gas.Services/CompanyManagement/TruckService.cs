@@ -12,7 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class TruckService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Truck
         public IList<TruckEntity> GetTruck()
@@ -132,7 +132,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     if ((bool)!CheckTruckExist[0].Is_active!)
                     {
-                        RequestTruckStatusModel rqIsActiveModel = new RequestTruckStatusModel()
+                        RequestTruckStatusModel rqIsActiveModel = new()
                         {
                             Truckid = (int)CheckTruckExist[0].Truck_id!,
                             Isactive = true

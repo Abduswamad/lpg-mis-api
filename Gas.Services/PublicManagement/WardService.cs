@@ -14,7 +14,7 @@ namespace Gas.Services.PublicManagement
 {
     public class WardService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Ward
         public IList<WardEntity> GetWard()

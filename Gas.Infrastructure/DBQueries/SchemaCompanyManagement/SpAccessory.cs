@@ -9,11 +9,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getAccessoryqry = $"{dbSchema}ufn_select_accessory";
         private static readonly string insAccessoryqry = $"{dbSchema}ufn_insert_accessory";
         private static readonly string updateAccessoryqry = $"{dbSchema}ufn_update_accessory";
+        private static readonly string getAccessory = $"SELECT * FROM {getAccessoryqry}()";
 
         #endregion procedures
 
         #region sp for Accessory
-        public static string getAccessory = $"SELECT * FROM {getAccessoryqry}()";
+        //public static string getAccessory = getAccessory;
         public static string SpInsAccessory(InsAccessoryModel rqModel)
         {
             string qry = $"SELECT * FROM {insAccessoryqry}(accessoryid := {rqModel.Accessoryid}, accessoryname := '{rqModel.Accessoryname}', accessorybrand := {rqModel.Accessorybrand}, " +
@@ -31,7 +32,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         }
         public static string SpGetAccessory(GetAccessoryModel? rqModel)
         {
-            string result = "";
+            string result;
             if (rqModel == null)
             {
                 result = getAccessory;

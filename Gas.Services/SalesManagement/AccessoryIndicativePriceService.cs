@@ -13,7 +13,7 @@ namespace Gas.Services.SalesManagement
 {
     public class AccessoryIndicativePriceService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Batch
         public IList<AccessoryIndicativePriceEntity> GetAccessoryIndicativePrice()
@@ -131,7 +131,7 @@ namespace Gas.Services.SalesManagement
                     {
                         if ((bool)!checkeddata[0].Is_active!)
                         {
-                            UpdateAccessoryIndicativePriceStatusModel rqIsActiveModel = new UpdateAccessoryIndicativePriceStatusModel()
+                            UpdateAccessoryIndicativePriceStatusModel rqIsActiveModel = new()
                             {
                                 Accessoryindicativepriceid = (int)checkeddata[0].Accessory_indicative_price_id!,
                                 IsActive = true
@@ -140,7 +140,7 @@ namespace Gas.Services.SalesManagement
                             return status;
                         }
 
-                        QueryResEntity queryResEntity = new QueryResEntity()
+                        QueryResEntity queryResEntity = new ()
                         {
                             Code = Codes.BadRequest,
                             Msg = $"Accessory already contain Price"
@@ -206,7 +206,7 @@ namespace Gas.Services.SalesManagement
                 {
                     if (data[0].Accessory_indicative_price_id != rqModel.Accessoryindicativepriceid)
                     {
-                        QueryResEntity queryResEntity = new QueryResEntity()
+                        QueryResEntity queryResEntity = new ()
                         {
                             Code = Codes.BadRequest,
                             Msg = "Accessory already contain Price"

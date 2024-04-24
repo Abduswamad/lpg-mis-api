@@ -12,7 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class CylinderService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Cylinder
         public IList<CylinderEntity> GetCylinder()
@@ -132,7 +132,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     if ((bool)!CheckCylinderExist[0].Is_active!)
                     {
-                        RequestCylinderStatusModel rqIsActiveModel = new RequestCylinderStatusModel()
+                        RequestCylinderStatusModel rqIsActiveModel = new()
                         {
                             Cylinderid = (int)CheckCylinderExist[0].Cylinder_id!,
                             Isactive = true

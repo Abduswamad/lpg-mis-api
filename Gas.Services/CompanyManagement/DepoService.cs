@@ -12,7 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class DepoService
     {
-        readonly PSQLCONNECT conn = new PSQLCONNECT(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
+        readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Depo
         public IList<DepoEntity> GetDepo()
@@ -132,7 +132,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     if ((bool)!CheckDepoExist[0].Is_active!)
                     {
-                        RequestDepoStatusModel rqIsActiveModel = new RequestDepoStatusModel()
+                        RequestDepoStatusModel rqIsActiveModel = new()
                         {
                             Depoid = (int)CheckDepoExist[0].Depo_id!,
                             Isactive = true
