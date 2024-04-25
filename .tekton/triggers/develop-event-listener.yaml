@@ -6,7 +6,7 @@ spec:
   triggers:
     - name: develop-trigger
       bindings:
-        - ref: develop-trigger-binding
+        - ref: develop-trigger-binding 
       template:
         name: develop-trigger
 
