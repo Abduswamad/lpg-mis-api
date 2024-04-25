@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gas.Model.SalesManagement
+﻿namespace Gas.Model.SalesManagement
 {
     public class AddCylinderIndicativePriceModel
     {
@@ -12,6 +6,7 @@ namespace Gas.Model.SalesManagement
         public int? Cylindercategory { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
+        public int? Superdealer { get; set; }
 
     }
     public class InsCylinderIndicativePriceModel
@@ -21,6 +16,7 @@ namespace Gas.Model.SalesManagement
         public int? Cylindercategory { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
+        public int? Superdealer { get; set; }
 
     }
 
@@ -31,6 +27,7 @@ namespace Gas.Model.SalesManagement
         public int? Cylindercategory { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
+        public int? Superdealer { get; set; }
 
     }
 
@@ -43,6 +40,7 @@ namespace Gas.Model.SalesManagement
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
         public bool? IsActive { get; set; }
+        public int? Superdealer { get; set; }
 
     }
 

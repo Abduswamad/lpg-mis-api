@@ -218,6 +218,54 @@ namespace Gas.Services.SalesManagement
             #endregion catch
         }
 
+        public QueryResEntity DeleteCylinderSalesItem(DeleteCylinderSalesItemModel rqModel)
+        {
+            try
+            {
+                IList<QueryResEntity> batch = conn.spGetData<QueryResEntity>(null!, SpCylinderSale.SpDeleteCylinderSalesItem(rqModel));
+                return batch.First();
+
+            }
+            #region catch
+            catch (NpgsqlException ex)
+            {
+                if (ex.SqlState == "23514")
+                {
+                    // Handle a specific constraint violation (e.g., foreign key violation)
+                    Logger.Logger.Error("Foreign key constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
+                    throw new NpgsqlException("Foreign key constraint violation");
+                }
+                else if (ex.SqlState == "23505")
+                {
+                    // Handle another constraint violation (e.g., unique constraint violation)
+                    Logger.Logger.Error("Unique constraint violation: " + ex.InnerException == null ? ex.Message : ex.InnerException!.Message);
+                    throw new NpgsqlException("Unique constraint violation");
+                }
+                else
+                {
+                    // Handle other NpgsqlExceptions or unknown exceptions
+                    Logger.Logger.Error("NpgsqlException: " + ex.Message);
+                    throw new Exception(ex.Message);
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                Logger.Logger.Error($"SQL Exception: {ex.Message}");
+                throw new Exception("SQL Error");
+            }
+            catch (InvalidOperationException ex)
+            {
+                Logger.Logger.Error($"Invalid Operation Exception: {ex.Message}");
+                throw new InvalidOperationException("Invalid Operation");
+            }
+            catch (TimeoutException ex)
+            {
+                Logger.Logger.Error($"Timeout Exception: {ex.Message}");
+                throw new TimeoutException("Request TimeOut");
+            }
+            #endregion catch
+        }
 
         public IList<CylinderTotalSaleEntity> GetCylinderTotalSale(SalesTotalModel? rqModel)
         {

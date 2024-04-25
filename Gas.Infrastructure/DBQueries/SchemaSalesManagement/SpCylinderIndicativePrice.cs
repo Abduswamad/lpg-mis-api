@@ -1,5 +1,4 @@
 ﻿using Gas.Model.SalesManagement;
-using Gas.Model.StoreManagement;
 
 namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
 {
@@ -33,6 +32,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                       $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
                       $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice}, " : "")} " +
                       $"{(rqModel.IsActive != null ? $"isactive := {rqModel.IsActive}, " : "")} " +
+                      $"{(rqModel.Superdealer != null ? $"superdealer := {rqModel.Superdealer}, " : "")} " +
                       $")";
 
                 string input = qry;
@@ -60,6 +60,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                      $"{(rqModel.Cylindercategory != null ? $"cylindercategory := {rqModel.Cylindercategory}, " : "")} " +
                      $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
                      $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice}, " : "")} " +
+                     $"{(rqModel.Superdealer != null ? $"superdealer := {rqModel.Superdealer}, " : "")} " +
                      $")";
 
             string input = qry;
@@ -85,6 +86,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
                      $"{(rqModel.Cylindercategory != null ? $"cylindercategory := {rqModel.Cylindercategory}, " : "")} " +
                      $"{(rqModel.Sellingprice != null ? $"sellingprice := {rqModel.Sellingprice}, " : "")} " +
                      $"{(rqModel.Buyingprice != null ? $"buyingprice := {rqModel.Buyingprice}, " : "")} " +
+                     $"{(rqModel.Superdealer != null ? $"superdealer := {rqModel.Superdealer}, " : "")} " +
                      $")";
 
             string input = qry;

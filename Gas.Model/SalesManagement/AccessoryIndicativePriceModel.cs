@@ -9,6 +9,7 @@ namespace Gas.Model.SalesManagement
     public class AddAccessoryIndicativePriceModel
     {
         public int? Accessoryid { get; set; }
+        public int? Superdealer { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
 
@@ -17,6 +18,7 @@ namespace Gas.Model.SalesManagement
     {
         public int? Accessoryindicativepriceid { get; set; }
         public int? Accessoryid { get; set; }
+        public int? Superdealer { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
 
@@ -26,6 +28,7 @@ namespace Gas.Model.SalesManagement
     {
         public int? Accessoryindicativepriceid { get; set; }
         public int? Accessoryid { get; set; }
+        public int? Superdealer { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
 
@@ -36,6 +39,7 @@ namespace Gas.Model.SalesManagement
     {
         public int? Accessoryindicativepriceid { get; set; }
         public int? Accessoryid { get; set; }
+        public int? Superdealer { get; set; }
         public float? Sellingprice { get; set; }
         public float? Buyingprice { get; set; }
         public bool? IsActive { get; set; }

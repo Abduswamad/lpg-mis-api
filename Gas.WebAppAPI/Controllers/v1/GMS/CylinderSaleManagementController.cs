@@ -135,7 +135,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Update CylinderSale.
+        /// API Endpoint for Delete Cylinder Sales Item.
         /// </summary>
         /// <param></param>
         /// <returns>The response model with CylinderSale Delete Data.</returns>
@@ -167,6 +167,53 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new DeleteCylinderSaleCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("CylinderSale Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Delete Cylinder Sales Item.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with CylinderSale Delete Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpDelete("DeleteCylinderSalesItem")]
+        [Restrict(AllowVerbs = "DELETE")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> DeleteCylinderSalesItem(DeleteCylinderSalesItemModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new DeleteCylinderSalesItemValidator(); // Assuming you have a validator for AddCylinderSaleModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new DeleteCylinderSalesItemCommand(rqModel));
                     return Ok(result);
                 }
                 else

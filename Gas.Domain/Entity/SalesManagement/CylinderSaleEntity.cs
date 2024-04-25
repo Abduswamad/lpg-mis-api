@@ -11,10 +11,6 @@ namespace Gas.Domain.Entity.SalesManagement
         public int? Cylinder_sale_id { get; set; }
         public int? Driver_id { get; set; }
         public string Driver_name { get; set; } = string.Empty;
-        public int? Cylinder_id { get; set; }
-        public string Cylinder_name { get; set; } = string.Empty;
-        public int? Cylinder_category_id { get; set; }
-        public string Cylinder_category_name { get; set; } = string.Empty;
         public int? Truck_id { get; set; }
         public string Plate_number { get; set; } = string.Empty;
         public int? Shop_id { get; set; }
@@ -23,6 +19,8 @@ namespace Gas.Domain.Entity.SalesManagement
         public int? Quantity { get; set; }
         public int? Price { get; set; }
         public string Description { get; set; } = string.Empty;
+        public int? Super_dealer_id { get; set; }
+        public string Super_dealer_name { get; set; } = string.Empty;
     }
 
     public class CylinderTotalSaleEntity

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Gas.Application.Features.AccessorySaleFeatures.QueryHandler
 {
-    public record GetAccessorySaleByModalQuery(GetAccessorySaleModel? rqModel) : IRequest<Result<IList<AccessorySaleEntity>>>;
+    public record GetAccessorySaleByModalQuery(GetAccessorySaleModel? RqModel) : IRequest<Result<IList<AccessorySaleEntity>>>;
 
     internal class GetAccessorySaleByModalQueryHandler : IRequestHandler<GetAccessorySaleByModalQuery, Result<IList<AccessorySaleEntity>>>
     {
@@ -14,7 +14,7 @@ namespace Gas.Application.Features.AccessorySaleFeatures.QueryHandler
         {
             try
             {
-                var resp = new AccessorySaleService().GetAccessorySale(request.rqModel);
+                var resp = new AccessorySaleService().GetAccessorySale(request.RqModel);
                 if (resp.Count>0)
                 {
                     return await Result<IList<AccessorySaleEntity>>.SuccessAsync(resp);
