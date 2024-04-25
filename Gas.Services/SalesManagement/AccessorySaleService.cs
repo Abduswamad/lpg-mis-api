@@ -369,6 +369,7 @@ namespace Gas.Services.SalesManagement
                 {
                     foreach(var item in rqmodel.AccessorySalesItem)
                     {
+                        item.Accessorysaleid = accessorysaleid;
                         resEntity = AddAccessorySaleItem(item);
                     }
                     return resEntity;

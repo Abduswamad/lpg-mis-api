@@ -27,7 +27,7 @@
         public int? AccessoryId { get; set; }
         public int? SaleQuantity { get; set; }
         public double? Saleprice { get; set; }
-        public int? Accessorysaleid { get; set; }
+        //public int? Accessorysaleid { get; set; }
     }
 
     public class InsAccessorySaleItemModel

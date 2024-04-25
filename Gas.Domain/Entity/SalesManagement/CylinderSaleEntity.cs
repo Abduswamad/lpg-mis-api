@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gas.Domain.Entity.SalesManagement
+﻿namespace Gas.Domain.Entity.SalesManagement
 {
     public class CylinderSaleEntity
     {
@@ -21,6 +15,18 @@ namespace Gas.Domain.Entity.SalesManagement
         public string Description { get; set; } = string.Empty;
         public int? Super_dealer_id { get; set; }
         public string Super_dealer_name { get; set; } = string.Empty;
+    }
+
+    public class CylinderSalesItemEntity
+    {
+        public int? Cylinder_sale_item_id { get; set; }
+        public int? Cylinder_id { get; set; }
+        public string Cylinder_name { get; set; } = string.Empty;
+        public int? Cylinder_category_id { get; set; }
+        public string Cylinder_category_name { get; set; } = string.Empty;
+        public int? Quantity { get; set; }
+        public int? Price { get; set; }
+        public int? Cylinder_sale_id { get; set; }
     }
 
     public class CylinderTotalSaleEntity

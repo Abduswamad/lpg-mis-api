@@ -9,7 +9,7 @@ namespace Gas.Application.Features.AccessorySaleFeatures.Validator
     {
         public AccessorySalesItemListModelValidator()
         {
-            RuleFor(x => x.Accessorysaleid).NotNull().WithMessage("Accessory Sales ID is required.");
+            //RuleFor(x => x.Accessorysaleid).NotNull().WithMessage("Accessory Sales ID is required.");
             RuleFor(x => x.AccessoryId).NotNull().WithMessage("Accessory Id is required.");
             RuleFor(x => x.SaleQuantity).NotNull().WithMessage("Accessory Quantity is required.");
             RuleFor(x => x.Saleprice).NotNull().WithMessage("Accessory Price is required.");
