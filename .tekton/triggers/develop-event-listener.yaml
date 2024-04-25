@@ -1,0 +1,13 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: develop-event-listener
+spec:
+  triggers:
+    - name: develop-trigger
+      bindings:
+        - ref: develop-trigger-binding 
+      template:
+        name: develop-trigger
+
+

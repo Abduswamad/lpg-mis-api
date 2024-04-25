@@ -1,0 +1,28 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: develop-trigger
+spec:
+  params:
+    - name: url
+      description: "Git repository URL"
+      default: "https://github.com/example/repo.git"
+    - name: revision
+      description: "Git branch or tag"
+      default: "develop"
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: develop-pipeline-run-
+      spec:
+        pipelineSpec:
+          tasks:
+            - name: develop-task
+              taskRef:
+                name: develop-task
+              params:
+                - name: url
+                  value: $(tt.params.url)
+                - name: revision
+                  value: $(tt.params.revision)

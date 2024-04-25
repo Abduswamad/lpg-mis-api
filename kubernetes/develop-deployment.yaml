@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lpg-api-deployment
+  namespace: test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: lpg-api
+  template:
+    metadata:
+      labels:
+        app: lpg-api
+    spec:
+      containers:
+      - name: lpg-api:latest
+        # image: lpg_api:${{inputs.params.imageTag}}
+        image: lpg_api
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: data
+          mountPath: /data  # Mount path in the container
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: lpg-api-pvc

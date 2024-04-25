@@ -1,0 +1,14 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: develop-pipeline
+spec:
+  tasks:
+    - name: develop-task
+      taskRef:
+        name: develop-task
+      params:
+        - name: url
+          value: "https://github.com/frankkamando/GasManagementSystemAPI.git" # Replace with your Git URL
+        - name: revision
+          value: develop
