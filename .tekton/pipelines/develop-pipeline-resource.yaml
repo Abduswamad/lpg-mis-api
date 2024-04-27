@@ -1,5 +1,5 @@
 apiVersion: tekton.dev/v1alpha1
-kind: PipelineResource
+kind: PipelineResource h
 metadata:
   name: develop-pipeline-resource
 spec:
