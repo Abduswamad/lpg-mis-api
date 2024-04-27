@@ -12,17 +12,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          node-version: '20' # Specify Node.js version 20
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+        with:
+          node-version: '20' # Specify Node.js version 20
 
       - name: Build Docker image
         run: |
           docker build -t lpg-mis-api .
           docker save -o lpg-mis-api.tar lpg-mis-api
 
+      - name: Set Environment File for Docker image tarball
+        run: echo "DOCKER_IMAGE=lpg-mis-api.tar" >> $GITHUB_ENV
+
       - name: Upload Docker image tarball
         uses: actions/upload-artifact@v2
         with:
           name: docker-image
-          path: lpg-mis-api.tar
+          path: ${{ env.DOCKER_IMAGE }}
