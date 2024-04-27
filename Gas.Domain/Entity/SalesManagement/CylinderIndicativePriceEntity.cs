@@ -14,6 +14,8 @@ namespace Gas.Domain.Entity.SalesManagement
         public float? Selling_price { get; set; }
         public float? Buying_price { get; set; }
         public bool? Is_active { get; set; }
+        public int? Super_dealer_id { get; set; }
+        public string Super_dealer_name { get; set; } = string.Empty;
     }
 
 }

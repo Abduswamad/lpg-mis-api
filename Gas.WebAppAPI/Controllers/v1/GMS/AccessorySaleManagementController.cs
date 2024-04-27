@@ -74,11 +74,69 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
-        public async Task<IActionResult> GetAccessorySale(GetAccessorySaleModel? rqModel)
+        public async Task<IActionResult> GetAccessorySaleByModel(GetAccessorySaleModel? rqModel)
         {
             try
             {
                 var result = await _mediator.Send(new GetAccessorySaleByModalQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Displaying AccessorySale item by id.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with AccessorySale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpGet("GetAccessorySalesItemById")]
+        [Restrict(AllowVerbs = "GET")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<AccessorySalesItemEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetAccessorySalesItemById(int AccessorySalesId)
+        {
+            try
+            {
+                GetAccessorySalesItemModel? rqModel = new()
+                {
+                    AccessorySaleId = AccessorySalesId
+                };
+                var result = await _mediator.Send(new GetAccessorySalesItemByModalQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Displaying AccessorySale by modal.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with AccessorySale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("GetAccessorySalesItemByModel")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<AccessorySalesItemEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetAccessorySalesItemByModel(GetAccessorySalesItemModel? rqModel)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetAccessorySalesItemByModalQuery(rqModel));
                 return Ok(result);
             }
             catch (Exception ex)
@@ -135,7 +193,54 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Update AccessorySale.
+        /// API Endpoint for Adding Accessory Sale with Items.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with AccessorySale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("AddAccessorySalesWithItem")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> AddAccessorySalesWithItem(AddAccessorySaleWithItemModel? rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new AddAccessorySalesItemListModelValidator(); // Assuming you have a validator for AddAccessorySaleModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new AddAccessorySalesWithItemCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Accessory Sale Item Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Delete Accessory Sale.
         /// </summary>
         /// <param></param>
         /// <returns>The response model with AccessorySale Delete Data.</returns>
@@ -180,6 +285,54 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// API Endpoint for Delete Accessory Sales Item.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with AccessorySale Delete Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpDelete("DeleteAccessorySalesItem")]
+        [Restrict(AllowVerbs = "DELETE")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> DeleteAccessorySalesItem(DeleteAccessorySalesItemModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new DeleteAccessorySalesItemValidator(); // Assuming you have a validator for AddAccessorySaleModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new DeleteAccessorySalesItemCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Accessory Sale Item Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
         /// <summary>
         /// API Endpoint for Displaying Accessory Total Sale.

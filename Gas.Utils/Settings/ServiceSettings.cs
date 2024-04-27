@@ -36,8 +36,6 @@ namespace Gas.Utils.Settings
             _SettingsModel.Email.SenderPassword = Encryption.DecryptData(_SettingsModel.Email.SenderPassword);
             _SettingsModel.Email.PortalURL = Encryption.DecryptData(_SettingsModel.Email.PortalURL);
 
-            //_SettingsModel.DBConnection.QMSDB = "";
-
         }
 
     }

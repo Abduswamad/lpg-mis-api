@@ -8,10 +8,8 @@ namespace Gas.Application.Features.AccessorySaleFeatures.Validator
         public AddAccessorySaleValidator()
         {
 
-            RuleFor(x => x.Accessoryid).NotEmpty().WithMessage("Accessory id cannot be null or empty")
-                   .Must(BeValidNumber).WithMessage("Accessory id cannot be zero or less than zero");
-            RuleFor(x => x.Salequantity).NotEmpty().WithMessage("Sale quantity cannot be null or empty")
-                    .Must(BeValidNumber).WithMessage("Sale quantity cannot be zero or less than zero");
+            RuleFor(x => x.Superdealer).NotEmpty().WithMessage("Superdealer cannot be null or empty")
+                    .Must(BeValidNumber).WithMessage("Superdealer cannot be zero or less than zero");
             RuleFor(x => x.Saleprice).NotEmpty().WithMessage("Selling Price cannot be null or empty")
                     .Must(BeValidFloat).WithMessage("Selling Price cannot be zero or less than zero");
             RuleFor(x => x.Saledate).NotNull().WithMessage("Sale date is required.");

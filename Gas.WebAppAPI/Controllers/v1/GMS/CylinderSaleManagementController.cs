@@ -18,7 +18,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
     /// </summary>
     /// <remarks>
     /// API Controller Instance for CylinderSale Management.
-    /// </remarks>
+    /// </remarks> 
     /// <param name="mediator">The mediator instance used for handling communication between components.</param>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
@@ -88,6 +88,64 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
+        /// API Endpoint for Displaying CylinderSale item by id.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with CylinderSale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpGet("GetCylinderSalesItemById")]
+        [Restrict(AllowVerbs = "GET")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<CylinderSalesItemEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetCylinderSalesItemById(int CylinderSalesId)
+        {
+            try
+            {
+                GetCylinderSalesItemModel? rqModel = new()
+                {
+                    Cylindersaleid = CylinderSalesId
+                };
+                var result = await _mediator.Send(new GetCylinderSalesItemByModalQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Displaying CylinderSale by modal.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with CylinderSale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("GetCylinderSalesItemByModel")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<IList<CylinderSalesItemEntity>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> GetCylinderSalesItemByModel(GetCylinderSalesItemModel? rqModel)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetCylinderSalesItemByModalQuery(rqModel));
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// API Endpoint for Adding CylinderSale.
         /// </summary>
         /// <param></param>
@@ -135,7 +193,54 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         }
 
         /// <summary>
-        /// API Endpoint for Update CylinderSale.
+        /// API Endpoint for Adding Cylinder Sale with Items.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with CylinderSale Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpPost("AddCylinderSalesWithItem")]
+        [Restrict(AllowVerbs = "POST")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> AddCylinderSalesWithItem(AddCylinderSalesWithItemModel? rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new AddCylinderSalesItemListModelValidator(); // Assuming you have a validator for AddCylinderSaleModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new AddCylinderSalesWithItemCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Cylinder Sale Item Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Delete Cylinder Sales Item.
         /// </summary>
         /// <param></param>
         /// <returns>The response model with CylinderSale Delete Data.</returns>
@@ -167,6 +272,53 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
 
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new DeleteCylinderSaleCommand(rqModel));
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("CylinderSale Request Model is Invalid");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// API Endpoint for Delete Cylinder Sales Item.
+        /// </summary>
+        /// <param></param>
+        /// <returns>The response model with CylinderSale Delete Data.</returns>
+        /// <response code="200">Successfully.</response>
+        /// <response code="400">Invalid request data.</response>
+        [HttpDelete("DeleteCylinderSalesItem")]
+        [Restrict(AllowVerbs = "DELETE")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(Result<QueryResEntity>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
+        [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
+        public async Task<IActionResult> DeleteCylinderSalesItem(DeleteCylinderSalesItemModel rqModel)
+        {
+            try
+            {
+
+                if (rqModel != null)
+                {
+                    // Validate the model
+                    var validator = new DeleteCylinderSalesItemValidator(); // Assuming you have a validator for AddCylinderSaleModel
+                    var validationResult = await validator.ValidateAsync(rqModel);
+
+                    // Check if validation failed
+                    if (!validationResult.IsValid)
+                    {
+                        return BadRequest(validationResult.Errors);
+                    }
+
+                    // If the model is valid or null, proceed with the command
+                    var result = await _mediator.Send(new DeleteCylinderSalesItemCommand(rqModel));
                     return Ok(result);
                 }
                 else

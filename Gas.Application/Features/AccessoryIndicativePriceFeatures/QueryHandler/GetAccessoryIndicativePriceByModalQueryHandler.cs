@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Gas.Application.Features.AccessoryIndicativePriceFeatures.QueryHandler
 {
-    public record GetAccessoryIndicativePriceByModalQuery(GetAccessoryIndicativePriceModel? rqModel) : IRequest<Result<IList<AccessoryIndicativePriceEntity>>>;
+    public record GetAccessoryIndicativePriceByModalQuery(GetAccessoryIndicativePriceModel? RqModel) : IRequest<Result<IList<AccessoryIndicativePriceEntity>>>;
 
     internal class GetAccessoryIndicativePriceByModalQueryHandler : IRequestHandler<GetAccessoryIndicativePriceByModalQuery, Result<IList<AccessoryIndicativePriceEntity>>>
     {
@@ -14,7 +14,7 @@ namespace Gas.Application.Features.AccessoryIndicativePriceFeatures.QueryHandler
         {
             try
             {
-                var resp = new AccessoryIndicativePriceService().GetAccessoryIndicativePrice(request.rqModel);
+                var resp = new AccessoryIndicativePriceService().GetAccessoryIndicativePrice(request.RqModel);
                 if (resp.Count>0)
                 {
                     return await Result<IList<AccessoryIndicativePriceEntity>>.SuccessAsync(resp);
