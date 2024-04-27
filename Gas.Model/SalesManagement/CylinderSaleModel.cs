@@ -106,6 +106,8 @@
     {
         public DateTime Startdate { get; set; }
         public DateTime Enddate { get; set; }
+        public int Superdealer { get; set; }
+        
     }
 
 
