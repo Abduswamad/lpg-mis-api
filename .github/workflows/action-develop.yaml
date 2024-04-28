@@ -25,7 +25,7 @@ jobs:
         run: echo "DOCKER_IMAGE=lpg-mis-api.tar" >> $GITHUB_ENV
 
       - name: Upload Docker image tarball
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v1
         with:
           name: docker-image
           path: ${{ env.DOCKER_IMAGE }}
