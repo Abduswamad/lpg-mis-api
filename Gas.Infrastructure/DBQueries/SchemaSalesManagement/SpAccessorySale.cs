@@ -170,6 +170,7 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
             string result;
             string qry = $"SELECT * FROM {getAccessoryTotalSaleqry}({(rqModel?.Startdate != null ? $"startdate := '{rqModel.Startdate:yyyy-MM-dd}', " : "")} " +
                       $"{(rqModel?.Enddate != null ? $"enddate := '{rqModel.Enddate:yyyy-MM-dd}', " : "")} " +
+                      $"{(rqModel?.Superdealer != null ? $"superdealer := {rqModel.Superdealer}, " : "")} " +
                      $")";
 
             string input = qry;

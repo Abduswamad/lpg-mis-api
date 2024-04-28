@@ -125,26 +125,29 @@ namespace Gas.Services.SalesManagement
                 else
                 {
                     var checkeddata = data.Where(x => x.Cylinder_id == rqModel.Cylinderid && x.Cylinder_category_id == rqModel.Cylindercategory).ToList();
-                    if ((bool)!checkeddata[0].Is_active!)
-                    {
-                        UpdateCylinderIndicativePriceStatusModel rqIsActiveModel = new ()
-                        {
-                            Cylinderindicativepriceid = (int)checkeddata[0].Cylinder_indicative_price_id!,
-                            IsActive = true
-                        };
-                        var status = UpdateCylinderIndicativePriceStatus(rqIsActiveModel);
-                        return status;
-                    }
                     if (checkeddata.Count > 0)
                     {
-                        QueryResEntity queryResEntity = new ()
+                        if ((bool)!checkeddata[0].Is_active!)
                         {
-                            Code = Codes.BadRequest,
-                            Msg = $"Cylinder already contain Price"
-                        };
-                        return queryResEntity;
-
+                            UpdateCylinderIndicativePriceStatusModel rqIsActiveModel = new()
+                            {
+                                Cylinderindicativepriceid = (int)checkeddata[0].Cylinder_indicative_price_id!,
+                                IsActive = true
+                            };
+                            var status = UpdateCylinderIndicativePriceStatus(rqIsActiveModel);
+                            return status;
+                        }
+                        else
+                        {
+                            QueryResEntity queryResEntity = new()
+                            {
+                                Code = Codes.BadRequest,
+                                Msg = $"Cylinder already contain Price"
+                            };
+                            return queryResEntity;
+                        }
                     }
+                    
                     number = data[0].Cylinder_indicative_price_id + 1;
                 }
                 rqModel.Cylinderindicativepriceid = number;
