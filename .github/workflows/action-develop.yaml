@@ -24,9 +24,9 @@ jobs:
             .
       
       - name: Configure Docker CLI
-        uses: google-github-actions/setup-gcloud@latest
+        uses: google-github-actions/setup-gcloud@v2
         with:
-          version: '372.0.0'
+          version: '>= 363.0.0'
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
 
