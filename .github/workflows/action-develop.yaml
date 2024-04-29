@@ -33,9 +33,9 @@ jobs:
       - name: Set the project ID
         run: gcloud config set project single-cistern-420705
       
-      # - name: Authenticate with the GKE cluster
+      - name: Authenticate with the GKE cluster
+        run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
       #   run: gcloud container clusters get-credentials your-cluster-name --zone your-cluster-zone
-      #   run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
       
       # - name: Apply Kubernetes deployment
-      #   run: kubectl apply -f path/to/your/deployment.yaml
+      #   run: kubectl apply -f kubernetes/develop-deployment.yaml
