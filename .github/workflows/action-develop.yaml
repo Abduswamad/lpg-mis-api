@@ -26,13 +26,14 @@ jobs:
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
-          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-
-      - name: Authenticate with Google Cloud
-        run: gcloud auth activate-service-account --key-file=${{ github.workspace }}/gcp-auth-key.json
+          project_id: single-cistern-420705
+          service_account_key_file: ./gcp-auth-key.json  # Path to your JSON file
 
       - name: Use gcloud CLI
         run: gcloud info
+
+
+
 
       # - name: Authenticate with Google Cloud
       #   run: |
