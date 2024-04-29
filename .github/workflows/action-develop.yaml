@@ -35,9 +35,35 @@ jobs:
       - name: Configure kubectl
         run: |
           gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
-          
+
+      - name: Set context account
+        run: |
+          gcloud config set account github-service-account@single-cistern-420705.iam.gserviceaccount.com
+
+      - name: Log in to gcloud
+        run: |
+          gcloud auth login
+
       - name: Get nodes
         run: kubectl get nodes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
       
