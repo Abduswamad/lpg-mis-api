@@ -30,8 +30,8 @@ jobs:
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
 
-      # - name: Set the project ID
-      #   run: gcloud config set project single-cistern-420705
+      - name: Set the project ID
+        run: gcloud config set project single-cistern-420705
       
       # - name: Authenticate with the GKE cluster
       #   run: gcloud container clusters get-credentials your-cluster-name --zone your-cluster-zone
