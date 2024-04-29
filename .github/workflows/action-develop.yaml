@@ -32,11 +32,13 @@ jobs:
       - name: Use gcloud CLI
         run: gcloud info
 
-      # - name: Set the project ID
-      #   run: gcloud config set project single-cistern-420705
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
+          
+      - name: Get nodes
+        run: kubectl get nodes
       
-      # - name: Authenticate with the GKE cluster
-      #   run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
       
       # - name: Apply Kubernetes deployment
       #   run: |
