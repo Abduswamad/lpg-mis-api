@@ -35,6 +35,7 @@ jobs:
       
       # - name: Authenticate with the GKE cluster
       #   run: gcloud container clusters get-credentials your-cluster-name --zone your-cluster-zone
+      #   run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
       
       # - name: Apply Kubernetes deployment
       #   run: kubectl apply -f path/to/your/deployment.yaml
