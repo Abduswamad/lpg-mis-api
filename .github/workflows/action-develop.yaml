@@ -20,22 +20,42 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/amd64 \
-            --tag gcr.io/your-project/lpi-mis-api:0.1 \
+            --tag lpi-mis-api:0.1 \
             .
       
-      - name: Configure Docker CLI
-        uses: google-github-actions/setup-gcloud@v2
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v0
         with:
-          version: '>= 363.0.0'
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          credentials: ${{ secrets.GCP_AUTH_TOKEN }}
 
       - name: Set the project ID
         run: gcloud config set project single-cistern-420705
       
       - name: Authenticate with the GKE cluster
         run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
-      #   run: gcloud container clusters get-credentials your-cluster-name --zone your-cluster-zone
       
-      # - name: Apply Kubernetes deployment
-      #   run: kubectl apply -f kubernetes/develop-deployment.yaml
+      - name: Apply Kubernetes deployment
+        run: |
+          kubectl apply -f - <<EOF
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lpi-mis-api
+            labels:
+              app: lpi-mis-api
+          spec:
+            replicas: 3
+            selector:
+              matchLabels:
+                app: lpi-mis-api
+            template:
+              metadata:
+                labels:
+                  app: lpi-mis-api
+              spec:
+                containers:
+                - name: lpi-mis-api
+                  image: lpi-mis-api:0.1
+                  ports:
+                  - containerPort: 8080
+          EOF
