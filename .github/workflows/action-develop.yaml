@@ -1,4 +1,4 @@
-name: Create Image Develop
+name: Deploy to GKE
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - develop
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,5 +20,21 @@ jobs:
         run: |
           docker buildx build \
             --platform linux/amd64 \
-            --tag lpi-mis-api:0.1 \
+            --tag gcr.io/your-project/lpi-mis-api:0.1 \
             .
+      
+      - name: Configure Docker CLI
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          version: '372.0.0'
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+
+      # - name: Set the project ID
+      #   run: gcloud config set project your-project-id
+      
+      # - name: Authenticate with the GKE cluster
+      #   run: gcloud container clusters get-credentials your-cluster-name --zone your-cluster-zone
+      
+      # - name: Apply Kubernetes deployment
+      #   run: kubectl apply -f path/to/your/deployment.yaml
