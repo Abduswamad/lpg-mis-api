@@ -26,7 +26,7 @@ jobs:
         uses: 'google-github-actions/auth@v2'
         with:
           workload_identity_provider: 'single-cistern-420705.svc.id.goog'
-          service_account: '490741108981-compute@developer.gserviceaccount.com'
+          service_account: 'github-service-account@single-cistern-420705.iam.gserviceaccount.com'
 
       - name: 'Set up Cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
