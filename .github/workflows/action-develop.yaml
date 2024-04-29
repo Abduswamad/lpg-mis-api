@@ -23,11 +23,11 @@ jobs:
             --tag lpi-mis-api:0.1 \
             .
 
-      - name: Set up Google Cloud SDK
+      - name: Configure Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: single-cistern-420705
-          service_account_key_file: ./gcp-auth-key.json 
+          service_account_key: ./gcp-auth-key.json
 
       - name: Use gcloud CLI
         run: gcloud info
@@ -38,7 +38,8 @@ jobs:
           
       - name: Get nodes
         run: kubectl get nodes
-      
+
+
       
       # - name: Apply Kubernetes deployment
       #   run: |
