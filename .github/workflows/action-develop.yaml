@@ -33,12 +33,12 @@ jobs:
       - name: Use gcloud CLI
         run: gcloud info
 
-      - name: Configure kubectl
-        run: |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
+      # - name: Configure kubectl
+      #   run: |
+      #     gcloud container clusters get-credentials lpg-mis --region africa-south1
           
-      - name: Get nodes
-        run: kubectl get nodes
+      # - name: Get nodes
+      #   run: kubectl get nodes
 
 
 
