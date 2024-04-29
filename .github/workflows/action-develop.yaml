@@ -37,29 +37,29 @@ jobs:
       - name: Authenticate with the GKE cluster
         run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
       
-      # - name: Apply Kubernetes deployment
-      #   run: |
-      #     kubectl apply -f - <<EOF
-      #     apiVersion: apps/v1
-      #     kind: Deployment
-      #     metadata:
-      #       name: lpi-mis-api
-      #       namespace: test
-      #       labels:
-      #         app: lpi-mis-api
-      #     spec:
-      #       replicas: 3
-      #       selector:
-      #         matchLabels:
-      #           app: lpi-mis-api
-      #       template:
-      #         metadata:
-      #           labels:
-      #             app: lpi-mis-api
-      #         spec:
-      #           containers:
-      #           - name: lpi-mis-api
-      #             image: lpi-mis-api:0.1
-      #             ports:
-      #             - containerPort: 8080
-      #     EOF
+      - name: Apply Kubernetes deployment
+        run: |
+          kubectl apply -f - <<EOF
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lpi-mis-api
+            namespace: test
+            labels:
+              app: lpi-mis-api
+          spec:
+            replicas: 3
+            selector:
+              matchLabels:
+                app: lpi-mis-api
+            template:
+              metadata:
+                labels:
+                  app: lpi-mis-api
+              spec:
+                containers:
+                - name: lpi-mis-api
+                  image: lpi-mis-api:0.1
+                  ports:
+                  - containerPort: 8080
+          EOF
