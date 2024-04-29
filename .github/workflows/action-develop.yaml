@@ -22,13 +22,23 @@ jobs:
             --platform linux/amd64 \
             --tag lpi-mis-api:0.1 \
             .
-      
-      - name: Authenticate with Google Cloud
-        run: |
-          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > gcp-auth-key.json
-          gcloud auth activate-service-account --key-file=gcp-auth-key.json
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GCP_AUTH_TOKEN }}
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'single-cistern-420705.svc.id.goog'
+          service_account: '490741108981-compute@developer.gserviceaccount.com'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: 'Use gcloud CLI'
+        run: 'gcloud info'
+      # - name: Authenticate with Google Cloud
+      #   run: |
+      #     echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > gcp-auth-key.json
+      #     gcloud auth activate-service-account --key-file=gcp-auth-key.json
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GCP_AUTH_TOKEN }}
 
 
       # - name: Set the project ID
