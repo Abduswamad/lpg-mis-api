@@ -37,8 +37,9 @@ jobs:
         run: |
           gcloud container clusters get-credentials lpg-mis --region africa-south1
           
-      # - name: Get nodes
-      #   run: kubectl get nodes
+      - name: Create NGINX Deployment
+        run: |
+          kubectl create deployment nginx-deployment --image=nginx:latest
 
 
 
