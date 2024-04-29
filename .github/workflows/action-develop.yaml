@@ -27,10 +27,13 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: single-cistern-420705
-          service_account_key_file: ./gcp-auth-key.json  # Path to your JSON file
+          service_account_key_file: ./gcp-auth-key.json 
 
-      - name: Set the project ID
-        run: gcloud config set project single-cistern-420705
+      - name: Use gcloud CLI
+        run: gcloud info
+
+      # - name: Set the project ID
+      #   run: gcloud config set project single-cistern-420705
       
       # - name: Authenticate with the GKE cluster
       #   run: gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
