@@ -10,4 +10,6 @@ RUN dotnet publish -c Release -o out
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/out ./
-ENTRYPOINT ["dotnet", "Gas.WebAPI.dll"]
+EXPOSE 9998
+
+ENTRYPOINT ["dotnet", "Gas.WebAPI.dll", "--urls", "http://0.0.0.0:9998"]
