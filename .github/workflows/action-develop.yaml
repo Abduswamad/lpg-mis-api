@@ -24,9 +24,12 @@ jobs:
             .
       
       - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v2
-        with:
-          credentials: ${{ secrets.GCP_AUTH_TOKEN }}
+        run: |
+          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > gcp-auth-key.json
+          gcloud auth activate-service-account --key-file=gcp-auth-key.json
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GCP_AUTH_TOKEN }}
+
 
       - name: Set the project ID
         run: gcloud config set project single-cistern-420705
@@ -41,6 +44,7 @@ jobs:
       #     kind: Deployment
       #     metadata:
       #       name: lpi-mis-api
+      #       namespace: test
       #       labels:
       #         app: lpi-mis-api
       #     spec:
