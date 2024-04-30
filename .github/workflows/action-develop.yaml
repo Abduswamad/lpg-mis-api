@@ -26,6 +26,11 @@ jobs:
           kubectl config unset contexts.$(kubectl config current-context)
           kubectl config unset clusters.$(kubectl config view -o=jsonpath='{.clusters[?(@.name == "gke_gcp_project_name_africa-south1_lpg-mis")].name}')
 
+      # Set the kubectl context
+      - name: Set kubectl context
+        run: |
+          gcloud container clusters get-credentials lpg-mis --region africa-south1
+
       # Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
