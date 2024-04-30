@@ -39,14 +39,15 @@ jobs:
           gcloud --quiet auth configure-docker
 
       # Step 4: Get GKE credentials to access the Kubernetes cluster
-      - uses: google-github-actions/get-gke-credentials@v2
+      - name: Get GKE credentials
+        uses: google-github-actions/get-gke-credentials@v2
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
           project_id: ${{ env.PROJECT_ID }}
 
       # Step 5: Build the Docker image
-      - name: Build
+      - name: Build Docker image
         run: |-
           docker build \
             --tag "gcr.io/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA}" \
@@ -54,7 +55,7 @@ jobs:
             --build-arg GITHUB_REF="${GITHUB_REF}" .
 
       # Step 6: Push the Docker image to Google Container Registry
-      - name: Publish
+      - name: Push Docker image to GCR
         run: |-
           docker push "gcr.io/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA}"
 
@@ -65,7 +66,7 @@ jobs:
           chmod u+x ./kustomize
 
       # Step 8: Deploy the Docker image to the GKE cluster
-      - name: Deploy
+      - name: Deploy to GKE
         run: |-
           ./kustomize edit set image gcr.io/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA}
           ./kustomize build . | kubectl apply -f -
