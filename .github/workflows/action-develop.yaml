@@ -18,7 +18,6 @@ jobs:
           gcloud auth activate-service-account --key-file=./gcp-auth-key.json
           gcloud config set project single-cistern-420705
           gcloud container clusters get-credentials lpg-mis --region africa-south1
-         
 
       # Explicitly set the kubeconfig context
       - name: Set kubeconfig context
@@ -45,6 +44,4 @@ jobs:
       # Create NGINX Deployment
       - name: Create NGINX Deployment
         run: |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
-          kubectl config use-context gke_single-cistern-420705_africa-south1_lpg-mis
           kubectl create deployment nginx-deployment --image=nginx:latest
