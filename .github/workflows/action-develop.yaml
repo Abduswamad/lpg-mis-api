@@ -35,11 +35,11 @@ jobs:
 
       - name: Configure kubectl
         run: |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
+          gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
           
       - name: Create NGINX Deployment
         run: |
-          kubectl create deployment nginx-deployment --image=nginx:latest
+          kubectl create deployment nginx-deployment1 --image=nginx:latest
 
 
 
