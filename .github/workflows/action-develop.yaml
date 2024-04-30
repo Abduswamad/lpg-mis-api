@@ -17,13 +17,7 @@ jobs:
         run: |
           gcloud auth activate-service-account --key-file=./gcp-auth-key.json
           gcloud config set project single-cistern-420705
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
-
-      # Explicitly set the kubeconfig context
-      - name: Set kubeconfig context
-        run: |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
-          kubectl config use-context gke_single-cistern-420705_africa-south1_lpg-mis
+          gcloud container clusters get-credentials lpg-mis --region africa-south1 --overwrite-existing
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
@@ -40,6 +34,16 @@ jobs:
       # Use gcloud CLI
       - name: Use gcloud CLI
         run: gcloud info
+
+      # Copy kubeconfig file to default location
+      - name: Copy kubeconfig file
+        run: |
+          mkdir -p ~/.kube
+          cp $HOME/.config/gcloud/configurations/kube-config-africa-south1_lpg-mis ~/.kube/config
+
+      # Verify kubectl configuration
+      - name: Verify kubectl configuration
+        run: kubectl config view
 
       # Create NGINX Deployment
       - name: Create NGINX Deployment
