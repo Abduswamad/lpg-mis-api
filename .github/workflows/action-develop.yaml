@@ -18,9 +18,9 @@ jobs:
           gcloud auth activate-service-account --key-file=./gcp-auth-key.json
           gcloud config set project single-cistern-420705
 
-      # Reinstall gke-gcloud-auth-plugin
-      - name: Reinstall gke-gcloud-auth-plugin
-        run: gcloud components install gke-gcloud-auth-plugin
+      # Install gke-gcloud-auth-plugin using apt-get
+      - name: Install gke-gcloud-auth-plugin
+        run: sudo apt-get update && sudo apt-get install -y google-cloud-cli-gke-gcloud-auth-plugin
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
