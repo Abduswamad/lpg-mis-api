@@ -104,8 +104,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         public async Task<IActionResult> AddSuperdealer(AddSuperdealerModel rqModel)
         {
             try
-            {
-               
+            {               
                 if (rqModel != null)
                 {
                     // Validate the model

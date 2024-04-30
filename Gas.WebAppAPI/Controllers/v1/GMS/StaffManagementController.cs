@@ -52,6 +52,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetStaffQuery());
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -79,6 +84,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetStaffByModalQuery(rqModel));
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -104,8 +114,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         public async Task<IActionResult> AddStaff(AddStaffModel rqModel)
         {
             try
-            {
-               
+            {               
                 if (rqModel != null)
                 {
                     // Validate the model
@@ -152,7 +161,6 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         {
             try
             {
-
                 if (rqModel != null)
                 {
                     // Validate the model

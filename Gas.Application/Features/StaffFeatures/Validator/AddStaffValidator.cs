@@ -18,16 +18,15 @@ namespace Gas.Application.Features.StaffFeatures.Validator
                .Must(BeValidEmail).WithMessage("Staff Email is not valid")
                .When(model => !string.IsNullOrEmpty(model.Staffemail));
             RuleFor(x => x.Stafftype).NotEmpty().WithMessage("Staff Type cannot be null or empty")
-                    .Must(BeValidNumber).WithMessage("Staff Type cannot be zero or less than zero");
+               .Must(BeValidNumber).WithMessage("Staff Type cannot be zero or less than zero");
             RuleFor(x => x.Staffgender).NotEmpty().WithMessage("Staff Gender cannot be null or empty")
-                    .Must(BeValidNumber).WithMessage("Staff Gender cannot be zero or less than zero");
+               .Must(BeValidNumber).WithMessage("Staff Gender cannot be zero or less than zero");
             RuleFor(x => x.Superdealer).NotEmpty().WithMessage("Super Delear cannot be null or empty")
-                    .Must(BeValidNumber).WithMessage("Super Delear cannot be zero or less than zero");
+               .Must(BeValidNumber).WithMessage("Super Delear cannot be zero or less than zero");
         }
 
         private bool BeValidEmail(string email)
-        {
-           
+        {           
             return Helper.IsEmailValid(email);
         }
 
@@ -38,7 +37,6 @@ namespace Gas.Application.Features.StaffFeatures.Validator
 
         private bool BeValidNumber(int? number)
         {
-
             return number > 0;
         }
 

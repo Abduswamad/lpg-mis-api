@@ -193,7 +193,6 @@ namespace Gas.WebAppAPI.Controllers.v1.GMS.Controllers
         {
             try
             {
-
                 if (rqModel != null)
                 {
                     // If the model is valid or null, proceed with the command

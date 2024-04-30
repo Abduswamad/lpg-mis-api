@@ -174,7 +174,6 @@ namespace Gas.Services.CompanyManagement
                     rqModel.Staffid = number;
                     IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null!, SpStaff.SpInsStaff(rqModel));
 
-
                     //send Email after staff is Added
                     if(Staff.Count > 0)
                     {
@@ -186,11 +185,9 @@ namespace Gas.Services.CompanyManagement
                                 MessageGasConfigurations.EmailForPassword(rqModel.Staffusername,
                                 ServiceSettings.GetWorkerServiceSettings().Email.PortalURL, userpass,
                                 ServiceSettings.GetWorkerServiceSettings().Email.CompanyName), rqModel.Staffemail);
-                            }
-                            
+                            }                            
                         }
-                    }
-                   
+                    }                   
 
                     return Staff.First();
                 }
@@ -489,6 +486,17 @@ namespace Gas.Services.CompanyManagement
                     }
                     rqModel.Staffpassword = newpassword;
                     IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null!, SpStaff.SpChangePassword(rqModel));
+                    if (Staff.Count > 0)
+                    {
+                        if (ServiceSettings.GetWorkerServiceSettings().SystemFeatures.SendEmail)
+                        {
+                            if (!string.IsNullOrEmpty(CheckUserExist[0].Email))
+                            {
+                                var sent = NotificationService.SendMailService(
+                                MessageGasConfigurations.EmailForChangePassword(CheckUserExist[0].Username), CheckUserExist[0].Email);
+                            }
+                        }
+                    }
                     return Staff.First();
                 }
 
@@ -569,8 +577,6 @@ namespace Gas.Services.CompanyManagement
                             }
                         }
                     }
-                    
-
                     return Staff.First();
                 }
 

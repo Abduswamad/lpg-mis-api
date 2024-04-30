@@ -42,23 +42,22 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Authorization header using the Bearer scheme. \r\n\r\n Enter token in the text input below.\r\n\r\nExample: \"12345abcdef\"",
+        Description = "Authorization header using the Bearer scheme. \r\n\r\n Enter token in the text input below.\r\n\r\nExample: \"mlyc3RfdGltZSI6IkZhbHNlIiwicm9sZSI6IkFkbWluaXN0cmF0b3IiLCJuYmYiOjE3MTQyNDMzNzksImV4cCI6MTcxNDI1Nzc3OSwiaWF0IjoxNzE0MjQzMzc5fQ.WPfd7Pde8fe3Cbew36dD9R7Vwz-2-HoUex2m1wQj9ZY\"",
     });
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
                 {
-                    {
-                          new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] {}
-
-                    }
-                });
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
 });
 
 

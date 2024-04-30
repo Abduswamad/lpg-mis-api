@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Gas.Application.Features.AccessorySaleFeatures.QueryHandler
 {
-    public record GetAccessoryTotalSaleQuery(SalesTotalModel? rqModel) : IRequest<Result<IList<AccessoryTotalSaleEntity>>>;
+    public record GetAccessoryTotalSaleQuery(SalesTotalModel? RqModel) : IRequest<Result<IList<AccessoryTotalSaleEntity>>>;
 
     internal class GetAccessoryTotalSaleQueryHandler : IRequestHandler<GetAccessoryTotalSaleQuery, Result<IList<AccessoryTotalSaleEntity>>>
     {

@@ -33,9 +33,7 @@ namespace Gas.Services
                         claims.Add(new Claim("role", role.Role_name));
                     }
                 }
-
                // claims.Add(new Claim("UserData", JsonConvert.SerializeObject(result.StaffDetails)));
-
 
                 //3. Create JETdescriptor
                 var tokenDescriptor = new SecurityTokenDescriptor()
