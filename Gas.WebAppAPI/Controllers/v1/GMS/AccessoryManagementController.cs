@@ -52,6 +52,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetAccessoryQuery());
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -79,6 +84,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetAccessoryByModalQuery(rqModel));
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)

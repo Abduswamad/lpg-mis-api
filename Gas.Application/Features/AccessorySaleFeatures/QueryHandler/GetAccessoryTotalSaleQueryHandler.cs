@@ -14,7 +14,7 @@ namespace Gas.Application.Features.AccessorySaleFeatures.QueryHandler
         {
             try
             {
-                var resp = new AccessorySaleService().GetAccessoryTotalSale(request.rqModel);
+                var resp = new AccessorySaleService().GetAccessoryTotalSale(request.RqModel);
                 if (resp.Count>0)
                 {
                     return await Result<IList<AccessoryTotalSaleEntity>>.SuccessAsync(resp);

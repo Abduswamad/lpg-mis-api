@@ -319,6 +319,18 @@ namespace Gas.Services.CompanyManagement
                 else
                 {
                     IList<QueryResEntity> Staff = conn.spGetData<QueryResEntity>(null!, SpStaff.SpUpdateStaffStatus(rqModel));
+                    if (Staff.Count > 0)
+                    {
+                        if (ServiceSettings.GetWorkerServiceSettings().SystemFeatures.SendEmail)
+                        {
+                            if (!string.IsNullOrEmpty(CheckUserExist[0].Email))
+                            {
+                                string StatusChanged = rqModel.Isactive ? "Activated" : "Deactivated";
+                                var sent = NotificationService.SendMailService(
+                                MessageGasConfigurations.EmailForAccountStatusChange(CheckUserExist[0].Username, StatusChanged), CheckUserExist[0].Email);
+                            }
+                        }
+                    }
                     return Staff.First();
                 }
 
