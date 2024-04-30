@@ -38,7 +38,7 @@ jobs:
         with:
           cluster_name: ${{ env.GKE_CLUSTER }}
           location: ${{ env.GKE_ZONE }}
-          credentials: /path/to/your/service_account_key.json
+          credentials: gcp-auth-key.json
 
       # Build the Docker image
       - name: Build
