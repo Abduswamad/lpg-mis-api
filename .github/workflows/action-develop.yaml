@@ -5,86 +5,70 @@ on:
     branches:
       - develop
 
+env:
+  PROJECT_ID: single-cistern-420705
+  GKE_CLUSTER: lpg-mis   # Add your cluster name here.
+  GKE_ZONE: africa-south1   # Add your cluster zone here.
+  DEPLOYMENT_NAME: gke-test # Add your deployment name here.
+  IMAGE: static-site
+
 jobs:
-  
-  deploy:
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
     runs-on: ubuntu-latest
+    environment: develop
+  
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Authenticate with Google Cloud using the service account key file
-      - name: Authenticate with Google Cloud
+      # Activate service account using the key file
+      - name: Setup gcloud CLI
         run: |
-          gcloud auth activate-service-account --key-file=./gcp-auth-key.json
-          gcloud config set project single-cistern-420705
+          gcloud auth activate-service-account --key-file=gcp-auth-key.json
+          gcloud config set project $PROJECT_ID
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        
-      - name: Build Docker image
-        run: |
-          docker buildx build \
-            --platform linux/amd64 \
-            --tag lpi-mis-api:0.1 \
-            .
+      # Configure Docker to use the gcloud command-line tool as a credential
+      # helper for authentication
+      - run: |-
+          gcloud --quiet auth configure-docker
 
+      # Get the GKE credentials so we can deploy to the cluster
+      - uses: google-github-actions/get-gke-credentials@db150f2cc60d1716e61922b832eae71d2a45938f
+        with:
+          cluster_name: ${{ env.GKE_CLUSTER }}
+          location: ${{ env.GKE_ZONE }}
+          credentials: /path/to/your/service_account_key.json
 
-      - name: Use gcloud CLI
-        run: gcloud info
+      # Build the Docker image
+      - name: Build
+        run: |-
+          docker build \
+            --tag "gcr.io/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA}" \
+            --build-arg GITHUB_SHA="${GITHUB_SHA}" \
+            --build-arg GITHUB_REF="${GITHUB_REF}" .
 
-      - name: Configure kubectl
-        run: |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1 --project single-cistern-420705
-          
-      # - name: Create NGINX Deployment
-      #   run: |
-      #     kubectl create deployment nginx-deployment1 --image=nginx:latest
+      # Push the Docker image to Google Container Registry
+      - name: Publish
+        run: |-
+          docker push "gcr.io/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA}"
 
+      # Set up kustomize
+      - name: Set up Kustomize
+        run: |-
+          curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
+          chmod u+x ./kustomize
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      
-      # - name: Apply Kubernetes deployment
-      #   run: |
-      #     kubectl apply -f - <<EOF
-      #     apiVersion: apps/v1
-      #     kind: Deployment
-      #     metadata:
-      #       name: lpi-mis-api
-      #       namespace: test
-      #       labels:
-      #         app: lpi-mis-api
-      #     spec:
-      #       replicas: 3
-      #       selector:
-      #         matchLabels:
-      #           app: lpi-mis-api
-      #       template:
-      #         metadata:
-      #           labels:
-      #             app: lpi-mis-api
-      #         spec:
-      #           containers:
-      #           - name: lpi-mis-api
-      #             image: lpi-mis-api:0.1
-      #             ports:
-      #             - containerPort: 9998
-      #     EOF
+      # Deploy the Docker image to the GKE cluster
+      - name: Deploy
+        run: |-
+          ./kustomize edit set image gcr.io/${PROJECT_ID}/${IMAGE}:${GITHUB_SHA}
+          ./kustomize build . | kubectl apply -f -
+          # Check deployment rollout status
+          if kubectl rollout status deployment/${DEPLOYMENT_NAME}; then
+            echo "Deployment successful."
+            kubectl get services -o wide
+          else
+            echo "Deployment failed."
+            exit 1
+          fi
