@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -13,14 +12,11 @@ jobs:
         uses: actions/checkout@v4
 
       # Authenticate with Google Cloud using the service account key file
-      - name: Authenticate with Google Cloud
+      - name: Authenticate with Google Cloud using service account key
         run: |
           gcloud auth activate-service-account --key-file=./gcp-auth-key.json
           gcloud config set project single-cistern-420705
-
-      # Install gke-gcloud-auth-plugin using apt-get
-      - name: Install gke-gcloud-auth-plugin
-        run: sudo apt-get update && sudo apt-get install -y google-cloud-cli-gke-gcloud-auth-plugin
+          gcloud container clusters get-credentials lpg-mis --region africa-south1
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
@@ -41,9 +37,10 @@ jobs:
       # Configure kubectl
       - name: Configure kubectl
         run: |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
+          kubectl config current-context
 
       # Create NGINX Deployment
       - name: Create NGINX Deployment
         run: |
           kubectl create deployment nginx-deployment --image=nginx:latest
+
