@@ -1,10 +1,12 @@
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: develop-trigger-binding
+  name: develop-binding
 spec:
   params:
-    - name: url
-      value: $(body.repository.url)
-    - name: revision
-      value: $(body.ref)
+  - name: revision
+    value: $(body.head_commit.id)
+  - name: repositoryUrl
+    value: $(body.repository.git_ssh_url)
+  - name: branch
+    value: $(body.ref)

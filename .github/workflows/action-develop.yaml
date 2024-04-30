@@ -12,7 +12,7 @@ name: Build and Deploy to GKE
 on:
   push:
     branches:
-      - main
+      - mainhhhh
 env:
   PROJECT_ID: single-cistern-420705   # Google Cloud Project ID
   GKE_CLUSTER: lpg-mis               # GKE Cluster name

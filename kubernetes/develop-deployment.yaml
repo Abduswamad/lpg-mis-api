@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: lpg-api-deployment
-  namespace: test
+  namespace: test-environment
 spec:
   replicas: 3
   selector:
@@ -14,9 +14,8 @@ spec:
         app: lpg-api
     spec:
       containers:
-      - name: lpg-api:latest
-        # image: lpg_api:${{inputs.params.imageTag}}
-        image: lpg_api
+      - name: lpg-api
+        image: lpg_api:latest  # This remains constant; the tag will be dynamically changed
         ports:
         - containerPort: 80
         volumeMounts:
@@ -25,4 +24,4 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: lpg-api-pvc
+          claimName: lpg-mis-api-pvc
