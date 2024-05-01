@@ -37,4 +37,4 @@ spec:
       image: bitnami/kubectl
       script: |
         gcloud container clusters get-credentials lpg-cluster --region us-central1 --project single-cistern-420705
-        kubectl apply -f /kubernetes/develop-deployment.yaml -n test
+        kubectl apply -f /kubernetes/develop-deployment.yaml -n test-environment

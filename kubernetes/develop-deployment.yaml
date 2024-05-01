@@ -1,28 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lpg-api-deployment
-  namespace: test
+  name: lpg-mis-api-deployment
+  namespace: test-environment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: lpg-api
+      app: lpg-mis-api
   template:
     metadata:
       labels:
-        app: lpg-api
+        app: lpg-mis-api
     spec:
       containers:
-      - name: lpg-api:latest
-        # image: lpg_api:${{inputs.params.imageTag}}
-        image: lpg_api
+      - name: lpg-mis-api
+        image: tiqurabeba/lpg-mis-api:latest
         ports:
-        - containerPort: 80
+        - containerPort: 9998
         volumeMounts:
         - name: data
           mountPath: /data  # Mount path in the container
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: lpg-api-pvc
+          claimName: lpg-mis-api-pvc
