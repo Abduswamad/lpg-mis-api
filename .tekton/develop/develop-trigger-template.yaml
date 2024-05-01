@@ -15,10 +15,16 @@ spec:
       default: develop  # Set the default branch to 'develop'
     - name: username
       description: GitHub username
-      default: Abduswamad  # Set your GitHub username here
+      valueFrom:
+        secretKeyRef:
+          name: abdul-github-credentials
+          key: username
     - name: password
       description: GitHub password
-      default: '!64jaan64'  # Set your GitHub password here
+      valueFrom:
+        secretKeyRef:
+          name: abdul-github-credentials
+          key: password
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun

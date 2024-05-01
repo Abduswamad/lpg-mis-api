@@ -1,0 +1,12 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: Trigger
+metadata:
+  name: develop-trigger
+spec:
+  params:
+    - name: body
+      src:
+        dependency: develop-trigger-binding
+        path: body
+  triggerTemplate:
+    name: develop-trigger-template
