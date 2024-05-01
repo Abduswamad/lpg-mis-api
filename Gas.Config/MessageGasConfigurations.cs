@@ -44,5 +44,41 @@
             ";
             return email;
         }
+
+        public static string EmailForChangePassword(string username)
+        {
+            string email = $@"
+                <!DOCTYPE html>
+                <html>
+                <body>
+                    <p>Dear {username},</p>
+                    <p>Your Password has been changed successfully.</p>
+                    <ol>
+                        <li>Username: <b>{username}</b></li>
+                     </ol>
+                    <p>Please ensure the security of your password and do not share it with anyone.</p><p> If you have any questions or encounter any issues during the login process, please don't hesitate to contact our support team for assistance.</p>
+                    <p><b>Best regards</b>,<br/></p>
+                </body>
+                </html>
+            ";
+            return email;
+        }
+
+        public static string EmailForAccountStatusChange(string username,string status)
+        {
+            string email = $@"
+                <!DOCTYPE html>
+                <html>
+                <body>
+                    <p>Dear {username},</p>
+                    <p>Your Account has been {status}.</p>
+                    <br/>
+                    <p>Please ensure the security of your password and do not share it with anyone.</p><p> If you have any questions or encounter any issues during the login process, please don't hesitate to contact our support team for assistance.</p>
+                    <p><b>Best regards</b>,<br/></p>
+                </body>
+                </html>
+            ";
+            return email;
+        }
     }
 }

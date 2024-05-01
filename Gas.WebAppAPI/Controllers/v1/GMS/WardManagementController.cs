@@ -16,25 +16,20 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Ward Management.
     /// </summary>
+    /// <remarks>
+    /// API Controller Instance for Ward Management.
+    /// </remarks>
+    /// <param name="mediator">The mediator instance used for handling communication between components.</param>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class WardManagementController : ControllerBase
+    public class WardManagementController(IMediator mediator) : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
         /// </summary>
-        private readonly IMediator _mediator;
-
-        /// <summary>
-        /// API Controller Instance for Ward Management.
-        /// </summary>
-        /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public WardManagementController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         #region Ward
 

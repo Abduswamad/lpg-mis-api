@@ -33,7 +33,7 @@ namespace Gas.Application.Features.AccountFeatures.CommandHandler
                     {
                         return await Result<StaffLoginEntity>.FailureAsync($"User {resp.First_name} {resp.Middle_name} {resp.Last_name} does not belong to any Super Dealer Registered");
                     }
-                    UserData.SuperDealerId = resp.Super_dealer_id;
+                    //UserData.SuperDealerId = resp.Super_dealer_id;
                     staffLoginEntity.Token = Authentication.TokenAuthentication(staffLoginEntity);
                     return await Result<StaffLoginEntity>.SuccessAsync(staffLoginEntity);
                 }

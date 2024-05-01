@@ -1,4 +1,5 @@
-﻿using Gas.Application.Features.AccessoryIndicativePriceFeatures.CommandHandler;
+﻿using Gas.Application.Features.AccessoryBatchItemFeatures.QueryHandler;
+using Gas.Application.Features.AccessoryIndicativePriceFeatures.CommandHandler;
 using Gas.Application.Features.AccessoryIndicativePriceFeatures.QueryHandler;
 using Gas.Application.Features.AccessoryIndicativePriceFeatures.Validator;
 using Gas.Common;
@@ -52,6 +53,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetAccessoryIndicativePriceQuery());
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -79,6 +85,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetAccessoryIndicativePriceByModalQuery(rqModel));
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)

@@ -13,7 +13,6 @@
                     return version == _allowedVersion;
                 }
             }
-
             return false;
         }
     }

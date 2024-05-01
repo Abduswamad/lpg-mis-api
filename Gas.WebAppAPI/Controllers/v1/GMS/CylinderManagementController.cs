@@ -16,25 +16,20 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
     /// <summary>
     /// API Endpoint Controller for Cylinder Management.
     /// </summary>
+    /// <remarks>
+    /// API Controller Instance for Cylinder Management.
+    /// </remarks>
+    /// <param name="mediator">The mediator instance used for handling communication between components.</param>
     [Authorize()]
     [Route("api/v{version:apiversion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    public class CylinderManagementController : ControllerBase
+    public class CylinderManagementController(IMediator mediator) : ControllerBase
     {
         /// <summary>
         /// The mediator instance used for handling communication between components.
         /// </summary>
-        private readonly IMediator _mediator;
-
-        /// <summary>
-        /// API Controller Instance for Cylinder Management.
-        /// </summary>
-        /// <param name="mediator">The mediator instance used for handling communication between components.</param>
-        public CylinderManagementController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         #region Cylinder
 
@@ -57,6 +52,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetCylinderQuery());
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -84,6 +84,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetCylinderByModalQuery(rqModel));
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)

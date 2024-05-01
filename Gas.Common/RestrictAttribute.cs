@@ -5,9 +5,6 @@ namespace Gas.Common
 {
     public class RestrictAttribute : ActionFilterAttribute
     {
-        //public RestrictAttribute()
-        //{
-        //}
         public string AllowVerbs { get; set; } = string.Empty;
         public string DenyVerbs { get; set; } = string.Empty;
         public override void OnActionExecuting(ActionExecutingContext actionContext)

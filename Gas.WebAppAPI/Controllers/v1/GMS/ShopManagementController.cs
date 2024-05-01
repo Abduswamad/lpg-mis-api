@@ -52,6 +52,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetShopQuery());
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -79,6 +84,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
             try
             {
                 var result = await _mediator.Send(new GetShopByModalQuery(rqModel));
+                var superDealerId = User.GetSuperDealerId();
+                if (result.Data.Count > 0)
+                {
+                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                }
                 return Ok(result);
             }
             catch (Exception ex)
@@ -104,8 +114,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         public async Task<IActionResult> AddShop(AddShopModel rqModel)
         {
             try
-            {
-               
+            {               
                 if (rqModel != null)
                 {
                     // Validate the model
@@ -152,7 +161,6 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         {
             try
             {
-
                 if (rqModel != null)
                 {
                     // Validate the model
@@ -199,10 +207,8 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         {
             try
             {
-
                 if (rqModel != null)
                 {
-
                     // If the model is valid or null, proceed with the command
                     var result = await _mediator.Send(new UpdateShopStatusCommand(rqModel));
                     return Ok(result);
@@ -211,14 +217,12 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 {
                     return BadRequest("Shop Request Model is Invalid");
                 }
-
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-
 
         #endregion Shop
 

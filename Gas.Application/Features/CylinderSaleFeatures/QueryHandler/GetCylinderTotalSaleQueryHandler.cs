@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Gas.Application.Features.CylinderSaleFeatures.QueryHandler
 {
-    public record GetCylinderTotalSaleQuery(SalesTotalModel? rqModel) : IRequest<Result<IList<CylinderTotalSaleEntity>>>;
+    public record GetCylinderTotalSaleQuery(SalesTotalModel? RqModel) : IRequest<Result<IList<CylinderTotalSaleEntity>>>;
 
     internal class GetCylinderTotalSaleQueryHandler : IRequestHandler<GetCylinderTotalSaleQuery, Result<IList<CylinderTotalSaleEntity>>>
     {
@@ -14,7 +14,7 @@ namespace Gas.Application.Features.CylinderSaleFeatures.QueryHandler
         {
             try
             {
-                var resp = new CylinderSaleService().GetCylinderTotalSale(request.rqModel);
+                var resp = new CylinderSaleService().GetCylinderTotalSale(request.RqModel);
                 if (resp.Count>0)
                 {
                     return await Result<IList<CylinderTotalSaleEntity>>.SuccessAsync(resp);
