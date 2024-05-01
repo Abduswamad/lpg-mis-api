@@ -4,7 +4,7 @@ metadata:
   name: lpg-mis-api-deployment-develop
   namespace: test-environment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: lpg-mis-api
