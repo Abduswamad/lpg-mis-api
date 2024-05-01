@@ -2,6 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: develop-binding
+  namespace: test-environment
 spec:
   params:
   - name: revision

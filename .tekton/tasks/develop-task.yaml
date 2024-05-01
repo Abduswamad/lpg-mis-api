@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: develop-task
+  namespace: test-environment
 spec:
   params:
     - name: url
@@ -25,13 +26,13 @@ spec:
       image: docker
       workingDir: /workspace/source
       script: |
-        docker build -t lpg_api:$(params.image_tag) .
+        docker build -t lpg-mis-api:$(params.image_tag) .
 
     - name: push-image
       image: docker
       workingDir: /workspace/source
       script: |
-        docker push lpg_api:$(params.image_tag)
+        docker push lpg-mis-api:$(params.image_tag)
 
     - name: apply-deployment
       image: bitnami/kubectl
