@@ -1,0 +1,32 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: develop-build-docker-image
+spec:
+  params:
+    - name: username
+      description: GitHub username
+      default: Abduswamad  # Set your GitHub username here
+    - name: password
+      description: GitHub password
+      default: '!64jaan64'  # Set your GitHub password here
+  steps:
+    - name: fetch-source
+      image: alpine/git
+      args:
+        - clone
+        - --single-branch
+        - --branch
+        - $(params.branch)
+        - https://$(params.username):$(params.password)@github.com/frankkamando/GasManagementSystemAPI.git
+        - /workspace/source
+    - name: build
+      image: docker:latest
+      command:
+        - sh
+      args:
+        - -c
+        - |
+          cd /workspace/source
+          docker build -t gcr.io/single-cistern-420705/lpg-mis-api:latest .
+          docker push gcr.io/single-cistern-420705/lpg-mis-api:latest

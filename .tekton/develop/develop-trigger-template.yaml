@@ -1,0 +1,40 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: develop-trigger-template
+spec:
+  params:
+    - name: revision
+      description: The git revision
+      default: $(body.head_commit.id)
+    - name: repository
+      description: The repository
+      default: $(body.repository.full_name)
+    - name: branch
+      description: The branch
+      default: develop  # Set the default branch to 'develop'
+    - name: username
+      description: GitHub username
+      default: Abduswamad  # Set your GitHub username here
+    - name: password
+      description: GitHub password
+      default: '!64jaan64'  # Set your GitHub password here
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1beta1
+      kind: PipelineRun
+      metadata:
+        generateName: github-push-pipeline-run-
+      spec:
+        pipelineSpec:
+          params:
+            - name: username
+              value: $(params.username)
+            - name: password
+              value: $(params.password)
+          tasks:
+            - name: build
+              taskRef:
+                name: develop-build-docker-image
+            - name: deploy
+              taskRef:
+                name: develop-deploy-to-gke
