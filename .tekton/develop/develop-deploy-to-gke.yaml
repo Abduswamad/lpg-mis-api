@@ -33,6 +33,6 @@ spec:
       args:
         - -c
         - |
-          gcloud auth activate-service-account --key-file=/.tekton/gcp-auth-key.json
           gcloud container clusters get-credentials lpg-mis --region africa-south1
           kubectl apply -f develop-deployment.yaml 
+# gcloud auth activate-service-account --key-file=/.tekton/gcp-auth-key.json
