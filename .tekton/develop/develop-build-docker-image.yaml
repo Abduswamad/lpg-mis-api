@@ -4,35 +4,38 @@ metadata:
   name: develop-build-docker-image
 spec:
   params:
-    - name: username
-      description: GitHub username
-      valueFrom:
-        secretKeyRef:
-          name: abdul-github-credentials
-          key: username
-    - name: password
-      description: GitHub password
-      valueFrom:
-        secretKeyRef:
-          name: abdul-github-credentials
-          key: password
+    - name: branch
+      description: GitHub branch
+      default: develop
   steps:
     - name: fetch-source
       image: alpine/git
+      env:
+        - name: GITHUB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: abdul-github-credentials
+              key: username
+        - name: GITHUB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: abdul-github-credentials
+              key: password
       args:
-        - clone
-        - --single-branch
-        - --branch
-        - $(params.branch)
-        - https://$(params.username):$(params.password)@github.com/frankkamando/GasManagementSystemAPI.git
-        - /workspace/source
+        - sh
+        - -c
+        - |
+          git clone --single-branch --branch $(params.branch) https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/frankkamando/GasManagementSystemAPI.git /workspace/source
     - name: build
       image: docker:latest
+      env:
+        - name: GCR_IMAGE_TAG
+          value: gcr.io/single-cistern-420705/lpg-mis-api:latest
       command:
         - sh
       args:
         - -c
         - |
           cd /workspace/source
-          docker build -t gcr.io/single-cistern-420705/lpg-mis-api:latest .
-          docker push gcr.io/single-cistern-420705/lpg-mis-api:latest
+          docker build -t $GCR_IMAGE_TAG .
+          docker push $GCR_IMAGE_TAG

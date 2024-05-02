@@ -3,10 +3,7 @@ kind: Trigger
 metadata:
   name: develop-trigger
 spec:
-  params:
-    - name: body
-      src:
-        dependency: develop-trigger-binding
-        path: body
-  triggerTemplate:
-    name: develop-trigger-template
+  bindings:
+  - ref: develop-trigger-binding
+  template:
+    ref: develop-trigger-template

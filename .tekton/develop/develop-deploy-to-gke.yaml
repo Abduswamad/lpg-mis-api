@@ -4,28 +4,28 @@ metadata:
   name: develop-deploy-to-gke
 spec:
   params:
-    - name: username
-      description: GitHub username
-      valueFrom:
-        secretKeyRef:
-          name: abdul-github-credentials
-          key: username
-    - name: password
-      description: GitHub password
-      valueFrom:
-        secretKeyRef:
-          name: abdul-github-credentials
-          key: password
+    - name: branch
+      description: GitHub branch
+      default: develop   # Set the default branch to "develop"
   steps:
     - name: fetch-source
       image: alpine/git
+      env:
+        - name: GITHUB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: abdul-github-credentials
+              key: username
+        - name: GITHUB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: abdul-github-credentials
+              key: password
       args:
-        - clone
-        - --single-branch
-        - --branch
-        - $(params.branch)
-        - https://$(params.username):$(params.password)@github.com/frankkamando/GasManagementSystemAPI.git
-        - /workspace/source
+        - sh
+        - -c
+        - |
+          git clone --single-branch --branch $(params.branch) https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/frankkamando/GasManagementSystemAPI.git /workspace/source
     - name: gke-deploy
       image: google/cloud-sdk:latest
       command:
@@ -34,5 +34,4 @@ spec:
         - -c
         - |
           gcloud container clusters get-credentials lpg-mis --region africa-south1
-          kubectl apply -f develop-deployment.yaml 
-# gcloud auth activate-service-account --key-file=/.tekton/gcp-auth-key.json
+          kubectl apply -f develop-deployment.yaml

@@ -13,18 +13,6 @@ spec:
     - name: branch
       description: The branch
       default: develop  # Set the default branch to 'develop'
-    - name: username
-      description: GitHub username
-      valueFrom:
-        secretKeyRef:
-          name: abdul-github-credentials
-          key: username
-    - name: password
-      description: GitHub password
-      valueFrom:
-        secretKeyRef:
-          name: abdul-github-credentials
-          key: password
   resourcetemplates:
     - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
@@ -33,10 +21,8 @@ spec:
       spec:
         pipelineSpec:
           params:
-            - name: username
-              value: $(params.username)
-            - name: password
-              value: $(params.password)
+            - name: branch
+              value: $(params.branch)
           tasks:
             - name: build
               taskRef:
@@ -44,3 +30,8 @@ spec:
             - name: deploy
               taskRef:
                 name: develop-deploy-to-gke
+              env:
+                - name: GITHUB_USERNAME
+                  value: $(params.username)
+                - name: GITHUB_PASSWORD
+                  value: $(params.password)
