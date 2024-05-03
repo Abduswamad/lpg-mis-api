@@ -1,24 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lpg-mis-api-deployment-develop
-  namespace: test-environment
+  name: lpg-mis-api-deployment-production
+  namespace: production-environment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: lpg-mis-api
-      env: test
+      env: production
   template:
     metadata:
       labels:
         app: lpg-mis-api
-        env: test
+        env: production
     spec:
       containers:
       - name: lpg-mis-api
-       # image: tiqurabeba/lpg-mis-api:0.1
-        image: gcr.io/single-cistern-420705/lpg-mis-api:latest
+        image: tiqurabeba/lpg-mis-api:latest
         ports:
         - containerPort: 9998
         volumeMounts:
@@ -27,4 +26,4 @@ spec:
       volumes:
       - name: data
         persistentVolumeClaim:
-          claimName: lpg-mis-api-pvc-develop
+          claimName: lpg-mis-api-pvc-production
