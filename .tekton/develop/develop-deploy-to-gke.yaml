@@ -3,35 +3,13 @@ kind: Task
 metadata:
   name: develop-deploy-to-gke
 spec:
-  params:
-    - name: branch
-      description: GitHub branch
-      default: develop   # Set the default branch to "develop"
   steps:
-    - name: fetch-source
-      image: alpine/git
-      env:
-        - name: GITHUB_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: abdul-github-credentials
-              key: username
-        - name: GITHUB_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: abdul-github-credentials
-              key: password
-      args:
-        - sh
-        - -c
-        - |
-          git clone --single-branch --branch $(params.branch) https://$GITHUB_USERNAME:$GITHUB_PASSWORD@github.com/frankkamando/GasManagementSystemAPI.git /workspace/source
-    - name: gke-deploy
-      image: google/cloud-sdk:latest
+    - name: develop-deploy-to-gke
+      image: google/cloud-sdk
       command:
-        - sh
+        - /bin/bash
       args:
         - -c
         - |
-          gcloud container clusters get-credentials lpg-mis --region africa-south1
+          gcloud container clusters get-credentials lpg-mis --zone africa-south1 --project single-cistern-420705
           kubectl apply -f develop-deployment.yaml

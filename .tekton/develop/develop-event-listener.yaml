@@ -1,0 +1,14 @@
+apiVersion: triggers.tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: develop-event-listener
+spec:
+  serviceAccountName: github-event-listener-sa
+  triggers:
+    - name: github-push-trigger
+      interceptors:
+        - github:
+            secretRef:
+              secretName: github-webhook-secret
+      bindings:
+        - ref: develop-trigger
