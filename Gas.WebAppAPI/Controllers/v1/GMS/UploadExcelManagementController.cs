@@ -44,11 +44,11 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(ProblemDetails), (int)HttpStatusCode.Unauthorized)]
         [AllowAnonymous]
-        public async Task<IActionResult> UploadSuperDealerExcel(IFormFile file, int SuperDelaerId)
+        public async Task<IActionResult> UploadSuperDealerExcel(IFormFile file, int SuperDealerId)
         {
             try
             {
-                var result = await _mediator.Send(new UploadExcelCommand(file, SuperDelaerId));
+                var result = await _mediator.Send(new UploadExcelCommand(file, SuperDealerId));
                 return Ok(result);
             }
             catch (Exception ex)

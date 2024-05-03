@@ -127,7 +127,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Shop_id + 1;
                 }
-                var CheckShopExist = data.Where(x => x.Shop_name.ToLower() == rqModel.Shopname.ToLower() && x.Super_dealer_id == rqModel.Superdealer).ToList();
+                var CheckShopExist = data.Where(x => x.Shop_name.ToLower() == rqModel.Shopname.ToLower() && x.Super_dealer_id == rqModel.Superdealer && x.Phone_number == rqModel.Phonenumber).ToList();
 
                 if (CheckShopExist.Count > 0)
                 {

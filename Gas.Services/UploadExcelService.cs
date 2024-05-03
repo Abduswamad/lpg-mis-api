@@ -63,8 +63,6 @@ namespace Gas.Services
                 phoneNumber = "0";
             }
 
-            ShopService shop = new();
-
             InsShopModel rqModel = new()
             {
                 Shopname = shopName??"",
@@ -73,7 +71,7 @@ namespace Gas.Services
                 Commonstreet = 1
             };
 
-            shop.AddShop(rqModel);
+            new ShopService().AddShop(rqModel);
         }
 
     }
