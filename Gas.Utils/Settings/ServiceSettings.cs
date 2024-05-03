@@ -26,7 +26,7 @@ namespace Gas.Utils.Settings
             .SetBasePath(contentRootPath)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .AddEnvironmentVariables()
-            .AddConfigServer()
+           // .AddConfigServer()
             .Build();
             configuration.Bind(_SettingsModel);
             _SettingsModel.ContentRootPath = contentRootPath;
