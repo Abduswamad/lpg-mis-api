@@ -12,7 +12,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string UpdateAccessoryIndicativePriceqry = $"{dbSchema}ufn_update_accessory_indicative_price";
         private static readonly string getAccessoryIndicativePrice = $"SELECT * FROM {getAccessoryIndicativePriceqry}()";
 
-
         #endregion procedures
 
         #region sp for AccessoryIndicativePrice

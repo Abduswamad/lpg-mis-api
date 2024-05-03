@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getGenderqry = $"{dbSchema}ufn_select_gender";
         private static readonly string insGenderqry = $"{dbSchema}ufn_insert_gender";
         private static readonly string updateGenderqry = $"{dbSchema}ufn_update_gender";
-
+        private static readonly string getGender = $"SELECT * FROM {getGenderqry}()";
         #endregion procedures
 
         #region sp for Gender
-        public static string getGender = $"SELECT * FROM {getGenderqry}()";
+
         public static string SpInsGender(InsGenderModel rqModel)
         {
             string qry = $"SELECT * FROM {insGenderqry}(genderid := {rqModel.Genderid}, gendername := '{rqModel.Gendername}' " +

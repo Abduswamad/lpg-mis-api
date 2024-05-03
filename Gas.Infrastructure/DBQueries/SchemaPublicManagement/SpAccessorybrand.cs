@@ -9,11 +9,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getAccessorybrandqry = $"{dbSchema}ufn_select_accessory_brand";
         private static readonly string insAccessorybrandqry = $"{dbSchema}ufn_insert_accessory_brand";
         private static readonly string updateAccessorybrandqry = $"{dbSchema}ufn_update_accessory_brand";
+        private static readonly string getAccessorybrand = $"SELECT * FROM {getAccessorybrandqry}()";
 
         #endregion procedures
 
         #region sp for Accessorybrand
-        public static string getAccessorybrand = $"SELECT * FROM {getAccessorybrandqry}()";
+
         public static string SpInsAccessorybrand(InsAccessorybrandModel rqModel)
         {
             string qry = $"SELECT * FROM {insAccessorybrandqry}(accessorybrandid := {rqModel.Accessorybrandid}, accessorybrandname := '{rqModel.Accessorybrandname}' " +

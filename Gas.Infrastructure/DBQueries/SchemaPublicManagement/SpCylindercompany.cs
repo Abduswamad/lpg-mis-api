@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getCylindercompanyqry = $"{dbSchema}ufn_select_cylinder_company";
         private static readonly string insCylindercompanyqry = $"{dbSchema}ufn_insert_cylinder_company";
         private static readonly string updateCylindercompanyqry = $"{dbSchema}ufn_update_cylinder_company";
-
+        private static readonly string getCylindercompany = $"SELECT * FROM {getCylindercompanyqry}()";
         #endregion procedures
 
         #region sp for Cylindercompany
-        public static string getCylindercompany = $"SELECT * FROM {getCylindercompanyqry}()";
+
         public static string SpInsCylindercompany(InsCylindercompanyModel rqModel)
         {
             string qry = $"SELECT * FROM {insCylindercompanyqry}(cylindercompanyid := {rqModel.Cylindercompanyid}, cylindercompanyname := '{rqModel.Cylindercompanyname}' " +

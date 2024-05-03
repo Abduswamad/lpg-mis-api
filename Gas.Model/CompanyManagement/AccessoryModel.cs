@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gas.Model.CompanyManagement
+﻿namespace Gas.Model.CompanyManagement
 {
     public class AddAccessoryModel
     {
@@ -40,8 +34,6 @@ namespace Gas.Model.CompanyManagement
         public bool? IsActive { get; set; }
 
     }
-
-
     public class RequestAccessoryStatusModel
     {
         public int Accessoryid { get; set; }

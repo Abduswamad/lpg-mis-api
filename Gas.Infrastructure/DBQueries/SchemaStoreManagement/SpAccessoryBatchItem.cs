@@ -12,7 +12,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
         private static readonly string getAccessorystockqry = $"{dbSchema}ufn_get_accessory_stock";
         private static readonly string getBatch = $"SELECT * FROM {getBatchqry}()";
 
-
         #endregion procedures
 
         #region sp for Batch

@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getstafftypeqry = $"{dbSchema}ufn_select_staff_type";
         private static readonly string insstafftypeqry = $"{dbSchema}ufn_insert_staff_type";
         private static readonly string updatestafftypeqry = $"{dbSchema}ufn_update_staff_type";
-
+        private static readonly string getStafftype = $"SELECT * FROM {getstafftypeqry}()";
         #endregion procedures
 
         #region sp for Stafftype
-        public static string getStafftype = $"SELECT * FROM {getstafftypeqry}()";
+
         public static string SpInsStafftype(InsStafftypeModel rqModel)
         {
             string qry = $"SELECT * FROM {insstafftypeqry}(stafftypeid := {rqModel.Stafftypeid}, stafftypename := '{rqModel.Stafftypename}' " +

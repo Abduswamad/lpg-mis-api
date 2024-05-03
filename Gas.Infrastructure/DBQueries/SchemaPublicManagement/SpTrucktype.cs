@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getTrucktypeqry = $"{dbSchema}ufn_select_truck_type";
         private static readonly string insTrucktypeqry = $"{dbSchema}ufn_insert_truck_type";
         private static readonly string updateTrucktypeqry = $"{dbSchema}ufn_update_truck_type";
-
+        private static readonly string getTrucktype = $"SELECT * FROM {getTrucktypeqry}()";
         #endregion procedures
 
         #region sp for Trucktype
-        public static string getTrucktype = $"SELECT * FROM {getTrucktypeqry}()";
+
         public static string SpInsTrucktype(InsTrucktypeModel rqModel)
         {
             string qry = $"SELECT * FROM {insTrucktypeqry}(trucktypeid := {rqModel.Trucktypeid}, trucktypename := '{rqModel.Trucktypename}' " +

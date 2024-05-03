@@ -7,12 +7,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
         #region procedures
         private static readonly string dbSchema = "store.";
         private static readonly string getCylinderstatusqry = $"{dbSchema}ufn_select_cylinder_status";
-        
+        private static readonly string getCylinderstatus = $"SELECT * FROM {getCylinderstatusqry}()";
 
         #endregion procedures
 
         #region sp for Cylinderstatus
-        public static string getCylinderstatus = $"SELECT * FROM {getCylinderstatusqry}()";
+       // public static string getCylinderstatus = getCylinderstatus;
 
         public static string SpGetCylinderstatus(GetCylinderstatusModel? rqModel)
         {

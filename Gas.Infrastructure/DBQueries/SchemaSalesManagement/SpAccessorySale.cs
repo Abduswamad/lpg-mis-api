@@ -17,7 +17,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string getAccessorySale = $"SELECT * FROM {getAccessorySaleqry}()";
         private static readonly string getAccessorySalesItem = $"SELECT * FROM {getAccessorySalesItemqry}()";
 
-
         #endregion procedures
 
         #region sp for AccessorySale

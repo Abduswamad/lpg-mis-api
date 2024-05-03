@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gas.Model.StoreManagement
+﻿namespace Gas.Model.StoreManagement
 {
- 
 
     public class GetCylinderstatusModel
     {
@@ -15,7 +8,5 @@ namespace Gas.Model.StoreManagement
         public bool? IsActive { get; set; }
 
     }
-
-
 
 }

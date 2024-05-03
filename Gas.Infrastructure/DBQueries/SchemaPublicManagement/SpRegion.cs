@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getRegionqry = $"{dbSchema}ufn_select_region";
         private static readonly string insRegionqry = $"{dbSchema}ufn_insert_region";
         private static readonly string updateRegionqry = $"{dbSchema}ufn_update_region";
-
+        private static readonly string getRegion = $"SELECT * FROM {getRegionqry}()";
         #endregion procedures
 
         #region sp for Region
-        public static string getRegion = $"SELECT * FROM {getRegionqry}()";
+
         public static string SpInsRegion(InsRegionModel rqModel)
         {
             string qry = $"SELECT * FROM {insRegionqry}(regionid := {rqModel.Regionid}, regionname := '{rqModel.Regionname}',regioncountry := {rqModel.Regioncountry}  " +

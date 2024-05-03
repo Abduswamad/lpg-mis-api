@@ -9,7 +9,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaStoreManagement
         private static readonly string getBatchtypeqry = $"{dbSchema}ufn_select_batch_type";
         private static readonly string getBatchtype = $"SELECT * FROM {getBatchtypeqry}()";
 
-
         #endregion procedures
 
         #region sp for Batchtype

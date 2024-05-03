@@ -18,7 +18,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string getCylinderSale = $"SELECT * FROM {getCylinderSaleqry}()";
         private static readonly string getCylinderSalesItem = $"SELECT * FROM {getCylinderSalesItemqry}()";
 
-
         #endregion procedures
 
         #region sp for CylinderSale

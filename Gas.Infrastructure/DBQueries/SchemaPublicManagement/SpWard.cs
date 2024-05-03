@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getWardqry = $"{dbSchema}ufn_select_ward";
         private static readonly string insWardqry = $"{dbSchema}ufn_insert_ward";
         private static readonly string updateWardqry = $"{dbSchema}ufn_update_ward";
-
+        private static readonly string getWard = $"SELECT * FROM {getWardqry}()";
         #endregion procedures
 
         #region sp for Ward
-        public static string getWard = $"SELECT * FROM {getWardqry}()";
+
         public static string SpInsWard(InsWardModel rqModel)
         {
             string qry = $"SELECT * FROM {insWardqry}(wardid := {rqModel.Wardid}, wardname := '{rqModel.Wardname}',warddistrict := {rqModel.Warddistrict}  " +

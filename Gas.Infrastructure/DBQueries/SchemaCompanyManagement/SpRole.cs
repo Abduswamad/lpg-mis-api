@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getroleqry = $"{dbSchema}ufn_select_role";
         private static readonly string insroleqry = $"{dbSchema}ufn_insert_role";
         private static readonly string updateroleqry = $"{dbSchema}ufn_update_role";
-
+        private static readonly string getRole = $"SELECT * FROM {getroleqry}()";
         #endregion procedures
 
         #region sp for Role
-        public static string getRole = $"SELECT * FROM {getroleqry}()";
+
         public static string SpInsRole(InsRoleModel rqModel)
         {
             string qry = $"SELECT * FROM {insroleqry}(roleid := {rqModel.Roleid}, rolename := '{rqModel.Rolename}' " +

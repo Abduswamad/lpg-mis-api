@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Gas.Domain.Entity.SalesManagement
+﻿namespace Gas.Domain.Entity.SalesManagement
 {
     public class CylinderIndicativePriceEntity
     {

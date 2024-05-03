@@ -9,11 +9,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getSuperdealerqry = $"{dbSchema}ufn_select_super_dealer";
         private static readonly string insSuperdealerqry = $"{dbSchema}ufn_insert_super_dealer";
         private static readonly string updateSuperdealerqry = $"{dbSchema}ufn_update_super_dealer";
+        private static readonly string getSuperdealer = $"SELECT * FROM {getSuperdealerqry}()";
 
         #endregion procedures
 
         #region sp for Superdealer
-        public static string getSuperdealer = $"SELECT * FROM {getSuperdealerqry}()";
+        //public static string getSuperdealer = getSuperdealer;
         public static string SpInsSuperdealer(InsSuperdealerModel rqModel)
         {
             string qry = $"SELECT * FROM {insSuperdealerqry}(superdealerid := {rqModel.Superdealerid}, superdealername := '{rqModel.Superdealername}' " +

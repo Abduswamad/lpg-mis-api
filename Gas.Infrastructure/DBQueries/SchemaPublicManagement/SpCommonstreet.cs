@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaPublicManagement
         private static readonly string getCommonstreetqry = $"{dbSchema}ufn_select_common_street";
         private static readonly string insCommonstreetqry = $"{dbSchema}ufn_insert_common_street";
         private static readonly string updateCommonstreetqry = $"{dbSchema}ufn_update_common_street";
-
+        private static readonly string getCommonstreet = $"SELECT * FROM {getCommonstreetqry}()";
         #endregion procedures
 
         #region sp for Commonstreet
-        public static string getCommonstreet = $"SELECT * FROM {getCommonstreetqry}()";
+
         public static string SpInsCommonstreet(InsCommonstreetModel rqModel)
         {
             string qry = $"SELECT * FROM {insCommonstreetqry}(commonstreetid := {rqModel.Commonstreetid}, commonstreetname := '{rqModel.Commonstreetname}',commonstreetward := {rqModel.Commonstreetward}  " +

@@ -11,7 +11,6 @@ namespace Gas.Infrastructure.DBQueries.SchemaSalesManagement
         private static readonly string UpdateCylinderIndicativePriceqry = $"{dbSchema}ufn_update_cylinder_indicative_price";
         private static readonly string getCylinderIndicativePrice = $"SELECT * FROM {getCylinderIndicativePriceqry}()";
 
-
         #endregion procedures
 
         #region sp for CylinderIndicativePrice

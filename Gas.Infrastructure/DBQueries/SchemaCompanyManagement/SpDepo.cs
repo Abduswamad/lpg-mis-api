@@ -9,11 +9,11 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getdepoqry = $"{dbSchema}ufn_select_depo";
         private static readonly string insdepoqry = $"{dbSchema}ufn_insert_depo";
         private static readonly string updatedepoqry = $"{dbSchema}ufn_update_depo";
-
+        private static readonly string getDepo = $"SELECT * FROM {getdepoqry}()";
         #endregion procedures
 
         #region sp for Depo
-        public static string getDepo = $"SELECT * FROM {getdepoqry}()";
+
         public static string SpInsDepo(InsDepoModel rqModel)
         {
             string qry = $"SELECT * FROM {insdepoqry}(depoid := {rqModel.Depoid}, deponame := '{rqModel.Deponame}', housenumber := '{rqModel.Housenumber}', " +
