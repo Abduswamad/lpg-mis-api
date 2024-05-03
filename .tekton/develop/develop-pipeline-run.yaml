@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: develop-pipeline-run
+spec:
+  pipelineRef:
+    name: develop-pipeline
+  params:
+    - name: branch
+      value: develop

@@ -1,0 +1,25 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: develop-pipeline
+spec:
+  params:
+    - name: branch
+      description: GitHub branch
+      default: develop
+  tasks:
+    - name: develop-deploy-to-gke
+      taskRef:
+        name: develop-deploy-to-gke
+    # - name: develop-build-docker-image
+    #   taskRef:
+    #     name: develop-build-docker-image
+    #   params:
+    #     - name: branch
+    #       value: $(params.branch)
+    # - name: develop-deploy-to-gke
+    #   taskRef:
+    #     name: develop-deploy-to-gke
+    #   params:
+    #     - name: branch
+    #       value: $(params.branch)
