@@ -126,7 +126,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Cylinder_id + 1;
                 }
-                var CheckCylinderExist = data.Where(x => x.Cylinder_name.ToLower() == rqModel.Cylindername.ToLower()).ToList();
+                var CheckCylinderExist = data.Where(x => x.Cylinder_name.ToLower() == rqModel.Cylindername.ToLower() && x.Super_dealer == rqModel.Superdealer).ToList();
 
                 if (CheckCylinderExist.Count > 0)
                 {

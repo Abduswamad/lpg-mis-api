@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using Gas.Domain.Entities;
 using Gas.Model.CompanyManagement;
 using Gas.Services.CompanyManagement;

@@ -9,11 +9,12 @@ namespace Gas.Infrastructure.DBQueries.SchemaCompanyManagement
         private static readonly string getshopqry = $"{dbSchema}ufn_select_shop";
         private static readonly string insshopqry = $"{dbSchema}ufn_insert_shop";
         private static readonly string updateshopqry = $"{dbSchema}ufn_update_shop";
+        private static readonly string getShop = $"SELECT * FROM {getshopqry}()";
 
         #endregion procedures
 
         #region sp for Shop
-        public static string getShop = $"SELECT * FROM {getshopqry}()";
+       // public static string getShop = getShop;
         public static string SpInsShop(InsShopModel rqModel)
         {
             string qry = $"SELECT * FROM {insshopqry}(shopid := {rqModel.Shopid}, shopname := '{rqModel.Shopname}', phonenumber := '{rqModel.Phonenumber}', " +

@@ -9,8 +9,10 @@
   <ItemGroup>
     <PackageReference Include="itext7" Version="8.0.3" />
     <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.1.34" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="NPOI" Version="2.7.0" />
     <PackageReference Include="Steeltoe.Extensions.Configuration.ConfigServerBase" Version="3.2.6" />
   </ItemGroup>
 
