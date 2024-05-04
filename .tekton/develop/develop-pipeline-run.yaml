@@ -2,9 +2,11 @@ apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   name: develop-pipeline-run
+  namespace: test-environment
 spec:
   pipelineRef:
     name: develop-pipeline
+  serviceAccountName: k8s-service-account
   params:
     - name: branch
       value: develop

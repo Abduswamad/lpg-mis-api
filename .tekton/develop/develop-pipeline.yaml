@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: develop-pipeline
+  namespace: test-environment
 spec:
   params:
     - name: branch

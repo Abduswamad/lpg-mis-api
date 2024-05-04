@@ -2,9 +2,10 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: develop-deploy-to-gke
+  namespace: test-environment
 spec:
   steps:
-    - name: develop-deploy-to-gke
+    - name: deploy-lpg-mis-api
       image: google/cloud-sdk
       command:
         - /bin/bash
@@ -12,4 +13,34 @@ spec:
         - -c
         - |
           gcloud container clusters get-credentials lpg-mis --zone africa-south1 --project single-cistern-420705
-          kubectl apply -f develop-deployment.yaml
+          kubectl apply -f - <<EOF
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lpg-mis-api-deployment-develop
+            namespace: test-environment
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: lpg-mis-api
+                env: test
+            template:
+              metadata:
+                labels:
+                  app: lpg-mis-api
+                  env: test
+              spec:
+                containers:
+                - name: lpg-mis-api
+                  image: tiqurabeba/lpg-mis-api:0.2
+                  ports:
+                  - containerPort: 9998
+                  volumeMounts:
+                  - name: data
+                    mountPath: /data
+                volumes:
+                - name: data
+                  persistentVolumeClaim:
+                    claimName: lpg-mis-api-pvc-develop
+          EOF
