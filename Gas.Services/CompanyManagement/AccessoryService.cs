@@ -126,7 +126,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Accessory_id + 1;
                 }
-                var CheckAccessoryExist = data.Where(x => x.Accessory_name.ToLower() == rqModel.Accessoryname.ToLower() && x.Accessory_brand_id == rqModel.Accessorybrand).ToList();
+                var CheckAccessoryExist = data.Where(x => x.Accessory_name.ToLower() == rqModel.Accessoryname.ToLower() && x.Accessory_brand_id == rqModel.Accessorybrand && x.Super_dealer == rqModel.Superdealer).ToList();
 
                 if (CheckAccessoryExist.Count > 0)
                 {

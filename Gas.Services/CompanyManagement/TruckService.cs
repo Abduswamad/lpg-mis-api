@@ -126,7 +126,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Truck_id + 1;
                 }
-                var CheckTruckExist = data.Where(x => x.Plate_number.ToLower() == rqModel.Platenumber.ToLower()).ToList();
+                var CheckTruckExist = data.Where(x => x.Plate_number.ToLower() == rqModel.Platenumber.ToLower() && x.Super_dealer_id == rqModel.Superdealer).ToList();
 
                 if (CheckTruckExist.Count > 0)
                 {

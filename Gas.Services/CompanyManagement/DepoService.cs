@@ -126,7 +126,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Depo_id + 1;
                 }
-                var CheckDepoExist = data.Where(x => x.Depo_name.ToLower() == rqModel.Deponame.ToLower()).ToList();
+                var CheckDepoExist = data.Where(x => x.Depo_name.ToLower() == rqModel.Deponame.ToLower() && x.Super_dealer_id == rqModel.Superdealer).ToList();
 
                 if (CheckDepoExist.Count > 0)
                 {

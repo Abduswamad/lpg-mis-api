@@ -184,7 +184,7 @@ namespace Gas.Services.CompanyManagement
                 QueryResEntity queryResEntity = new ();
                 foreach (var role in rqModel.Roles)
                 {
-                    InsStaffroleModel reqModel = new InsStaffroleModel()
+                    InsStaffroleModel reqModel = new()
                     {
                         Roleid = role.Roleid,
                         Staffid = rqModel.Staffid,

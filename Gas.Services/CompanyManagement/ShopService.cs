@@ -12,6 +12,7 @@ namespace Gas.Services.CompanyManagement
 {
     public class ShopService
     {
+        //readonly PSQLCONNECT conn = new (string.IsNullOrEmpty(ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB)? "Host=34.35.51.79;Port=6464;Database=gmsdb;Username=lpg_system;Password=lpg_system@test;Timeout=100;": ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
         readonly PSQLCONNECT conn = new (ServiceSettings.GetWorkerServiceSettings().DBConnection.GasDB);
 
         //Query to get all Shop
@@ -126,7 +127,7 @@ namespace Gas.Services.CompanyManagement
                 {
                     number = data[0].Shop_id + 1;
                 }
-                var CheckShopExist = data.Where(x => x.Shop_name.ToLower() == rqModel.Shopname.ToLower()).ToList();
+                var CheckShopExist = data.Where(x => x.Shop_name.ToLower() == rqModel.Shopname.ToLower() && x.Super_dealer_id == rqModel.Superdealer).ToList();
 
                 if (CheckShopExist.Count > 0)
                 {
