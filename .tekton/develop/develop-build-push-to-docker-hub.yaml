@@ -1,0 +1,66 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: develop-build-push-to-docker-hub
+  namespace: test-environment
+spec:
+  params:
+    - name: git-url
+      description: The URL of the private GitHub repository
+      default: https://github.com/frankkamando/GasManagementSystemAPI.git
+      type: string
+    - name: git-revision
+      description: The Git revision (branch, tag, or commit SHA) to clone
+      default: develop
+      type: string
+    - name: dockerfile-path
+      description: The path to the Dockerfile within the repository
+      default: .
+      type: string
+    - name: docker-image
+      description: The name of the Docker image to build
+      default: lpg-mis-api
+      type: string
+    - name: docker-tag
+      description: The tag of the Docker image
+      default: v0.3
+      type: string
+    - name: docker-username
+      description: Docker Hub username
+      default: tiqurabeba
+      type: string
+    - name: docker-password
+      description: Docker Hub password
+      default: '!64jaan64'
+      type: string
+    - name: github-username
+      description: Your GitHub username
+      default: Abduswamad
+      type: string
+    - name: github-password
+      description: Your GitHub password
+      default: tiqurabeba6464
+      type: string
+  steps:
+    - name: clone-repo
+      image: alpine/git
+      script: |
+        git clone $(params.git-url) .
+        cd $(params.dockerfile-path)
+        git checkout $(params.git-revision)
+      env:
+        - name: GIT_ASKPASS
+          value: echo
+        - name: GIT_HTTPS_USER
+          value: $(params.github-username)
+        - name: GIT_HTTPS_PASSWORD
+          value: $(params.github-password)
+    # - name: build-image
+    #   image: docker
+    #   script: |
+    #     docker build -t $(params.docker-image):$(params.docker-tag) .
+    # - name: push-image
+    #   image: docker
+    #   script: |
+    #     docker login -u $(params.docker-username) -p $(params.docker-password)
+    #     docker push $(params.docker-image):$(params.docker-tag)

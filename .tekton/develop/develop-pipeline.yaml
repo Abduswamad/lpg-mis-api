@@ -9,18 +9,23 @@ spec:
       description: GitHub branch
       default: develop
   tasks:
-    - name: develop-deploy-to-gke
+    - name: develop-build-push-to-docker-hub
       taskRef:
-        name: develop-deploy-to-gke
-    # - name: develop-build-docker-image
-    #   taskRef:
-    #     name: develop-build-docker-image
-    #   params:
-    #     - name: branch
-    #       value: $(params.branch)
+        name: develop-build-push-to-docker-hub
+      params:
+        - name: git-url
+          value: https://github.com/frankkamando/GasManagementSystemAPI.git
+        - name: git-revision
+          value: develop
+        - name: docker-image
+          value: lpg-mis-api
+        - name: docker-tag
+          value: v0.3
+        - name: docker-username
+          value: tiqurabeba
+        - name: github-username
+          value: Abduswamad
     # - name: develop-deploy-to-gke
     #   taskRef:
     #     name: develop-deploy-to-gke
-    #   params:
-    #     - name: branch
-    #       value: $(params.branch)
+    
