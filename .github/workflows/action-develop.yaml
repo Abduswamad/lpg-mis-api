@@ -29,3 +29,39 @@ jobs:
         with:
           push: true
           tags: tiqurabeba/lpg-mis-api:v0.1
+      - name: Create deployment
+        run: |
+          echo "
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lpg-mis-api-deployment-develop
+            namespace: test-environment
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: lpg-mis-api
+                env: test
+            template:
+              metadata:
+                labels:
+                  app: lpg-mis-api
+                  env: test
+              spec:
+                containers:
+                - name: lpg-mis-api
+                  image: tiqurabeba/lpg-mis-api:v0.1
+                  ports:
+                  - containerPort: 9998
+                  volumeMounts:
+                  - name: data
+                    mountPath: /data  # Mount path in the container
+                volumes:
+                - name: data
+                  persistentVolumeClaim:
+                    claimName: lpg-mis-api-pvc-develop
+          " > deployment.yaml
+          kubectl apply -f deployment.yaml
+        env:
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
