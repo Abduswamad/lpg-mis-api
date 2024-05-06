@@ -1,10 +1,8 @@
-name: develop-action
-
+name: deploy-action
 on:
   push:
     branches:
       - 'main'
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,12 +20,65 @@ jobs:
         with:
           username: tiqurabeba
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-        # with:
-        #   username: ${{ secrets.DOCKERHUB_USERNAME }}
-        #   password: ${{ secrets.DOCKERHUB_PASSWORD }}
       
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: tiqurabeba/lpg-mis-api:v0.1
+          tags: ${{ env.DOCKER_IMAGE_TAG }}  # Reference the environment variable here
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: single-cistern-420705
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      
+      - name: Configure Docker to use gcloud as a credential helper
+        run: |
+          gcloud auth configure-docker
+          
+      - name: Authenticate with Google Cloud
+        run: |
+          echo '${{ secrets.GCP_SA_KEY }}' > /tmp/gcp_sa_key.json
+          gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
+
+      - name: Install kubectl
+        run: |
+          gcloud components install kubectl
+
+      - name: Deploy to GKE
+        run: |
+          # Replace the following commands with your deployment commands
+          gcloud container clusters get-credentials lpg-mis --zone africa-south1 --project single-cistern-420705
+          kubectl apply -f - <<EOF
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lpg-mis-api-deployment-develop
+            namespace: test-environment
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: lpg-mis-api
+                env: test
+            template:
+              metadata:
+                labels:
+                  app: lpg-mis-api
+                  env: test
+              spec:
+                containers:
+                - name: lpg-mis-api
+                  image: $DOCKER_IMAGE_TAG  # Reference the environment variable here
+                  ports:
+                  - containerPort: 9998
+                  volumeMounts:
+                  - name: data
+                    mountPath: /data  # Mount path in the container
+                volumes:
+                - name: data
+                  persistentVolumeClaim:
+                    claimName: lpg-mis-api-pvc-develop
+          EOF
