@@ -35,9 +35,9 @@ jobs:
       - name: Configure Docker to use gcloud as a credential helper
         run: |
           gcloud auth configure-docker
-          
+
       - name: Deploy to GKE
         run: |
           # Replace the following commands with your deployment commands
-          gcloud container clusters get-credentials <your-cluster-name> --zone <your-cluster-zone> --project single-cistern-420705
-          kubectl apply -f <path-to-your-kubernetes-yaml>
+          gcloud container clusters get-credentials lpg-mis --zone africa-south1 --project single-cistern-420705
+          kubectl apply -f develop-deployment.yaml
