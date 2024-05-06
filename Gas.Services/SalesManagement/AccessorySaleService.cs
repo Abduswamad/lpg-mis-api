@@ -7,6 +7,7 @@ using Gas.Model.SalesManagement;
 using Gas.Utils.Settings;
 using Npgsql;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace Gas.Services.SalesManagement
 {
@@ -19,7 +20,7 @@ namespace Gas.Services.SalesManagement
             try
             {
                 IList<AccessorySaleEntity> Batch = conn.spGetData<AccessorySaleEntity>(null!, SpAccessorySale.SpGetAccessorySale(null));
-                return Batch;
+                return Batch.OrderByDescending(x => x.Accessory_sale_id).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -67,7 +68,7 @@ namespace Gas.Services.SalesManagement
             try
             {
                 IList<AccessorySaleEntity> Batch = conn.spGetData<AccessorySaleEntity>(null!, SpAccessorySale.SpGetAccessorySale(rqModel!));
-                return Batch;
+                return Batch.OrderByDescending(x => x.Accessory_sale_id).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -115,7 +116,7 @@ namespace Gas.Services.SalesManagement
             try
             {
                 IList<AccessorySalesItemEntity> Batch = conn.spGetData<AccessorySalesItemEntity>(null!, SpAccessorySale.SpGetAccessorySalesItem(rqModel!));
-                return Batch;
+                return Batch.OrderByDescending(x => x.Accessory_sale_item_id).ToList();
             }
             #region catch
             catch (NpgsqlException ex)

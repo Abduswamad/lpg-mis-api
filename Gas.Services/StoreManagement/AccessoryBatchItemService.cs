@@ -20,7 +20,7 @@ namespace Gas.Services.StoreManagement
             try
             {
                 IList<AccessoryBatchItemEntity> AccessoryBatchItem = conn.spGetData<AccessoryBatchItemEntity>(null!, SpAccessoryBatchItem.SpGetAccessoryBatchItem(null));
-                return AccessoryBatchItem;
+                return AccessoryBatchItem.OrderByDescending(x => x.Batch_id).ToList();
             }
             #region catch
             catch (NpgsqlException ex)
@@ -69,7 +69,7 @@ namespace Gas.Services.StoreManagement
             try
             {
                 IList<AccessoryBatchItemEntity> AccessoryBatchItem = conn.spGetData<AccessoryBatchItemEntity>(null!, SpAccessoryBatchItem.SpGetAccessoryBatchItem(rqModel!));
-                return AccessoryBatchItem;
+                return AccessoryBatchItem.OrderByDescending(x => x.Batch_id).ToList();
             }
             #region catch
             catch (NpgsqlException ex)

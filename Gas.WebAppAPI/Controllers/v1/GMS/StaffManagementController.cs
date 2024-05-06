@@ -51,12 +51,8 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new GetStaffQuery());
                 var superDealerId = User.GetSuperDealerId();
-                if (result.Data.Count > 0)
-                {
-                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
-                }
+                var result = await _mediator.Send(new GetStaffQuery(superDealerId)); 
                 return Ok(result);
             }
             catch (Exception ex)
@@ -83,12 +79,8 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
         {
             try
             {
-                var result = await _mediator.Send(new GetStaffByModalQuery(rqModel));
                 var superDealerId = User.GetSuperDealerId();
-                if (result.Data.Count > 0)
-                {
-                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
-                }
+                var result = await _mediator.Send(new GetStaffByModalQuery(rqModel, superDealerId));               
                 return Ok(result);
             }
             catch (Exception ex)

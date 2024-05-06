@@ -8,7 +8,7 @@ using Gas.Model.CompanyManagement;
 
 namespace Gas.Application.Features.StaffFeatures.QueryHandler
 {
-    public record GetStaffByModalQuery(GetStaffModel? rqModel) : IRequest<Result<IList<StaffEntity>>>;
+    public record GetStaffByModalQuery(GetStaffModel? RqModel,int SuperDealerId) : IRequest<Result<IList<StaffEntity>>>;
 
     internal class GetStaffByModalQueryHandler : IRequestHandler<GetStaffByModalQuery, Result<IList<StaffEntity>>>
     {
@@ -16,7 +16,7 @@ namespace Gas.Application.Features.StaffFeatures.QueryHandler
         {
             try
             {
-                var resp = new StaffService().GetStaff(request.rqModel);
+                var resp = new StaffService().GetStaff(request.RqModel).Where(x => x.Super_dealer_id == request.SuperDealerId).ToList();
                 if (resp.Count>0)
                 {
                     return await Result<IList<StaffEntity>>.SuccessAsync(resp);

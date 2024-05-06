@@ -55,7 +55,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 var superDealerId = User.GetSuperDealerId();
                 if (result.Data.Count > 0)
                 {
-                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                    result.Data = [.. result.Data.Where(x => x.Super_dealer_id == superDealerId).OrderByDescending(x => x.Cylinder_sale_id)];
                 }
                 return Ok(result);
             }
@@ -87,7 +87,7 @@ namespace Gas.WebAPI.Controllers.v1.GMS.Controllers
                 var superDealerId = User.GetSuperDealerId();
                 if (result.Data.Count > 0)
                 {
-                    result.Data = result.Data.Where(x => x.Super_dealer_id == superDealerId).ToList();
+                    result.Data = [.. result.Data.Where(x => x.Super_dealer_id == superDealerId).OrderByDescending(x => x.Cylinder_sale_id)];
                 }
                 return Ok(result);
             }

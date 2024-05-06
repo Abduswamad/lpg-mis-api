@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Gas.Application.Features.StaffFeatures.QueryHandler
 {
-    public record GetStaffQuery() : IRequest<Result<IList<StaffEntity>>>;
+    public record GetStaffQuery(int SuperDealerId) : IRequest<Result<IList<StaffEntity>>>;
 
     internal class GetStaffQueryHandler : IRequestHandler<GetStaffQuery, Result<IList<StaffEntity>>>
     {
@@ -14,7 +14,7 @@ namespace Gas.Application.Features.StaffFeatures.QueryHandler
         {
             try
             {
-                var resp = new StaffService().GetStaff();
+                var resp = new StaffService().GetStaff().Where(x => x.Super_dealer_id == request.SuperDealerId).ToList();
                 if (resp.Count>0)
                 {
                     return await Result<IList<StaffEntity>>.SuccessAsync(resp);
