@@ -37,7 +37,7 @@ jobs:
           gcloud auth configure-docker
       
       - name: Deploy to GKE
-        uses: google-github-actions/deploy-gke@v0.2
+        uses: google-github-actions/deploy-gke@v0.2.1
         with:
           project_id: single-cistern-420705
           location: africa-south1
