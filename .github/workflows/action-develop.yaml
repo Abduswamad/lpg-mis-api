@@ -1,10 +1,10 @@
-name: develop-action
+name: deploy-action
 on:
   push:
     branches:
       - 'main'
 jobs:
-  docker:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -36,13 +36,13 @@ jobs:
         run: |
           gcloud auth configure-docker
       
-      - name: 'deploy with gke-deploy cli'
-        uses: 'google-github-actions/deploy-gke-container@v0.1'
+      - name: Set up Google Kubernetes Engine (GKE) CLI
+        uses: google-github-actions/setup-gke-action@main
         with:
-          image: 'my-image'
-          app_name: 'my-app'
-          region: 'us-central1'
-          cluster_name: 'my-cluster'
-          project_id: 'my-project'
-          namespace: 'my-namespace'
-          expose: '8000'
+          version: 'latest'
+
+      - name: Deploy to GKE
+        run: |
+          # Replace the following commands with your deployment commands
+          gcloud container clusters get-credentials <your-cluster-name> --zone <your-cluster-zone> --project single-cistern-420705
+          kubectl apply -f <path-to-your-kubernetes-yaml>
