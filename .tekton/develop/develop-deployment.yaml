@@ -4,7 +4,7 @@ metadata:
   name: lpg-mis-api-deployment-develop
   namespace: test-environment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: lpg-mis-api
@@ -17,8 +17,7 @@ spec:
     spec:
       containers:
       - name: lpg-mis-api
-       # image: tiqurabeba/lpg-mis-api:0.1
-        image: tiqurabeba/lpg-mis-api:0.2
+        image: tiqurabeba/lpg-mis-api:v0.1
         ports:
         - containerPort: 9998
         volumeMounts:
