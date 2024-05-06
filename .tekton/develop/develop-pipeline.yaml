@@ -2,24 +2,33 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: develop-pipeline
+  namespace: test-environment
 spec:
+  description: |
+    This this is develop pipeline.
   params:
     - name: branch
       description: GitHub branch
-      default: develop
+      default: main
+    - name: repo-url
+      type: string
+      description: The git repo URL to clone from.
+  workspaces:
+  - name: shared-data
+    description: |
+      This workspace contains the cloned repo files, so they can be read by the
+      next task.
   tasks:
-    - name: develop-deploy-to-gke
+    - name: fetch-source
       taskRef:
-        name: develop-deploy-to-gke
-    # - name: develop-build-docker-image
-    #   taskRef:
-    #     name: develop-build-docker-image
-    #   params:
-    #     - name: branch
-    #       value: $(params.branch)
+        name: develop-clone-code
+      workspaces:
+      - name: output
+        workspace: shared-data
+      params:
+      - name: url
+        value: $(params.repo-url)
     # - name: develop-deploy-to-gke
     #   taskRef:
     #     name: develop-deploy-to-gke
-    #   params:
-    #     - name: branch
-    #       value: $(params.branch)
+   

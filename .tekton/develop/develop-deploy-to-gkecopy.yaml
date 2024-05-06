@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: develop-deploy-to-gke
+  namespace: test-environment
+spec:
+  steps:
+    - name: deploy-lpg-mis-api
+      image: google/cloud-sdk
+      command:
+        - /bin/bash
+      args:
+        - -c
+        - |
+          gcloud container clusters get-credentials lpg-mis --zone africa-south1 --project single-cistern-420705
+          kubectl create deployment nginx-deployment --image=nginx --replicas 3

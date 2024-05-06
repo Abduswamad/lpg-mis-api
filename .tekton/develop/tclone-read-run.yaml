@@ -1,12 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
-  name: develop-pipeline-run
-  namespace: test-environment
+  name: clone-read-run
 spec:
   pipelineRef:
-    name: develop-pipeline
-  serviceAccountName: k8s-service-account
+    name: clone-read
   podTemplate:
     securityContext:
       fsGroup: 65532
@@ -20,7 +18,5 @@ spec:
           requests:
             storage: 1Gi
   params:
-    - name: branch
-      value: main
-    - name: repo-url
-      value: https://github.com/Abduswamad/lpg-mis-api.git
+  - name: repo-url
+    value: git@github.com:tektoncd/website.git

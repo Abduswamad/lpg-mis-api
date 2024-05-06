@@ -1,78 +1,84 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
-# GitHub recommends pinning actions to a commit SHA.
-# To get a newer version, you will need to update the SHA.
-# You can also reference a tag or branch, but the action may change without warning.
-
-name: Build and Deploy to GKE
-
+name: deploy-action
 on:
   push:
     branches:
-      - mainhhhh
-env:
-  PROJECT_ID: single-cistern-420705   # Google Cloud Project ID
-  GKE_CLUSTER: lpg-mis               # GKE Cluster name
-  GKE_ZONE: africa-south1            # GKE Cluster zone
-  DEPLOYMENT_NAME: gke-test           # Name of the deployment in Kubernetes
-  IMAGE: static-site                 # Name of the Docker image
-
+      - 'main'
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  deploy:
     runs-on: ubuntu-latest
-    environment: production
-
+    env:
+      DOCKER_IMAGE_TAG: tiqurabeba/lpg-mis-api:v0.1  # Define the Docker image tag as an environment variable
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: tiqurabeba
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: ${{ env.DOCKER_IMAGE_TAG }}  # Reference the environment variable here
 
-    # Setup gcloud CLI
-    - uses: google-github-actions/setup-gcloud@v4
-      with:
-        service_account_key: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ env.PROJECT_ID }}  # Set the project_id input
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: single-cistern-420705
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      
+      - name: Configure Docker to use gcloud as a credential helper
+        run: |
+          gcloud auth configure-docker
+          
+      - name: Authenticate with Google Cloud
+        run: |
+          echo '${{ secrets.GCP_SA_KEY }}' > /tmp/gcp_sa_key.json
+          gcloud auth activate-service-account --key-file=/tmp/gcp_sa_key.json
 
-    # Configure Docker to use the gcloud command-line tool as a credential
-    # helper for authentication
-    - run: |-
-        gcloud --quiet auth configure-docker
+      - name: Install kubectl
+        run: |
+          gcloud components install kubectl
 
-    # Get the GKE credentials so we can deploy to the cluster
-    - uses: google-github-actions/get-gke-credentials@v2
-      with:
-        cluster_name: ${{ env.GKE_CLUSTER }}
-        location: ${{ env.GKE_ZONE }}
-        credentials: ${{ secrets.GKE_SA_KEY }}
-        project_id: ${{ env.PROJECT_ID }}  # Set the project_id input
-
-    # Build the Docker image
-    - name: Build
-      run: |-
-        docker build \
-          --tag "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA" \
-          --build-arg GITHUB_SHA="$GITHUB_SHA" \
-          --build-arg GITHUB_REF="$GITHUB_REF" \
-          .
-
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |-
-        docker push "gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA"
-
-    # Set up kustomize
-    - name: Set up Kustomize
-      run: |-
-        curl -sfLo kustomize https://github.com/kubernetes-sigs/kustomize/releases/download/v3.1.0/kustomize_3.1.0_linux_amd64
-        chmod u+x ./kustomize
-
-    # Deploy the Docker image to the GKE cluster
-    - name: Deploy
-      run: |-
-        ./kustomize edit set image gcr.io/PROJECT_ID/IMAGE:TAG=gcr.io/$PROJECT_ID/$IMAGE:$GITHUB_SHA
-        ./kustomize build . | kubectl apply -f -
-        kubectl rollout status deployment/$DEPLOYMENT_NAME
-        kubectl get services -o wide
+      - name: Deploy to GKE
+        run: |
+          # Replace the following commands with your deployment commands
+          gcloud container clusters get-credentials lpg-mis --zone africa-south1 --project single-cistern-420705
+          kubectl apply -f - <<EOF
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: lpg-mis-api-deployment-develop
+            namespace: test-environment
+          spec:
+            replicas: 1
+            selector:
+              matchLabels:
+                app: lpg-mis-api
+                env: test
+            template:
+              metadata:
+                labels:
+                  app: lpg-mis-api
+                  env: test
+              spec:
+                containers:
+                - name: lpg-mis-api
+                  image: $DOCKER_IMAGE_TAG  # Reference the environment variable here
+                  ports:
+                  - containerPort: 9998
+                  volumeMounts:
+                  - name: data
+                    mountPath: /data  # Mount path in the container
+                volumes:
+                - name: data
+                  persistentVolumeClaim:
+                    claimName: lpg-mis-api-pvc-develop
+          EOF
