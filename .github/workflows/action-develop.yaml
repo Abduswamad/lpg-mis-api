@@ -35,12 +35,7 @@ jobs:
       - name: Configure Docker to use gcloud as a credential helper
         run: |
           gcloud auth configure-docker
-      
-      - name: Set up Google Kubernetes Engine (GKE) CLI
-        uses: google-github-actions/setup-gke-action@main
-        with:
-          version: 'latest'
-
+          
       - name: Deploy to GKE
         run: |
           # Replace the following commands with your deployment commands
