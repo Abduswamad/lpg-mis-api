@@ -6,6 +6,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE_TAG: tiqurabeba/lpg-mis-api:v0.1  # Define the Docker image tag as an environment variable
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
@@ -23,7 +25,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: tiqurabeba/lpg-mis-api:v0.1
+          tags: ${{ env.DOCKER_IMAGE_TAG }}  # Reference the environment variable here
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -69,7 +71,7 @@ jobs:
               spec:
                 containers:
                 - name: lpg-mis-api
-                  image: tiqurabeba/lpg-mis-api:v0.1
+                  image: $DOCKER_IMAGE_TAG  # Reference the environment variable here
                   ports:
                   - containerPort: 9998
                   volumeMounts:
