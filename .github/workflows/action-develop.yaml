@@ -7,7 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      DOCKER_IMAGE_TAG: tiqurabeba/lpg-mis-api:v0.1  # Define the Docker image tag as an environment variable
+      DOCKER_IMAGE_TAG: tiqurabeba/lpg-mis-api:v0.3  # Define the Docker image tag as an environment variable
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
